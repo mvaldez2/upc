@@ -20,4 +20,17 @@ define([
       });
     }
   ]);
+
+  app.config(function() {
+    var config = {
+      apiKey: "AIzaSyBeXrlBrm8mZIV9KRrCXXOT90BfJ_drxRQ",
+      authDomain: "upc-app.firebaseapp.com",
+      databaseURL: "https://upc-app.firebaseio.com",
+      storageBucket: "upc-app.appspot.com",
+    
+    };
+    firebase.initializeApp(config);
+});
+
+
 });

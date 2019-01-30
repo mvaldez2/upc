@@ -10,8 +10,37 @@ define([
     '$ionicScrollDelegate',
     '$sce',
     'pageService',
-    function ($scope, $ionicModal, $ionicScrollDelegate, $sce, pageService) {
+    '$firebaseObject',
+    '$firebaseAuth',
+    '$firebaseArray',
+    function ($scope, $ionicModal, $ionicScrollDelegate, $sce, pageService, $firebaseObject, $firebaseAuth, $firebaseArray) {
       $scope.ready = true;
+
+      var ref = firebase.database().ref();
+      var messagesRef = ref.child("names");
+      var names = $firebaseArray(messagesRef);
+
+      $scope.submit = function(first_name, last_name) {
+        names.$add({
+         first_name: first_name,
+         last_name: last_name
+        }).then(function(ref) {
+          var id = ref.key;
+          console.log("added record with id " + id);
+          names.$indexFor(id); // returns location in the array
+        });
+        
+      }
+
+      $scope.authObj = $firebaseAuth();
+
+      $scope.authObj.$signInWithPopup("google").then(function(result) {
+        console.log("Signed in as:", result.user.uid);
+      }).catch(function(error) {
+        console.error("Authentication failed:", error);
+      });
+
+
 
       pageService.get().then(function (pages) {
         $scope.pages = pages;

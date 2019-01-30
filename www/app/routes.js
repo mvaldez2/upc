@@ -31,6 +31,11 @@ define([
           url: '/detail/:id',
           controller: 'DetailCtrl',
           templateUrl: 'app/templates/detail.html'
+        })
+        .state('info', {
+          url: '/info/:id',
+          controller: 'DetailCtrl',
+          templateUrl: 'app/templates/info.html'
         });
     }
   ]);

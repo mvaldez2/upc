@@ -6795,15 +6795,15 @@ progress {
         box-shadow: none;
         color: #fff; }
   .button.button-royal {
-    border-color: #404762;
-    background-color: #50597b;
+    border-color: #613318;
+    background-color: #613318;
     color: #fff; }
     .button.button-royal:hover {
       color: #fff;
       text-decoration: none; }
     .button.button-royal.active, .button.button-royal.activated {
-      border-color: #404762;
-      background-color: #404762;
+      border-color: #613318;
+      background-color: #ffcc00;
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
     .button.button-royal.button-clear {
       border-color: transparent;
