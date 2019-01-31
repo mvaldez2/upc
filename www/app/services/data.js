@@ -71,31 +71,33 @@ define([
       }];
 
       this.pages = [{
+        id: 1,
         alias: 'about us',
         content: 'https://www.valpo.edu/university-programming-council/sample-page/about-us/',
         title: 'About Us',
-        icon: 'ion-information-circled'
-      }, {
+        icon: 'ion-information-circled',
+        info: 'Looking to get involved on campus? Well, look no further than University Programming Council! UPC is the Chicago bus trip leading, laughter inducing, Homecoming orchestrating, leadership inspiring, Valpo After Dark hosting, festival conducting, movie projecting, concert coordinating, Midnight Brunch managing, inexhaustible and irrepressible source of a good time on the Valparaiso University campus! We put together over 80 events each year!'
+      }, {id:2,
         alias: 'perks',
         content: 'https://www.valpo.edu/university-programming-council/sample-page/crusader-perks/',
         title: 'Crusader Perks',
         icon: 'ion-trophy'
-      }, {
+      }, {id: 3,
         alias: 'events',
         content: 'https://www.valpo.edu/university-programming-council/sample-page/events/',
         title: 'Programs and Events',
         icon: 'ion-location'
-      }, {
+      }, {id: 4,
         alias: 'calendar',
         content: 'https://www.valpo.edu/university-programming-council/sample-page/calendar/',
         title: 'UPC Calendar',
         icon: 'ion-calendar'
-      }, {
+      }, {id: 5,
         alias: 'rental',
         content: 'https://www.valpo.edu/university-programming-council/sample-page/rental-equipment/',
         title: 'Rental Equipment',
         icon: 'ion-xbox'
-      }, {
+      }, {id: 6,
         alias: 'join',
         content: 'https://www.valpo.edu/university-programming-council/sample-page/join-our-team/',
         title: 'Join Our Team',

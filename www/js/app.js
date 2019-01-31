@@ -25,6 +25,8 @@ angular.module('starter', ['ionic', 'firebase'])
   });
 })
 
+.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
+
 .config(function() {
   var config = {
     apiKey: "AIzaSyBeXrlBrm8mZIV9KRrCXXOT90BfJ_drxRQ",

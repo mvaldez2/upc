@@ -4,7 +4,8 @@ define([
   'controllers/app',
   'controllers/dashboard',
   'controllers/results',
-  'controllers/detail'
+  'controllers/detail',
+  'controllers/page'
 ], function (app) {
   'use strict';
   // definition of routes
@@ -34,7 +35,7 @@ define([
         })
         .state('info', {
           url: '/info/:id',
-          controller: 'DetailCtrl',
+          controller: 'InfoCtrl',
           templateUrl: 'app/templates/info.html'
         });
     }
