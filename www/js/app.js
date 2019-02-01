@@ -25,7 +25,7 @@ angular.module('starter', ['ionic', 'firebase'])
   });
 })
 
-.filter('unsafe', function($sce) { return $sce.trustAsHtml; });
+
 
 .config(function() {
   var config = {
@@ -37,3 +37,13 @@ angular.module('starter', ['ionic', 'firebase'])
   };
   firebase.initializeApp(config);
 })
+
+.config(function($sceDelegateProvider) {
+ $sceDelegateProvider.resourceUrlWhitelist([
+   // Allow same origin resource loads.
+   'self',
+   'app/templates/menu/**',
+   'C:/Users/miguel24valdez/Documents/upc/www/app/templates/menu/**',
+   // Allow loading from our assets domain.  Notice the difference between * and **.
+   ' http://localhost:8100/app/templates/menu/**']);
+ })

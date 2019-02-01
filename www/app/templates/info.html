@@ -4,7 +4,13 @@
 
   <div ng-show="!loading">
     
-    <p>{{page.info}}</p>
+    <!-- Figure out how to whitelist"'{{page.url}}'" 
+    	
+		Error: [$interpolate:noconcat] Error while interpolating: '{{page.url}}'
+Strict Contextual Escaping disallows interpolations that concatenate multiple expressions when a trusted value is required.
+	
+    -->
+    <div ng-include src="'app/templates/menu/about.html'"></div>
   
   </div>
   </ion-content>

@@ -73,6 +73,8 @@ define([
       $scope.closeModal = function () {
         $scope.modal.hide();
       };
+
+     
     }
   ]);
 });

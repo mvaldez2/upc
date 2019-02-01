@@ -32,5 +32,16 @@ define([
     firebase.initializeApp(config);
 });
 
+  app.config(function($sceDelegateProvider) {
+ $sceDelegateProvider.resourceUrlWhitelist([
+  
+   'self',
+   'app/templates/**',
+   'app/templates/menu/**',
+   'C:/Users/miguel24valdez/Documents/upc/www/app/templates/menu/**',
+   ' http://localhost:8100/app/templates/menu/**']);
+ });
+
+
 
 });

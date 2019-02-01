@@ -17,6 +17,10 @@
       </ion-item>
       <ion-item class="text-center item-royal" ng-if="events && !events.length">No events found :(</ion-item>
     </ion-list>
+     <ion-infinite-scroll
+      ng-if="!events"
+      on-infinite="loadNext()">
+    </ion-infinite-scroll>
     <br>
     <h3>Search</h3>
     <form name="form.search" ng-submit="form.search.$valid && goToList()">
@@ -72,9 +76,6 @@
 
 
 
-    <ion-infinite-scroll
-      ng-if="!events"
-      on-infinite="loadNext()">
-    </ion-infinite-scroll>
+   
   </ion-content>
 </ion-view>
