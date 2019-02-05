@@ -1,8 +1,8 @@
 <ion-view>
   <ion-nav-title>UPC <i class="icon ion-ios-location"></i></ion-nav-title>
   <ion-content padding="true">
+   
 
-    
 
     <h3>Next events</h3>
     <ion-list>
@@ -62,14 +62,28 @@
   <button class="button button-royal" ng-click="submit(first_name, last_name)">
     Submit
   </button>
+  <button class="button button-royal" ng-click="show()">
+    Show
+  </button>
 
+  <br>
+
+  <br>
+  <h3>People</h3>
   <ion-list>
-      <ion-item class="item-icon-right item-avatar item-royal" ng-repeat="name in names">
-       <p> {{name.last_name}} </p>
-      
+  <ion-item class="item-icon-right item-avatar item-royal" ng-repeat="word in words">
+        
+        <h2>{{word.first_name}} {{word.last_name}}</h2>
+        <p>
+          
+        </p>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
     </ion-list>
+      
+    
+
+
 
 
 

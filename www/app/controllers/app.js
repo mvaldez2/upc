@@ -17,8 +17,11 @@ define([
       $scope.ready = true;
 
       var ref = firebase.database().ref();
-      var messagesRef = ref.child("names");
-      var names = $firebaseArray(messagesRef);
+      var namesRef = ref.child("names");
+      var names = $firebaseArray(namesRef);
+      var sync = firebase.database().ref();
+      var firebaseObj = $firebaseObject(sync);
+      $scope.words = $firebaseArray(ref.child('names'));
 
       $scope.submit = function(first_name, last_name) {
         names.$add({
@@ -29,8 +32,21 @@ define([
           console.log("added record with id " + id);
           names.$indexFor(id); // returns location in the array
         });
+
+        
         
       }
+
+      $scope.show = function(){
+        names.$loaded()
+          .then(function(){
+            angular.forEach(names, function(name) {
+              console.log(name);
+
+          })
+        });
+      }
+      
 
       $scope.authObj = $firebaseAuth();
 
@@ -39,6 +55,10 @@ define([
       }).catch(function(error) {
         console.error("Authentication failed:", error);
       });
+
+      
+
+
 
 
 

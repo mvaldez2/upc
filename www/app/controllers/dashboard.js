@@ -8,6 +8,7 @@ define([
     '$scope',
     '$state',
     'eventService',
+
     function ($scope, $state, eventService) {
       $scope.search = {};
       $scope.goToList = function () {
@@ -22,10 +23,15 @@ define([
       $scope.loadNext = function () {
         eventService.getNext().then(function (events) {
           $scope.events = events;
-        }).finally(function () {
-          $scope.$broadcast('scroll.infiniteScrollComplete');
         });
       };
+
+      $scope.loadNextName = function () {
+        nameService.getNext().then(function (names) {
+          $scope.names = names;
+        });
+      };
+
     }
   ]);
 });
