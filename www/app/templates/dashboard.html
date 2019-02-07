@@ -27,14 +27,22 @@
 
   <br>
 
-  <h3>Update name</h3>
+  <h3>Update Profile</h3>
 
    <br>
 
   <label class="item item-input">
-      <input type="text" placeholder="new name" ng-model='newName'>    
-    </label>
-    <button class="button button-royal" ng-click="updateName(newName)"> Update </button>
+    <input type="text" placeholder="new name" ng-model='newName'>
+  </label>
+
+   <label class="item item-input">
+    <input type="text" placeholder="new Photo url" ng-model='newPhoto'>
+  </label>
+
+  <br>
+
+  <button class="button button-royal" ng-click="updateName(newName, newPhoto)"> Update </button>
+
   <br>
   <br>
 

@@ -20,31 +20,7 @@ define([
       var ref = firebase.database().ref();
       $scope.data = $firebaseArray(ref);
 
-      //names database
-      var namesRef = ref.child("names");
-      var names = $firebaseArray(namesRef);
-      $scope.words = $firebaseArray(ref.child('names'));
-
-      $scope.submit = function(first_name, last_name) {
-        names.$add({
-         first_name: first_name,
-         last_name: last_name
-        }).then(function(ref) {
-          var id = ref.key;
-          console.log("added record with id " + id);
-          names.$indexFor(id); // returns location in the array
-        });
-      }
-
-      $scope.show = function(){
-        names.$loaded()
-          .then(function(){
-            angular.forEach(names, function(name) {
-              console.log(name);
-
-          })
-        });
-      }
+     
 
       //events database
       var eventsRef = ref.child("events");
@@ -146,17 +122,25 @@ define([
       var db = firebase.database();
 
       //test update function
-      $scope.updateName = function(newName) {
+      $scope.updateName = function(newName, newPhoto) {
         firebase.auth().onAuthStateChanged(function(user) {  
-          db.ref("users/" + user.uid ).update({name: newName}).then(function() {
+          db.ref("users/" + user.uid ).update({name: newName, photoUrl: newPhoto}).then(function() {
            console.log("Updated name to: " + newName)
            
-        }, function(error) {
-           console.log('Error')  
-        });
+          }, function(error) {
+             console.log('Error')  
+          });
           
-      });  
+        });  
       }
+
+
+      //on profile page controller
+      //should take the current event and add it to the list of user events
+      $scope.addUserEvent = function() {
+
+      }
+
 
       //might be used for reload after submitting of something
       $scope.reloadRoute = function() {
@@ -204,3 +188,29 @@ define([
     }
   ]);
 });
+
+ //names database
+      /*var namesRef = ref.child("names");
+      var names = $firebaseArray(namesRef);
+      $scope.words = $firebaseArray(ref.child('names'));
+
+      $scope.submit = function(first_name, last_name) {
+        names.$add({
+         first_name: first_name,
+         last_name: last_name
+        }).then(function(ref) {
+          var id = ref.key;
+          console.log("added record with id " + id);
+          names.$indexFor(id); // returns location in the array
+        });
+      }
+
+      $scope.show = function(){
+        names.$loaded()
+          .then(function(){
+            angular.forEach(names, function(name) {
+              console.log(name);
+
+          })
+        });
+      } */
