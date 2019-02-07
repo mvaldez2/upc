@@ -26,11 +26,7 @@ define([
         });
       };
 
-      $scope.loadNextName = function () {
-        nameService.getNext().then(function (names) {
-          $scope.names = names;
-        });
-      };
+      
 
     }
   ]);
