@@ -15,7 +15,7 @@
   <br>
   <h3>People</h3>
   <ion-list>
-    <ion-item class="item-icon-right item-avatar item-royal" ng-repeat="user in users">
+    <ion-item class="item-icon-right item-avatar item-royal" ui-sref="profile({id: user.uid})" ng-repeat="user in users">
         <img ng-src="{{user.photoUrl}}">
         <h2>{{user.name}}</h2>
           <p>
@@ -35,13 +35,10 @@
     <input type="text" placeholder="new name" ng-model='newName'>
   </label>
 
-   <label class="item item-input">
-    <input type="text" placeholder="new Photo url" ng-model='newPhoto'>
-  </label>
 
   <br>
 
-  <button class="button button-royal" ng-click="updateName(newName, newPhoto)"> Update </button>
+  <button class="button button-royal" ng-click="updateName(newName)"> Update </button>
 
   <br>
   <br>

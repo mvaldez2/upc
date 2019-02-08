@@ -122,9 +122,9 @@ define([
       var db = firebase.database();
 
       //test update function
-      $scope.updateName = function(newName, newPhoto) {
+      $scope.updateName = function(newName) {
         firebase.auth().onAuthStateChanged(function(user) {  
-          db.ref("users/" + user.uid ).update({name: newName, photoUrl: newPhoto}).then(function() {
+          db.ref("users/" + user.uid ).update({name: newName}).then(function() {
            console.log("Updated name to: " + newName)
            
           }, function(error) {
@@ -132,6 +132,10 @@ define([
           });
           
         });  
+      }
+
+      $scope.profile = function(uid) {
+        
       }
 
 
