@@ -22,9 +22,12 @@ define([
 
       var profileRef = firebase.database().ref('users/' + $stateParams.id);
       
-
+      
       profileRef.on('value', function(snapshot) {
         console.log(snapshot.val());
+        $scope.name = snapshot.val().name
+        $scope.photoUrl = snapshot.val().photoUrl
+        $scope.email = snapshot.val().email
       });
 
       
