@@ -24,26 +24,23 @@ define([
 
 
       var profileRef = firebase.database().ref('users/' + $stateParams.id);
-      
-      
       profileRef.on('value', function(snapshot) {
-        console.log(snapshot.val());
         $scope.name = snapshot.val().name
         $scope.photoUrl = snapshot.val().photoUrl
         $scope.email = snapshot.val().email
       });
 
-      
 
 
-     
+
+
 
       $scope.call = function () {
         $window.open('tel:' + $scope.event.contact.tel, '_system');
       };
 
       $scope.mail = function () {
-        $window.open('mailto:' + $scope.event.contact.email, '_system');
+        $window.open('mailto:' + $scope.email, '_system');
       };
 
       $scope.website = function () {
@@ -52,9 +49,9 @@ define([
 
       $scope.map = function () {
         if (ionic.Platform.isIOS()) {
-          $window.open('maps://?q=' + $scope.event.lat + ',' + $scope.event.lng, '_system');
+          $window.open('maps://?q=' + $scope.lat + ',' + $scope.lng, '_system');
         } else {
-          $window.open('geo://0,0?q=' + $scope.event.lat + ',' + $scope.event.lng + '(' + $scope.event.name + '/' + $scope.event.city + ')&z=15', '_system');
+          $window.open('geo://0,0?q=' + $scope.lat + ',' + $scope.lng + '(' + $scope.name + '/' + $scope.city + ')&z=15', '_system');
         }
       };
 

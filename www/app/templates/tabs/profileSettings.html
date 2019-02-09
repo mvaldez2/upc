@@ -1,5 +1,5 @@
 <ion-view ng-int="load()">
-  <ion-nav-title>Event</ion-nav-title>
+  <ion-nav-title>Profile</ion-nav-title>
   <ion-content padding="true">
     <ion-refresher class="spinner-balanced" on-refresh="reload()"></ion-refresher>
     <div class="text-center">
@@ -7,25 +7,26 @@
     </div>
     <div ng-show="!loading">
 
-      
+
       <h3>{{name}}</h3>
 
       <h4><span class="name"> </span><b></b> <small></small></h4>
       <br>
 
       <div class="text-center">
-        <img ng-src="{{image}}" class="image">
+        <img ng-src="{{photoUrl}}" class="image">
       </div>
 
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i></ion-item>
-        <ion-item>
-          {{street}}<br>
-          {{city}}
-          
-        </ion-item>
-      </ion-list>
+        <ion-item class="item-divider item-icon-right"><b>Update</b> <i class="icon ion-edit" ng-click="updateName(newName)" ></i></ion-item>
+          <br>
+        <label class="item item-input">
+          <input type="text" placeholder="New Name" ng-model='newName'>
+        </label>
+          <br>
+        <button class="button button-royal" ng-click="updateName(newName)"> Update </button>
       <br>
+        <br>
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i></ion-item>
         <ion-item ng-repeat="event in events">
@@ -35,29 +36,13 @@
       <br>
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i></ion-item>
-        <ion-item class="item-icon-right" ng-click="call()">
-          {{tel}}
-          <i class="icon ion-android-call"></i>
-        </ion-item>
         <ion-item class="item-icon-right" ng-click="mail()">
           {{email}}
           <i class="icon ion-ios-email"></i>
         </ion-item>
-        <ion-item class="item-icon-right" ng-click="website()">
-          Visit our homepage
-          <i class="icon ion-ios-home"></i>
-        </ion-item>
+
       </ion-list>
     </div>
   </ion-content>
-  <ion-footer-bar class="bar-stable">
-    
-    <h1 class="title"></h1>
-    <div class="buttons">
-      <div class="button button-clear" ng-disabled="loading" ng-click="report()">
-        Report
-        <i class="icon ion-android-alert"></i>
-      </div>
-    </div>
-  </ion-footer-bar>
+
 </ion-view>

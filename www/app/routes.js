@@ -3,11 +3,12 @@ define([
   // Load Controllers here
   'controllers/app',
   'controllers/dashboard',
-  'controllers/results',
-  'controllers/detail',
+  'controllers/oldControllers/results',
+  'controllers/oldControllers/detail',
   'controllers/profile',
   'controllers/event',
-  'controllers/page'
+  'controllers/profileSettings',
+  'controllers/oldControllers/page'
 ], function (app) {
   'use strict';
   // definition of routes
@@ -28,22 +29,22 @@ define([
         .state('results', {
           url: '/results/:search/:satTrans/:wheelChair/:wheelChairLift',
           controller: 'ResultsCtrl',
-          templateUrl: 'app/templates/results.html'
+          templateUrl: 'app/templates/oldTemplates/results.html'
         })
         .state('detail', {
           url: '/detail/:id',
           controller: 'DetailCtrl',
-          templateUrl: 'app/templates/detail.html'
+          templateUrl: 'app/templates/oldTemplates/detail.html'
         })
         .state('profile', {
           url: '/profile/:id',
           controller: 'ProfileCtrl',
-          templateUrl: 'app/templates/profile.html'
+          templateUrl: 'app/templates/details/profile.html'
         })
         .state('event', {
           url: '/event/:id',
           controller: 'EventCtrl',
-          templateUrl: 'app/templates/event.html'
+          templateUrl: 'app/templates/details/event.html'
         })
         .state('about', {
           url: '/about/:id',
@@ -64,6 +65,21 @@ define([
           url: '/UPC_Calendar/:id',
           controller: 'AppCtrl',
           templateUrl: 'app/templates/menu/UPC_Calendar.html'
+        })
+        .state('people', {
+          url: '/people/:id',
+          controller: 'AppCtrl',
+          templateUrl: 'app/templates/tabs/people.html'
+        })
+        .state('settings', {
+          url: '/settings/:id',
+          controller: 'AppCtrl',
+          templateUrl: 'app/templates/tabs/settings.html'
+        })
+        .state('profileSettings', {
+          url: '/profileSettings/:id',
+          controller: 'ProfileSettingsCtrl',
+          templateUrl: 'app/templates/tabs/profileSettings.html'
         });
     }
   ]);

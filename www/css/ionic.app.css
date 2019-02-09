@@ -22,6 +22,8 @@ a {
   text-decoration: none;
   color: #fff;
 }
+
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -3139,7 +3141,7 @@ a.subdued {
       background-image: linear-gradient(180deg, #fb9b1e, #1eb4f4 50%, transparent 50%); }
   .bar.bar-energized {
     border-color: #ffcc00;
-    background-color: #ffcc00;
+    background-color: #613318;
     background-image: linear-gradient(0deg, #ffcc00, #ffcc00 50%, transparent 50%);
     color: #fff; }
     .bar.bar-energized .title {
@@ -3511,10 +3513,10 @@ a.subdued {
   justify-content: center;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  border-color: #b2b2b2;
-  background-color: #394264;
+  border-color: #ffcc00;
+  background-color: #613318;
   background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
-  color: #444;
+  color: #fff;
   position: absolute;
   bottom: 0;
   z-index: 5;
@@ -4738,7 +4740,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
     background-color: #11a8ab;
     color: #fff; }
   .item.item-royal {
-    border-color: #613318;
+    border-color: #381e0e;
     background-color: #613318;
     color: #fff; }
   .item.item-dark {
@@ -4913,6 +4915,10 @@ a.item-content {
     display: block;
     width: 32px;
     text-align: center; }
+.item-icon-center .icon {
+  height: 100%;
+  font-size: 41px;
+}
 
 .item .fill-icon {
   min-width: 30px;

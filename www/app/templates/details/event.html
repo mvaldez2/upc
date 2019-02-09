@@ -1,5 +1,5 @@
 <ion-view ng-int="load()">
-  <ion-nav-title>Profile</ion-nav-title>
+  <ion-nav-title>Event</ion-nav-title>
   <ion-content padding="true">
     <ion-refresher class="spinner-balanced" on-refresh="reload()"></ion-refresher>
     <div class="text-center">
@@ -7,39 +7,41 @@
     </div>
     <div ng-show="!loading">
 
-      
+
       <h3>{{name}}</h3>
 
       <h4><span class="name"> </span><b></b> <small></small></h4>
       <br>
 
       <div class="text-center">
-        <img ng-src="{{photoUrl}}" class="image">
+        <img ng-src="{{image}}" class="image">
       </div>
 
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Info</b> <i class="icon ion-information-circled"></i></ion-item>
-        <ion-item>
-          {{ name}}<br>
-          
+        <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i></ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map()">
+          {{street}}<br>
+          {{city}}
+          <i class="icon ion-map"></i>
         </ion-item>
+        
       </ion-list>
       <br>
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i></ion-item>
-        <ion-item ng-repeat="event in events">
-          {{event.name}}
+        <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i class="icon ion-ios-calendar-outline"></i></ion-item>
+        <ion-item>
+          Tuesday, February 12⋅6:00 – 8:00pm
         </ion-item>
       </ion-list>
       <br>
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i></ion-item>
         <ion-item class="item-icon-right" ng-click="call()">
-          {{tel}}
+          (219) 464-5415  ex.5194
           <i class="icon ion-android-call"></i>
         </ion-item>
         <ion-item class="item-icon-right" ng-click="mail()">
-          {{email}}
+          upc@valpo.edu
           <i class="icon ion-ios-email"></i>
         </ion-item>
         <ion-item class="item-icon-right" ng-click="website()">
@@ -50,7 +52,12 @@
     </div>
   </ion-content>
   <ion-footer-bar class="bar-stable">
-    
+    <div class="buttons">
+      <div class="button button-clear" ng-disabled="loading" ng-click="map()">
+        <i class="icon ion-map"></i> Maps
+      </div>
+    </div>
+
     <h1 class="title"></h1>
     <div class="buttons">
       <div class="button button-clear" ng-disabled="loading" ng-click="report()">

@@ -14,13 +14,16 @@ define([
     '$firebaseAuth',
     '$firebaseArray',
     '$window',
-    function ($scope, $ionicModal, $ionicScrollDelegate, $sce, pageService, $firebaseObject, $firebaseAuth, $firebaseArray, $window) {
+    '$state',
+    '$ionicHistory',
+    function ($scope, $ionicModal, $ionicScrollDelegate, $sce, pageService, $firebaseObject,
+      $firebaseAuth, $firebaseArray, $window, $state, $ionicHistory) {
       $scope.ready = true;
 
       var ref = firebase.database().ref();
       $scope.data = $firebaseArray(ref);
 
-      
+
 
       //events database
       var eventsRef = ref.child("events");
@@ -29,7 +32,7 @@ define([
       var eventId = 0;
 
       $scope.submitEvent = function(name, city, street, number) {
-        
+
         eventsRef.child(eventId).set({
           name: name,
           city: city,
@@ -40,23 +43,21 @@ define([
         eventId = eventId + 1;
       }
 
-      
-
-
-            
-      //login
-      var provider = new firebase.auth.GoogleAuthProvider();
-      var userRef = ref.child("users");
-      var users = $firebaseArray(userRef);
-      $scope.users = $firebaseArray(ref.child('users'));
-
       var onComplete = function(error) {
         if (error) {
             console.log('Failed');
         } else {
             console.log('Completed');
         }
-    };
+      };
+
+
+      //login
+      var provider = new firebase.auth.GoogleAuthProvider();
+      var userRef = ref.child("users");
+      var users = $firebaseArray(userRef);
+      $scope.users = $firebaseArray(ref.child('users'));
+
 
 
       $scope.login = function() {
@@ -84,7 +85,9 @@ define([
                 }, onComplete);
               }
             });
-          
+
+        }).then(function(authData) {
+            $state.go("dashboard");
         }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -96,7 +99,7 @@ define([
             // ...
         });
     }
-   
+
 
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -113,41 +116,28 @@ define([
 
       $scope.signOff = function () {
         $firebaseAuth().$signOut()
-         
+
         .then(function() {
            console.log('Signout Succesfull')
-           
+           $state.go("dashboard")
+
         }, function(error) {
-           console.log('Signout Failed')  
+           console.log('Signout Failed')
         });
       }
 
 
-      var db = firebase.database();
 
-      //test update function
-      $scope.updateName = function(newName) {
-        firebase.auth().onAuthStateChanged(function(user) {  
-          db.ref("users/" + user.uid ).update({name: newName}).then(function() {
-           console.log("Updated name to: " + newName)
-           
-          }, function(error) {
-             console.log('Error')  
-          });
-          
-        });  
-      }
+      $ionicHistory.nextViewOptions({
+        disableBack: true,
+        disableAnimate: false,
+        historyRoot: false,
+        cache: false
 
-      $scope.profile = function(uid) {
-        
-      }
+      });
 
 
-      //on profile page controller
-      //should take the current event and add it to the list of user events
-      $scope.addUserEvent = function() {
 
-      }
 
 
       //might be used for reload after submitting of something
@@ -158,9 +148,6 @@ define([
 
 
 
-      pageService.get().then(function (pages) {
-        $scope.pages = pages;
-      });
 
       $ionicModal.fromTemplateUrl('app/templates/page.html', {
         scope: $scope
@@ -192,7 +179,7 @@ define([
 
 
 
-     
+
     }
   ]);
 });

@@ -6,10 +6,22 @@
     Login
   </button>
   <br>
-  <br>
-  <button class="button button-royal" ng-click="signOff()">
-    Sign off
-  </button>
+
+
+  <h3>Upcoming Events</h3>
+  <ion-list>
+  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in places">
+        <img ng-src="{{place.image}}">
+        <h2>{{place.name}}</h2>
+        <p class="light">
+          <b>{{place.city}}</b> <br>
+          {{place.street}}
+        </p>
+
+
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+    </ion-list>
 
 
   <br>
@@ -19,39 +31,23 @@
         <img ng-src="{{user.photoUrl}}">
         <h2>{{user.name}}</h2>
           <p>
-          
+
           </p>
         <i class="icon ion-ios-arrow-right"></i>
     </ion-item>
   </ion-list>
 
-  <br>
-
-  <h3>Update Profile</h3>
-
-   <br>
-
-  <label class="item item-input">
-    <input type="text" placeholder="new name" ng-model='newName'>
-  </label>
-
-
-  <br>
-
-  <button class="button button-royal" ng-click="updateName(newName)"> Update </button>
-
-  <br>
-  <br>
+  <h3>Add Event</h3>
 
   <div class="list">
     <label class="item item-input">
       <input type="text" placeholder="name" ng-model='name'>
     </label>
     <label class="item item-input">
-      <input type="text" placeholder="city" ng-model='city'>    
+      <input type="text" placeholder="city" ng-model='city'>
     </label>
     <label class="item item-input">
-      <input type="text" placeholder="street" ng-model='street'>    
+      <input type="text" placeholder="street" ng-model='street'>
     </label>
 
 
@@ -60,24 +56,40 @@
     Submit
   </button>
 
-  <h3>Events</h3>
+
+
+  <h3>My Events</h3>
   <ion-list>
   <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in places">
         <img ng-src="{{place.image}}">
         <h2>{{place.name}}</h2>
         <p class="light">
           <b>{{place.city}}</b> <br>
-          {{place.street}} 
+          {{place.street}}
         </p>
-          
-        </p>
+
+
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
     </ion-list>
 
+  <br>
 
-   
-    <h3>Search</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<h3>Search</h3>
     <form name="form.search" ng-submit="form.search.$valid && goToList()">
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
@@ -108,7 +120,7 @@
     <br>
 
 
-  
+
 
   <!-- <h3>Next events</h3>
     <ion-list>

@@ -21,42 +21,44 @@ define([
       $scope.events = $firebaseArray(ref.child('events'));
       $scope.users = $firebaseArray(userRef);
 
-      
+
 
       var eventRef = firebase.database().ref('events/' + $stateParams.id);
-      
-      
+
+
       eventRef.on('value', function(snapshot) {
         console.log(snapshot.val());
         $scope.name = snapshot.val().name
         $scope.city = snapshot.val().city
         $scope.street = snapshot.val().street
         $scope.image = snapshot.val().image
-      
+        $scope.lat = snapshot.val().lat
+        $scope.lng = snapshot.val().lng
+
       });
 
-      
 
 
-     
+
+
 
       $scope.call = function () {
-        $window.open('tel:' + $scope.event.contact.tel, '_system');
+        $window.open('tel: 219.464.5415', '_system');
       };
 
       $scope.mail = function () {
-        $window.open('mailto:' + $scope.event.contact.email, '_system');
+        $window.open('mailto: upc@valpo.edu', '_system');
       };
 
       $scope.website = function () {
-        $window.open($scope.event.website, '_system');
+        $window.open("https://www.valpo.edu/university-programming-council/", '_system');
       };
 
       $scope.map = function () {
         if (ionic.Platform.isIOS()) {
-          $window.open('maps://?q=' + $scope.event.lat + ',' + $scope.event.lng, '_system');
+          $window.open('maps://?q=' + $scope.lat + ',' + $scope.lng, '_system');
         } else {
-          $window.open('geo://0,0?q=' + $scope.event.lat + ',' + $scope.event.lng + '(' + $scope.event.name + '/' + $scope.event.city + ')&z=15', '_system');
+          $window.open('geo://0,0?q=' + '(' + $scope.street + ' ' + $scope.city + ')&z=15', '_system');
         }
       };
 

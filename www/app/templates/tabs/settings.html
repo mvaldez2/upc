@@ -1,0 +1,17 @@
+<ion-view>
+  <ion-nav-title>Settings </ion-nav-title>
+  <ion-content padding="true">
+
+
+  <ion-list>
+    <ion-item class="item-icon-right  item-royal" ui-sref="profileSettings({id: user.uid})" >
+        <h2>Profile Settings</h2>
+        <i class="icon ion-edit"></i>
+    </ion-item>
+    <ion-item class="item-icon-right item-royal" ng-click="signOff()"" >
+      <h2>Sign Out</h2>
+      <i class="icon ion-log-out"></i>
+    </ion-item>
+  </ion-list>
+  </ion-content>
+</ion-view>
