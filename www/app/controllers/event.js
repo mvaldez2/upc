@@ -1,12 +1,11 @@
 /* global ionic, define */
 define([
   'app',
-  'services/event',
   'controllers/app'
 ], function (app) {
   'use strict';
 
-  app.controller('ProfileCtrl', [
+  app.controller('EventCtrl', [
     '$scope',
     '$stateParams',
     '$window',
@@ -22,15 +21,18 @@ define([
       $scope.events = $firebaseArray(ref.child('events'));
       $scope.users = $firebaseArray(userRef);
 
+      
 
-      var profileRef = firebase.database().ref('users/' + $stateParams.id);
+      var eventRef = firebase.database().ref('events/' + $stateParams.id);
       
       
-      profileRef.on('value', function(snapshot) {
+      eventRef.on('value', function(snapshot) {
         console.log(snapshot.val());
         $scope.name = snapshot.val().name
-        $scope.photoUrl = snapshot.val().photoUrl
-        $scope.email = snapshot.val().email
+        $scope.city = snapshot.val().city
+        $scope.street = snapshot.val().street
+        $scope.image = snapshot.val().image
+      
       });
 
       

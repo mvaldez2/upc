@@ -6,6 +6,7 @@ define([
   'controllers/results',
   'controllers/detail',
   'controllers/profile',
+  'controllers/event',
   'controllers/page'
 ], function (app) {
   'use strict';
@@ -38,6 +39,11 @@ define([
           url: '/profile/:id',
           controller: 'ProfileCtrl',
           templateUrl: 'app/templates/profile.html'
+        })
+        .state('event', {
+          url: '/event/:id',
+          controller: 'EventCtrl',
+          templateUrl: 'app/templates/event.html'
         })
         .state('about', {
           url: '/about/:id',

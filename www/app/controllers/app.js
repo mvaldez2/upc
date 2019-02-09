@@ -20,24 +20,27 @@ define([
       var ref = firebase.database().ref();
       $scope.data = $firebaseArray(ref);
 
-     
+      
 
       //events database
       var eventsRef = ref.child("events");
       var events = $firebaseArray(eventsRef);
       $scope.places = $firebaseArray(ref.child('events'));
+      var eventId = 0;
 
-      $scope.submitEvent = function(name, city, street) {
-        events.$add({
-         name: name,
-         city: city,
-         street: street
-        }).then(function(ref) {
-          var id = ref.key;
-          console.log("added record with id " + id);
-          names.$indexFor(id); // returns location in the array
-        });
+      $scope.submitEvent = function(name, city, street, number) {
+        
+        eventsRef.child(eventId).set({
+          name: name,
+          city: city,
+          street: street,
+          eventId: eventId,
+          //create array off events and function to add events to user
+        }, onComplete);
+        eventId = eventId + 1;
       }
+
+      
 
 
             
@@ -75,7 +78,8 @@ define([
                     photoUrl: user.photoURL,
                     emailVerified: user.emailVerified,
                     uid: user.uid,
-                    token: token
+                    token: token,
+
                     //create array off events and function to add events to user
                 }, onComplete);
               }

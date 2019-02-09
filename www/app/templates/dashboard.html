@@ -53,6 +53,8 @@
     <label class="item item-input">
       <input type="text" placeholder="street" ng-model='street'>    
     </label>
+
+
   </div>
   <button class="button button-royal" ng-click="submitEvent(name, city, street)">
     Submit
@@ -60,8 +62,8 @@
 
   <h3>Events</h3>
   <ion-list>
-  <ion-item class="item-icon-right item-avatar item-royal" ng-repeat="place in places">
-        
+  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in places">
+        <img ng-src="{{place.image}}">
         <h2>{{place.name}}</h2>
         <p class="light">
           <b>{{place.city}}</b> <br>
