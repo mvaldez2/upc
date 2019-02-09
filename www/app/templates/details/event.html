@@ -14,17 +14,22 @@
       <br>
 
       <div class="text-center">
-        <img ng-src="{{image}}" class="image">
+        <img ng-src="{{image}}" class="image"> <br>
+        <br>
+        <button class=" button button-royal" ng-click="addEvent()">Add  <i class=" ion-plus-round"></i></button>
+        <br>
+         <br>
       </div>
 
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i></ion-item>
         <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map()">
+          {{room}} <br>
           {{street}}<br>
           {{city}}
           <i class="icon ion-map"></i>
         </ion-item>
-        
+
       </ion-list>
       <br>
       <ion-list>

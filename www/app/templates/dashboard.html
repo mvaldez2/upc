@@ -15,7 +15,7 @@
         <h2>{{place.name}}</h2>
         <p class="light">
           <b>{{place.city}}</b> <br>
-          {{place.street}}
+          {{place.room}} - {{place.street}}
         </p>
 
 
@@ -41,18 +41,22 @@
 
   <div class="list">
     <label class="item item-input">
-      <input type="text" placeholder="name" ng-model='name'>
+      <input type="text" placeholder="Event Name" ng-model='name'>
     </label>
     <label class="item item-input">
-      <input type="text" placeholder="city" ng-model='city'>
+      <input type="text" placeholder="Street Address or Building" ng-model='street'>
     </label>
     <label class="item item-input">
-      <input type="text" placeholder="street" ng-model='street'>
+      <input type="text" placeholder="Room" ng-model='room' >
     </label>
+    <label class="item item-input">
+      <input type="text" placeholder="City" ng-model='city'>
+    </label>
+
 
 
   </div>
-  <button class="button button-royal" ng-click="submitEvent(name, city, street)">
+  <button class="button button-royal" ng-click="submitEvent(name, city, street, room)">
     Submit
   </button>
 

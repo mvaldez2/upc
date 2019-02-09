@@ -23,25 +23,45 @@ define([
       var ref = firebase.database().ref();
       $scope.data = $firebaseArray(ref);
 
+      function makeid() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < 10; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+      }
+
+      console.log(makeid());
+
 
 
       //events database
       var eventsRef = ref.child("events");
       var events = $firebaseArray(eventsRef);
       $scope.places = $firebaseArray(ref.child('events'));
-      var eventId = 0;
+      var eventId = makeid();
 
-      $scope.submitEvent = function(name, city, street, number) {
+      $scope.submitEvent = function(name, city, street, room) {
 
         eventsRef.child(eventId).set({
           name: name,
           city: city,
           street: street,
+          room: room,
           eventId: eventId,
-          //create array off events and function to add events to user
-        }, onComplete);
-        eventId = eventId + 1;
+          image: 'https://maps.gstatic.com/tactile/pane/default_geocode-1x.png',
+        }, onComplete)
+        .catch(function(error) {
+          console.log('Error');
+        });
+
       }
+
+
+
+        
 
       var onComplete = function(error) {
         if (error) {

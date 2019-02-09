@@ -16,7 +16,10 @@ define([
        var ref = firebase.database().ref();
        var userRef = ref.child("users");
       var users = $firebaseArray(userRef);
+
+
       var eventsRef = ref.child("events");
+
       var events = $firebaseArray(eventsRef);
       $scope.events = $firebaseArray(ref.child('events'));
       $scope.users = $firebaseArray(userRef);
@@ -28,14 +31,32 @@ define([
 
       eventRef.on('value', function(snapshot) {
         console.log(snapshot.val());
+        $scope.event = snapshot.val()
+        $scope.eventId = snapshot.val().eventId
         $scope.name = snapshot.val().name
         $scope.city = snapshot.val().city
         $scope.street = snapshot.val().street
         $scope.image = snapshot.val().image
+        $scope.room = snapshot.val().room
         $scope.lat = snapshot.val().lat
         $scope.lng = snapshot.val().lng
 
       });
+
+
+
+      $scope.addEvent = function(){
+        firebase.auth().onAuthStateChanged(function(user) {
+          var userEventRef = ref.child("users");
+          userEventRef.child(user.uid+"/events").set({
+            event: $scope.event,
+          });
+
+
+        });
+
+
+      }
 
 
 
