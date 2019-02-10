@@ -12,7 +12,8 @@ define([
     '$ionicPopup',
     'eventService',
     '$firebaseArray',
-    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray) {
+    '$ionicHistory',
+    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory) {
        var ref = firebase.database().ref();
        var userRef = ref.child("users");
       var users = $firebaseArray(userRef);
@@ -68,6 +69,7 @@ define([
 
 
       }
+      
 
 
 

@@ -136,14 +136,14 @@ define([
       }
 
 
-
-      $ionicHistory.nextViewOptions({
+      //disable back button
+      /*$ionicHistory.nextViewOptions({
         disableBack: true,
         disableAnimate: false,
-        historyRoot: false,
+        historyRoot: true,
         cache: false
 
-      });
+      });*/
 
       firebase.auth().onAuthStateChanged(function(user) {
 
@@ -152,6 +152,19 @@ define([
         $scope.userEvents = $firebaseArray(userEventRef);
 
       });
+
+      $scope.shouldHide = function () {
+        switch ($state.current.name) {
+            case 'profile':
+                return true;
+            case 'event':
+                return true;
+            case 'profileSettings':
+              return true;
+            default:
+                return false;
+        }
+    }
 
 
 

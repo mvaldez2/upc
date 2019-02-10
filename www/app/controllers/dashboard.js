@@ -8,9 +8,8 @@ define([
     '$scope',
     '$state',
     'eventService',
-    '$ionicHistory',
 
-    function ($scope, $state, eventService, $ionicHistory) {
+    function ($scope, $state, eventService) {
       $scope.search = {};
       $scope.goToList = function () {
         $state.go('results', {
@@ -27,13 +26,7 @@ define([
         });
       };
 
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-        disableAnimate: false,
-        historyRoot: false,
-        cache: false
 
-      });
 
       $state.go('dashboard');
 

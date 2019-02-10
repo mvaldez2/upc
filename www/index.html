@@ -62,7 +62,7 @@
         </ion-content>
       </ion-side-menu>
 
-      <div class="tabs tabs-icon-top"  >
+      <div class="tabs tabs-icon-top" ng-class="{'tabs-item-hide': shouldHide()}" >
         <a class="tab-item" ui-sref="dashboard()" >
           <i class="icon ion-home" ></i>
           Home
@@ -77,20 +77,17 @@
         </a>
     </div>
 
-      <ion-side-menu-content>
+
         <!-- The nav bar that will be updated as we navigate -->
         <ion-nav-bar class="bar-energized">
+           <ion-nav-back-button></ion-nav-back-button>
 
-          <ion-nav-buttons side="left">
-           <!-- Toggle left side menu -->
-           <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-          </ion-nav-buttons>
         </ion-nav-bar>
 
         <!-- where the initial view template will be rendered -->
         <ion-nav-view>
         </ion-nav-view>
-      </ion-side-menu-content>
+
 
     </ion-side-menus>
   </body>
