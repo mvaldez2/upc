@@ -66,10 +66,10 @@ define([
           controller: 'AppCtrl',
           templateUrl: 'app/templates/menu/UPC_Calendar.html'
         })
-        .state('people', {
-          url: '/people/:id',
+        .state('search', {
+          url: '/search/:id',
           controller: 'AppCtrl',
-          templateUrl: 'app/templates/tabs/people.html'
+          templateUrl: 'app/templates/tabs/search.html'
         })
         .state('settings', {
           url: '/settings/:id',

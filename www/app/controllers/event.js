@@ -88,9 +88,13 @@ define([
 
       $scope.map = function () {
         if (ionic.Platform.isIOS()) {
-          $window.open('maps://?q=' + $scope.lat + ',' + $scope.lng, '_system');
-        } else {
+          //$window.open('maps://?q=' + $scope.lat + ',' + $scope.lng, '_system');
+          $window.open('maps://?q=' + $scope.street+ ' ' + $scope.city , '_system');
+        } else if (ionic.Platform.is('android')) {
           $window.open('geo://0,0?q=' + '(' + $scope.street + ' ' + $scope.city + ')&z=15', '_system');
+
+        } else {
+          $window.open('https://www.google.com/maps/search/'+ $scope.street + ' ' + $scope.city );
         }
       };
 

@@ -47,6 +47,13 @@ define([
         });
       }
 
+      $scope.deleteUser = function() {
+        firebase.auth().onAuthStateChanged(function(user) {
+          ref.child("users/" + user.uid).remove();
+        });
+        $state.go("dashboard");
+      }
+
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           // User is signed in

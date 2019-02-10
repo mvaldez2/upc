@@ -4779,7 +4779,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
     background-color: #0f9194; }
   .item.active.item-royal, .item.activated.item-royal, .item-complex.active .item-content.item-royal, .item-complex.activated .item-content.item-royal, .item .item-content.active.item-royal, .item .item-content.activated.item-royal {
     border-color: #404762;
-    background-color: #404762; }
+    background-color: #fff; }
   .item.active.item-dark, .item.activated.item-dark, .item-complex.active .item-content.item-dark, .item-complex.activated .item-content.item-dark, .item .item-content.active.item-dark, .item .item-content.activated.item-dark {
     border-color: #000;
     background-color: #262626; }
@@ -4881,8 +4881,8 @@ a.item-content {
   background-color: #613318;
   color: #fff; }
   .item-complex.item-royal > .item-content.active, .item-complex.item-royal > .item-content:active {
-    border-color: #404762;
-    background-color: #404762; }
+    border-color: #ffcc00;
+    background-color: #381e0e; }
 .item-complex.item-dark > .item-content {
   border-color: #111;
   background-color: #444;
