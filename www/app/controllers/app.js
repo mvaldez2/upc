@@ -61,7 +61,7 @@ define([
 
 
 
-        
+
 
       var onComplete = function(error) {
         if (error) {
@@ -121,18 +121,7 @@ define([
     }
 
 
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in
-          console.log("Sign-in provider: " + user.providerId);
-          console.log("  Provider-specific UID: " + user.uid);
-          console.log("  Name: " + user.displayName);
-          console.log("  Email: " + user.email);
-          console.log("  Photo URL: " + user.photoURL);
-        } else {
-          console.log("No user")
-        }
-      });
+
 
       $scope.signOff = function () {
         $firebaseAuth().$signOut()
@@ -153,6 +142,14 @@ define([
         disableAnimate: false,
         historyRoot: false,
         cache: false
+
+      });
+
+      firebase.auth().onAuthStateChanged(function(user) {
+
+        var userEventRef = ref.child("users/"+ user.uid+ "/events");
+        var userEvents = $firebaseArray(userEventRef);
+        $scope.userEvents = $firebaseArray(userEventRef);
 
       });
 

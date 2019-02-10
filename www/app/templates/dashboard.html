@@ -64,7 +64,7 @@
 
   <h3>My Events</h3>
   <ion-list>
-  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in places">
+  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in userEvents">
         <img ng-src="{{place.image}}">
         <h2>{{place.name}}</h2>
         <p class="light">

@@ -28,7 +28,7 @@ define([
 
       var eventRef = firebase.database().ref('events/' + $stateParams.id);
 
-
+      //get current user
       eventRef.on('value', function(snapshot) {
         console.log(snapshot.val());
         $scope.event = snapshot.val()
@@ -44,14 +44,25 @@ define([
       });
 
 
-
+      //add event to user
       $scope.addEvent = function(){
         firebase.auth().onAuthStateChanged(function(user) {
-          var userEventRef = ref.child("users");
-          userEventRef.child(user.uid+"/events").set({
-            event: $scope.event,
-          });
 
+          var userEventRef = ref.child("users/"+ user.uid + "/events");
+
+          userEventRef.child($scope.eventId).set({
+            name: $scope.name,
+            city: $scope.city,
+            street: $scope.street,
+            room: $scope.room,
+            eventId: $scope.eventId,
+            image: $scope.image,
+          }).then(function() {
+             console.log('Event '+ $scope.name +  ' added')
+
+          }, function(error) {
+             console.log(error)
+          });
 
         });
 

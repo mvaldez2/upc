@@ -14,8 +14,8 @@ define([
     'eventService',
     '$firebaseArray',
     function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray) {
-       var ref = firebase.database().ref();
-       var userRef = ref.child("users");
+      var ref = firebase.database().ref();
+      var userRef = ref.child("users");
       var users = $firebaseArray(userRef);
       var eventsRef = ref.child("events");
       var events = $firebaseArray(eventsRef);
@@ -28,8 +28,12 @@ define([
         $scope.name = snapshot.val().name
         $scope.photoUrl = snapshot.val().photoUrl
         $scope.email = snapshot.val().email
+        $scope.uid = snapshot.val().uid
       });
 
+      var userEventRef = ref.child("users/"+ $stateParams.id + "/events");
+      var userEvents = $firebaseArray(userEventRef);
+      $scope.userEvents = $firebaseArray(userEventRef);
 
 
 

@@ -15,7 +15,7 @@
 
       <div class="text-center">
         <img ng-src="{{photoUrl}}" class="image">
-        
+
       </div>
 
       <ion-list>
@@ -28,7 +28,7 @@
       <br>
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i></ion-item>
-        <ion-item ng-repeat="event in events">
+        <ion-item ng-repeat="event in userEvents">
           {{event.name}}
         </ion-item>
       </ion-list>
