@@ -99,7 +99,7 @@ define([
 
         .then(function() {
            console.log('Signout Succesfull')
-           $state.go("dashboard")
+           $state.go("signIn")
 
         }, function(error) {
            console.log('Signout Failed')
@@ -132,6 +132,18 @@ define([
             case 'event':
                 return true;
             case 'profileSettings':
+              return true;
+            case 'eventSettings':
+              return true;
+            case 'about':
+                return true;
+            case 'perks':
+              return true;
+            case 'programs':
+              return true;
+            case 'calendar':
+              return true;
+            case 'signIn':
               return true;
             default:
                 return false;

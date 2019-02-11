@@ -18,7 +18,7 @@ define([
     '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
       // url routes/states
-      $urlRouterProvider.otherwise('dashboard');
+      $urlRouterProvider.otherwise('signIn');
 
       $stateProvider
         // app states
@@ -86,6 +86,11 @@ define([
           url: '/settings/eventSettings/:id',
           controller: 'EventSettingsCtrl',
           templateUrl: 'app/templates/tabs/settings/eventSettings.html'
+        })
+        .state('signIn', {
+          url: '/signIn',
+          controller: 'AppCtrl',
+          templateUrl: 'app/templates/signin.html'
         });
     }
   ]);
