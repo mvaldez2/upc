@@ -33,12 +33,12 @@
 
   </ion-list>
   <br>
-  <br>
+
 
 
   <h3>Upcoming Events</h3>
   <ion-list>
-  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in places">
+  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in places | limitTo: 5">
         <img ng-src="{{place.image}}">
         <h2>{{place.name}}</h2>
         <p class="light">
@@ -52,14 +52,9 @@
     </ion-list>
 
 
-
-
-
-
-  <br>
   <h3>People</h3>
   <ion-list>
-    <ion-item class="item-icon-right item-avatar item-royal" ui-sref="profile({id: user.uid})" ng-repeat="user in users">
+    <ion-item class="item-icon-right item-avatar item-royal" ui-sref="profile({id: user.uid})" ng-repeat="user in users | limitTo: 5">
         <img ng-src="{{user.photoUrl}}">
         <h2>{{user.name}}</h2>
           <p>
@@ -69,34 +64,9 @@
     </ion-item>
   </ion-list>
 
-  <h3>Add Event</h3>
-
-  <div class="list">
-    <label class="item item-input">
-      <input type="text" placeholder="Event Name" ng-model='name'>
-    </label>
-    <label class="item item-input">
-      <input type="text" placeholder="Street Address or Building" ng-model='street'>
-    </label>
-    <label class="item item-input">
-      <input type="text" placeholder="Room" ng-model='room' >
-    </label>
-    <label class="item item-input">
-      <input type="text" placeholder="City" ng-model='city'>
-    </label>
-
-
-
-  </div>
-  <button class="button button-royal" ng-click="submitEvent(name, city, street, room)">
-    Submit
-  </button>
-
-
-
   <h3>My Events</h3>
   <ion-list>
-  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in userEvents">
+  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in userEvents | limitTo: 5">
         <img ng-src="{{place.image}}">
         <h2>{{place.name}}</h2>
         <p class="light">

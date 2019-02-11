@@ -1,0 +1,48 @@
+<ion-view >
+  <ion-nav-title>Events </ion-nav-title>
+  <ion-content padding="true">
+
+    <h3>Add Event</h3>
+
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Event Name" ng-model='eventName'>
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Street Address or Building" ng-model='street'>
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Room" ng-model='room' >
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="City" ng-model='city'>
+      </label>
+
+
+
+    </div>
+    <button class="button button-royal" ng-click="submitEventAdmin(eventName, city, street, room)">
+      Submit
+    </button>
+
+    <br> <br>
+
+
+    <h3>Delete Event</h3>
+    <ion-list>
+      <ion-item class="item-icon-right item-avatar item-royal"  ng-repeat="place in places">
+          <img ng-src="{{place.image}}">
+          <h2>{{place.name}}</h2>
+          <p class="light">
+            <b>{{place.city}}</b> <br>
+            {{place.room}} - {{place.street}}
+          </p>
+
+
+          <i class="icon icon ion-trash-b" ng-click="deleteEvent(place.eventId)"></i>
+      </ion-item>
+    </ion-list>
+
+
+  </ion-content>
+</ion-view>

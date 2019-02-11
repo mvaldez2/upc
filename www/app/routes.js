@@ -8,6 +8,7 @@ define([
   'controllers/profile',
   'controllers/event',
   'controllers/profileSettings',
+  'controllers/eventSettings',
   'controllers/oldControllers/page'
 ], function (app) {
   'use strict';
@@ -74,12 +75,17 @@ define([
         .state('settings', {
           url: '/settings/:id',
           controller: 'AppCtrl',
-          templateUrl: 'app/templates/tabs/settings.html'
+          templateUrl: 'app/templates/tabs/settings/settings.html'
         })
         .state('profileSettings', {
-          url: '/profileSettings/:id',
+          url: '/settings/profileSettings/:id',
           controller: 'ProfileSettingsCtrl',
-          templateUrl: 'app/templates/tabs/profileSettings.html'
+          templateUrl: 'app/templates/tabs/settings/profileSettings.html'
+        })
+        .state('eventSettings', {
+          url: '/settings/eventSettings/:id',
+          controller: 'EventSettingsCtrl',
+          templateUrl: 'app/templates/tabs/settings/eventSettings.html'
         });
     }
   ]);

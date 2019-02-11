@@ -29,7 +29,7 @@ define([
 
       var eventRef = firebase.database().ref('events/' + $stateParams.id);
 
-      //get current user
+      //get current event
       eventRef.on('value', function(snapshot) {
         console.log(snapshot.val());
         $scope.event = snapshot.val()
@@ -69,7 +69,7 @@ define([
 
 
       }
-      
+
 
 
 

@@ -2273,7 +2273,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   border: 0;
   vertical-align: baseline;
   font: inherit;
-  font-size: 100%; }
+  font-size: 100%;
+  }
 
 ol, ul {
   list-style: none; }
@@ -4563,19 +4564,23 @@ ion-tabs.tabs-color-active-dark .tab-item {
 .popup-title {
   margin: 0;
   padding: 0;
-  font-size: 15px; }
+  font-size: 15px;
+  color: black;}
 
 .popup-sub-title {
   margin: 5px 0 0 0;
   padding: 0;
   font-weight: normal;
-  font-size: 11px; }
+  font-size: 11px;
+  color: black;}
 
 .popup-body {
   padding: 10px;
-  overflow: auto; }
+  overflow: auto;
+  color: black; }
 
 .popup-buttons {
+
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -4591,6 +4596,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
   padding: 10px;
   min-height: 65px; }
   .popup-buttons .button {
+    background-color: #381e0e;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -moz-box-flex: 1;
@@ -4603,7 +4609,9 @@ ion-tabs.tabs-color-active-dark .tab-item {
     line-height: 20px;
     margin-right: 5px; }
     .popup-buttons .button:last-child {
-      margin-right: 0px; }
+      background-color: #381e0e;
+      margin-right: 0px;
+     }
 
 .popup-open {
   pointer-events: none; }
@@ -7741,7 +7749,8 @@ a.button {
 
 .popup .popup-body input[type="text"] {
   border: 1px solid #a0a9c9;
-  padding: 0 5px; }
+  padding: 0 5px;
+  color: black; }
 
 .spinner svg {
   stroke: #fcb150;
