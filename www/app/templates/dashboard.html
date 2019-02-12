@@ -3,7 +3,7 @@
   <ion-nav-title>UPC <i class="icon ion-ios-location"></i> </ion-nav-title>
   <ion-content padding="true">
 
-  
+
   <br>
   <br>
 
@@ -36,7 +36,8 @@
 
   <h3>Upcoming Events</h3>
   <ion-list>
-  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})" ng-repeat="place in places | limitTo: 5">
+  <ion-item class="item-icon-right item-avatar item-royal"    ui-sref="event({id: place.eventId})"
+  ng-repeat="place in places | orderBy : sortEvents | limitTo: 10">
         <img ng-src="{{place.image}}">
         <h2>{{place.name}}</h2>
         <p class="light">

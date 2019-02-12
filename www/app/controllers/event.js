@@ -41,6 +41,8 @@ define([
         $scope.room = snapshot.val().room
         $scope.lat = snapshot.val().lat
         $scope.lng = snapshot.val().lng
+        $scope.date = snapshot.val().date
+        $scope.time = snapshot.val().time
 
       });
 

@@ -17,11 +17,17 @@
       <label class="item item-input">
         <input type="text" placeholder="City" ng-model='city'>
       </label>
+      <label class="item item-input">
+        <input type="text" placeholder="mm/dd/yyyy" ng-model='date'>
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="hh:mm" ng-model='time'>
+      </label>
 
 
 
     </div>
-    <button class="button button-royal" ng-click="submitEventAdmin(eventName, city, street, room)">
+    <button class="button button-royal" ng-click="submitEventAdmin(eventName, city, street, room, date, time)">
       Submit
     </button>
 

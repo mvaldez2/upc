@@ -49,7 +49,23 @@ define([
         $scope.userEvents = $firebaseArray(userEventRef);
       });
 
-      $scope.submitEventAdmin = function(name, city, street, room) {
+
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1; //January is 0!
+      var yyyy = today.getFullYear();
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+      today = mm + '/' + dd + '/' + yyyy;
+
+
+
+
+      $scope.submitEventAdmin = function(name, city, street, room, date, time) {
         firebase.auth().onAuthStateChanged(function(user) {
           var profileRef = firebase.database().ref('users/' + user.uid);
           profileRef.on('value', function(snapshot) {
@@ -63,6 +79,8 @@ define([
               street: street,
               room: room,
               eventId: eventId,
+              date: date,
+              time: time,
               image: 'https://maps.gstatic.com/tactile/pane/default_geocode-1x.png',
             })
             .catch(function(error) {
@@ -86,6 +104,11 @@ define([
         });
       }
 
+
+      $scope.sortEvents = function(event) {
+        var date = - new Date(event.date);
+        return date;
+      };
 
 
       $scope.updateName = function(newName) {
@@ -136,6 +159,8 @@ define([
           console.log("No user")
         }
       });
+
+
 
 
 
