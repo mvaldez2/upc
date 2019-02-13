@@ -1,12 +1,32 @@
 <ion-view>
-  <ion-nav-title>UPC Calendar</i></ion-nav-title>
+  <ion-nav-title>UPC Calendar</ion-nav-title>
   <ion-content padding="true">
     <h1>UPC Calendar</h1>
     <p>
         <strong>upc@valpo.edu</strong>
     </p>
-    <p>
-        <i>Insert Google Calendar here.</i>
-    </p>
+
+
+    <button class="button button-royal" ng-click="sync()">Sync</button>
+    
+    <h3>Upcoming Events</h3>
+    <ion-list>
+    <ion-item class="item-icon-right item-avatar item-royal"
+    ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 10">
+          <img ng-src="{{place.image}}">
+          <h2>{{place.summary}}</h2>
+          <p class="light">
+            <b>{{place.location}}</b> <br>
+            {{place.start.dateTime}}
+          </p>
+
+
+          <i class="icon ion-ios-arrow-right"></i>
+        </ion-item>
+      </ion-list>
+
+
+
+
 </ion-content>
 </ion-view>

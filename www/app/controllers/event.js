@@ -15,7 +15,7 @@ define([
     '$ionicHistory',
     function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory) {
        var ref = firebase.database().ref();
-       var userRef = ref.child("users");
+       var userRef = ref.child("googleUsers");
       var users = $firebaseArray(userRef);
 
 
@@ -50,8 +50,10 @@ define([
       //add event to user
       $scope.addEvent = function(){
         firebase.auth().onAuthStateChanged(function(user) {
+          var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+          var userId = googleUser.getId();
 
-          var userEventRef = ref.child("users/"+ user.uid + "/events");
+          var userEventRef = ref.child("googleUsers/"+ userId + "/events");
 
           userEventRef.child($scope.eventId).set({
             name: $scope.name,

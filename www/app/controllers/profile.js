@@ -15,7 +15,7 @@ define([
     '$firebaseArray',
     function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray) {
       var ref = firebase.database().ref();
-      var userRef = ref.child("users");
+      var userRef = ref.child("googleUsers");
       var users = $firebaseArray(userRef);
       var eventsRef = ref.child("events");
       var events = $firebaseArray(eventsRef);
@@ -23,7 +23,7 @@ define([
       $scope.users = $firebaseArray(userRef);
 
 
-      var profileRef = firebase.database().ref('users/' + $stateParams.id);
+      var profileRef = firebase.database().ref('googleUsers/' + $stateParams.id);
       profileRef.on('value', function(snapshot) {
         $scope.name = snapshot.val().name
         $scope.photoUrl = snapshot.val().photoUrl
@@ -31,7 +31,7 @@ define([
         $scope.uid = snapshot.val().uid
       });
 
-      var userEventRef = ref.child("users/"+ $stateParams.id + "/events");
+      var userEventRef = ref.child("googleUsers/"+ $stateParams.id + "/events");
       var userEvents = $firebaseArray(userEventRef);
       $scope.userEvents = $firebaseArray(userEventRef);
 

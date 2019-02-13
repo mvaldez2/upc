@@ -17,7 +17,7 @@ define([
     '$state',
     function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $firebaseAuth, $state) {
       var ref = firebase.database().ref();
-      var userRef = ref.child("users");
+      var userRef = ref.child("googleUsers");
       var users = $firebaseArray(userRef);
       var eventsRef = ref.child("events");
       var events = $firebaseArray(eventsRef);
@@ -44,7 +44,9 @@ define([
       var eventId = makeid();
 
       firebase.auth().onAuthStateChanged(function(user) {
-        var userEventRef = ref.child("users/"+ user.uid+ "/events");
+        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        var userId = googleUser.getId();
+        var userEventRef = ref.child("googleUsers/"+ userId+ "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
       });
@@ -67,7 +69,9 @@ define([
 
       $scope.submitEventAdmin = function(name, city, street, room, date, time) {
         firebase.auth().onAuthStateChanged(function(user) {
-          var profileRef = firebase.database().ref('users/' + user.uid);
+          var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+          var userId = googleUser.getId();
+          var profileRef = firebase.database().ref('googleUsers/' + userId);
           profileRef.on('value', function(snapshot) {
             $scope.admin = snapshot.val().admin
           });
@@ -119,7 +123,9 @@ define([
 
       $scope.deleteEvent = function(id) {
         firebase.auth().onAuthStateChanged(function(user) {
-          var profileRef = firebase.database().ref('users/' + user.uid);
+          var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+          var userId = googleUser.getId();
+          var profileRef = firebase.database().ref('googleUsers/' + userId);
           profileRef.on('value', function(snapshot) {
             $scope.admin = snapshot.val().admin
           });

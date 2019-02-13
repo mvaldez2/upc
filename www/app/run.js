@@ -54,6 +54,7 @@ define([
       'https://www.googleapis.com/auth/calendar',
       // ...
     ]
+    
   });
 
 
