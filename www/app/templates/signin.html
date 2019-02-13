@@ -10,7 +10,24 @@
       Sign In
     </button>
   </div>
+  <button ng-click="authenticate().then(loadClient)">authorize and load</button>
+<button ng-click="execute()">execute</button>
 
-  
+<ion-list>
+<ion-item class="item-icon-right item-avatar item-royal"
+ng-repeat="place in response.result.items">
+      <img ng-src="{{place.image}}">
+      <h2>{{place.summary}}</h2>
+      <p class="light">
+        <b>{{place.location}}</b> <br>
+        {{place.start.dateTime}}
+      </p>
+
+
+      <i class="icon ion-ios-arrow-right"></i>
+    </ion-item>
+  </ion-list>
+
+
   </ion-content>
 </ion-view>

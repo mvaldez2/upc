@@ -4935,7 +4935,7 @@ a.item-content {
   left: auto; }
 
 .item-icon-left .icon-accessory, .item-icon-right .icon-accessory {
-  color: #613318;
+  color: #ccc;
   font-size: 16px; }
 
 .item-icon-left .icon-accessory {
@@ -5105,7 +5105,7 @@ a.item-content {
   text-transform: uppercase;
   font-weight: 300;
   font-size: 13px;
-  background-color: #613318;
+  background-color: #efeff4;
   color: #555; }
 
 .platform-android .item-divider-platform, .item-divider-android {

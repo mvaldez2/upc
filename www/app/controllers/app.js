@@ -17,8 +17,11 @@ define([
     '$state',
     '$ionicHistory',
     '$ionicPopup',
+    'Calendar',
+    'Youtube',
+    'GAPI',
     function ($scope, $ionicModal, $ionicScrollDelegate, $sce, pageService, $firebaseObject,
-      $firebaseAuth, $firebaseArray, $window, $state, $ionicHistory, $ionicPopup) {
+      $firebaseAuth, $firebaseArray, $window, $state, $ionicHistory, $ionicPopup, Calendar, Youtube, GAPI) {
       $scope.ready = true;
 
       var ref = firebase.database().ref();
@@ -105,7 +108,7 @@ define([
            console.log('Signout Failed')
         });
       }
-      
+
 
 
       //disable back button
@@ -191,6 +194,62 @@ define([
         $scope.modal.hide();
       };
 
+      function onClientLoad(){
+        gapi.client.load('calendar', 'v3', function(){
+          console.log("Setting API key");
+          gapi.client.setApiKey('AIzaSyBeXrlBrm8mZIV9KRrCXXOT90BfJ_drxRQ');
+        });
+      }
+
+      $scope.authenticate = function() {
+    return gapi.auth2.getAuthInstance()
+        .signIn({scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly"})
+        .then(function() { console.log("Sign-in successful"); },
+              function(err) { console.error("Error signing in", err); });
+  }
+  $scope.loadClient = function() {
+    return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest")
+        .then(function() { console.log("GAPI client loaded for API"); },
+              function(err) { console.error("Error loading GAPI client for API", err); });
+  }
+  // Make sure the client is loaded and sign-in is complete before calling this method.
+  $scope.execute = function() {
+    $scope.cEvents =  gapi.client.calendar.events.list({
+      "calendarId": "upc@valpo.edu",
+      "maxResults": 20,
+      "orderBy": "startTime",
+      "singleEvents": true,
+      "timeMin": "2019-02-02T00:00:00+10:00"
+    })
+        .then(function(response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+                $scope.response = response;
+                console.log( $scope.response)
+              },
+              function(err) { console.error("Execute error", err); });
+
+  }
+
+
+
+  gapi.load("client:auth2", function() {
+    gapi.auth2.init({client_id: '188526661745-1qvjgbd02e62kjg1it4tj05p14rveb21.apps.googleusercontent.com'});
+  });
+
+
+      GAPI.init()
+  .then(function(){
+    $scope.calendarEvents =  gapi.client.calendar.events.list({
+      "calendarId": "upc@valpo.edu",
+      "maxResults": 20,
+      "orderBy": "startTime",
+      "singleEvents": true,
+      "timeMin": "2019-02-02T00:00:00+10:00"
+    })
+  }, function(){ console.log('Something went wrong yes?'); });
+
+console.log( $scope.calendarEvents)
 
 
 
