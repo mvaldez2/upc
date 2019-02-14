@@ -50,6 +50,8 @@ define([
       var mycal = $firebaseArray(mycalRef);
       $scope.mycal = $firebaseArray(mycalRef);
 
+
+
       var today = new Date();
       var day = today.getDate() + 1;
       var month = today.getMonth() + 1;
@@ -96,7 +98,7 @@ define([
       var googleUsers = $firebaseArray(gUserRef);
       $scope.googleUsers = $firebaseArray(gUserRef);
 
-      
+
       $scope.login2 = function() {
         $scope.loadClient();
         gapi.auth2.getAuthInstance().signIn({scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar"})
@@ -119,12 +121,12 @@ define([
                   }else{ //if not create new user
                     console.log("doesn't exist");
                     gUserRef.child(googleProfile.getId()).set({
-                    name: googleProfile.getName(),
-                    email: googleProfile.getEmail(),
-                    photoUrl: googleProfile.getImageUrl(),
-                    uid: googleProfile.getId(),
-                    admin: false,}, onComplete);
-                  }
+                      name: googleProfile.getName(),
+                      email: googleProfile.getEmail(),
+                      photoUrl: googleProfile.getImageUrl(),
+                      uid: googleProfile.getId(),
+                      admin: false,}, onComplete);
+                    }
                 });
             });
           }).then(function(){
@@ -260,7 +262,23 @@ define([
 
 
 
-    console.log(  $scope.userEvents);
+      $scope.dateFormat = function(dateTime){
+        var date = new Date(dateTime);
+
+        try {
+          var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',  hour: 'numeric', minute: 'numeric' };
+        } catch(e) {
+          date = new Date(dateTime);
+          var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          
+          console.log(e)
+        }
+        return date.toLocaleDateString("en-US", dayOptions);
+
+
+
+      }
+
 
 
     }

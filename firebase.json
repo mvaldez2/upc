@@ -12,6 +12,7 @@
     ]
   },
   "hosting": {
+    "target": "upc",
     "public": "www",
     "ignore": [
       "firebase.json",

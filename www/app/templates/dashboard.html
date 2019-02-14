@@ -33,12 +33,14 @@
   <br>
   <h3>Upcoming Events</h3>
   <ion-list>
-  <ion-item class="item-icon-right item-avatar item-royal"
-  ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 5">
-        <img ng-src="{{place.image}}">
+  <ion-item class="item-icon-right  item-royal" ui-sref="event({id: $index})"
+  ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 5"
+  ng-init="place.start.dateTime= dateFormat(place.start.dateTime)">
+
         <h2>{{place.summary}}</h2>
         <p class="light">
           <b>{{place.location}}</b> <br>
+          {{place.start.date}} {{place.end.date}}
           {{place.start.dateTime}}
         </p>
 
@@ -61,7 +63,7 @@
     </ion-item>
   </ion-list>
 
-  
+
   <ion-list>
   <ion-item class="item-icon-right item-avatar item-royal"
     ui-sref="event({id: place.eventId})" ng-repeat="place in gUserEvents | limitTo: 5">

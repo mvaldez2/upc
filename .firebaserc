@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "upc-app"
+  },
+  "targets": {
+    "upc-app": {
+      "hosting": {
+        "upc": [
+          "dev-upc-app"
+        ]
+      }
+    }
   }
 }

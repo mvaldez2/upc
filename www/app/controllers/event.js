@@ -24,27 +24,45 @@ define([
       var events = $firebaseArray(eventsRef);
       $scope.events = $firebaseArray(ref.child('events'));
       $scope.users = $firebaseArray(userRef);
+      var calRef = ref.child("calendar/events");
+      var cal = $firebaseArray(calRef);
+      $scope.cal = $firebaseArray(calRef);
 
 
 
-      var eventRef = firebase.database().ref('events/' + $stateParams.id);
+      var eventRef = firebase.database().ref('calendar/events/' + $stateParams.id);
+
 
       //get current event
       eventRef.on('value', function(snapshot) {
         console.log(snapshot.val());
         $scope.event = snapshot.val()
-        $scope.eventId = snapshot.val().eventId
-        $scope.name = snapshot.val().name
-        $scope.city = snapshot.val().city
-        $scope.street = snapshot.val().street
-        $scope.image = snapshot.val().image
-        $scope.room = snapshot.val().room
-        $scope.lat = snapshot.val().lat
-        $scope.lng = snapshot.val().lng
-        $scope.date = snapshot.val().date
-        $scope.time = snapshot.val().time
+        $scope.summary = snapshot.val().summary
+        $scope.location = snapshot.val().location
+        $scope.date = snapshot.val().start.dateTime
+        $scope.dateStart =  snapshot.val().start.date
+        $scope.dateEnd =  snapshot.val().end.date
 
       });
+
+
+      var date = new Date($scope.date);
+      var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      var timeOptions = { hour: 'numeric', minute: 'numeric' };
+      $scope.formatedDay = date.toLocaleDateString("en-US", dayOptions);
+
+
+      var time = date.toLocaleDateString("en-US", timeOptions);
+      try {
+        $scope.formatedTime = new Intl.DateTimeFormat("en-US", timeOptions).format(date);
+      } catch(e) {
+        date = new Date($scope.dateStart);
+        var dateEnd = new Date($scope.dateEnd);
+        var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        $scope.formatedDay = date.toLocaleDateString("en-US", dayOptions);
+        $scope.dateEnd = dateEnd.toLocaleDateString("en-US", dayOptions);
+
+      }
 
 
       //add event to user
@@ -55,15 +73,13 @@ define([
 
           var userEventRef = ref.child("googleUsers/"+ userId + "/events");
 
-          userEventRef.child($scope.eventId).set({
-            name: $scope.name,
-            city: $scope.city,
-            street: $scope.street,
-            room: $scope.room,
-            eventId: $scope.eventId,
-            image: $scope.image,
+
+
+          userEventRef.child($stateParams.id).set({
+            summary: $scope.summary,
+
           }).then(function() {
-             console.log('Event '+ $scope.name +  ' added')
+             console.log('Event '+ $scope.summary +  ' added')
 
           }, function(error) {
              console.log(error)
@@ -95,12 +111,12 @@ define([
       $scope.map = function () {
         if (ionic.Platform.isIOS()) {
           //$window.open('maps://?q=' + $scope.lat + ',' + $scope.lng, '_system');
-          $window.open('maps://?q=' + $scope.street+ ' ' + $scope.city , '_system');
+          $window.open('maps://?q=' + $scope.location , '_system');
         } else if (ionic.Platform.is('android')) {
-          $window.open('geo://0,0?q=' + '(' + $scope.street + ' ' + $scope.city + ')&z=15', '_system');
+          $window.open('geo://0,0?q=' + '(' + $scope.location  + ')&z=15', '_system');
 
         } else {
-          $window.open('https://www.google.com/maps/search/'+ $scope.street + ' ' + $scope.city );
+          $window.open('https://www.google.com/maps/search/'+ $scope.location );
         }
       };
 

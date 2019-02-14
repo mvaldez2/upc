@@ -16,21 +16,23 @@
         <i class="icon ion-ios-arrow-right"></i>
     </ion-item>
     <ion-list>
-    <ion-item class="item-icon-right item-avatar item-royal"
-    ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 10
-    ">
-          <img ng-src="{{place.image}}">
-          <h2>{{place.summary}}</h2>
-          <p class="light">
-            <b>{{place.location}}</b> <br>
-            {{place.start.dateTime}}
-          </p>
+      <!-- don't order by index, it messes up the search -->
+      <ion-item class="item-icon-right  item-royal" ui-sref="event({id: $index})"
+      ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 20 | filter:searchText"
+      ng-init="place.start.dateTime= dateFormat(place.start.dateTime)">
+
+            <h2>{{place.summary}}</h2>
+            <p class="light">
+              <b>{{place.location}}</b> <br>
+              {{place.start.date}} {{place.end.date}}
+              {{place.start.dateTime}}
+            </p>
 
 
-          <i class="icon ion-ios-arrow-right"></i>
-        </ion-item>
-      </ion-list>
-    <ion-item class="item-icon-right item-avatar item-royal" ui-sref="event({id: place.eventId})" ng-repeat='place in places | filter:searchText | limitTo: 10'>
+            <i class="icon ion-ios-arrow-right"></i>
+          </ion-item>
+        </ion-list>
+    <ion-item class="item-icon-right item-avatar item-royal" ui-sref="event({id:$index})" ng-repeat='place in places | filter:searchText | limitTo: 10'>
         <img ng-src="{{place.image}}">
         <h2>{{place.name}}</h2>
         <p class="light">

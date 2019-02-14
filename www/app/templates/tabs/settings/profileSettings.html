@@ -31,7 +31,7 @@
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i></ion-item>
         <ion-item ng-repeat="event in userEvents" class="item-icon-right">
-          {{event.name}}  <i class="icon ion-trash-b" ng-click="deleteEvent(event.eventId)"> </i>
+          {{event.summary}}  <i class="icon ion-trash-b" ng-click="deleteEvent($index)"> </i>
         </ion-item>
       </ion-list>
       <br>
@@ -42,7 +42,7 @@
           <i class="icon ion-ios-email"></i>
         </ion-item>
 
-      
+
 
       </ion-list>
     </div>
