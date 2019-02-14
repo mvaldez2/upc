@@ -45,6 +45,7 @@ define([
       // ----------- Get calendar and add to database ------------------------
       var calRef = ref.child("calendar/events");
       var cal = $firebaseArray(calRef);
+      console.log(cal);
       $scope.cal = $firebaseArray(calRef);
       var mycalRef = ref.child("myCalendar/events");
       var mycal = $firebaseArray(mycalRef);
