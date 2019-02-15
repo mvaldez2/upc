@@ -155,7 +155,7 @@ define([
           // User is signed in
           var profileRef = firebase.database().ref('users/'+ user.uid+'/');
           profileRef.on('value', function(snapshot) {
-            console.log(snapshot.val().events)
+            
             $scope.name = snapshot.val().name
             $scope.photoUrl = snapshot.val().photoUrl
             $scope.email = snapshot.val().email

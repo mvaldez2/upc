@@ -76,7 +76,6 @@ define([
         .then(function(response) {
           console.log("Response", response);
           $scope.upcEvents = response.result.items;
-          console.log( $scope.upcEvents)
           db.ref().child('calendar').set({
             events: $scope.upcEvents
           });
@@ -114,9 +113,6 @@ define([
                   .equalTo(googleProfile.getEmail()).on("value", function(snapshot) {
                   if (snapshot.exists()) {
                     console.log("exists");
-                    console.log(googleProfile.getName());
-                    console.log(googleProfile.getId());
-                    console.log(googleProfile);
                     console.log($scope.isSignedIn);
 
                   }else{ //if not create new user
@@ -135,12 +131,10 @@ define([
               var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
               var googleProfile = googleUser.getBasicProfile();
               var userId = googleUser.getId();
-              console.log(userId);
-
               var userEventRef = ref.child("googleUsers/"+ userId+ "/events");
               var userEvents = $firebaseArray(userEventRef);
               $scope.gUserEvents = $firebaseArray(ref.child('googleUsers/'+ userId+ '/events'));
-              console.log(  $scope.gUserEvents);
+
 
 
             });
@@ -262,21 +256,28 @@ define([
       };
 
 
-
-      $scope.dateFormat = function(dateTime){
-        var date = new Date(dateTime);
-
-        try {
-          var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',  hour: 'numeric', minute: 'numeric' };
-        } catch(e) {
-          date = new Date(dateTime);
+      //formats calendar dates
+      $scope.dateFormat2 = function(place){
+        var eventRef = firebase.database().ref('calendar/events/' + place.$id);
+        eventRef.on('value', function(snapshot) {
+          $scope.dateTime = snapshot.val().start.dateTime
+          $scope.start =  snapshot.val().start.date
+          $scope.end =  snapshot.val().end.date
+        });
+        var date = new Date($scope.dateTime);
+        var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',  hour: 'numeric', minute: 'numeric' };
+        var finalDate = date.toLocaleDateString("en-US", dayOptions);
+        if (finalDate == 'Invalid Date'){
+          date = new Date($scope.start);
+          var end = new Date($scope.end);
           var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-          
-          console.log(e)
+          console.log("date: "+date);
+          var startDate = date.toLocaleDateString("en-US", dayOptions);
+          var endDate = end.toLocaleDateString("en-US", dayOptions);
+          finalDate = startDate +" - " + endDate;
+
         }
-        return date.toLocaleDateString("en-US", dayOptions);
-
-
+        return finalDate;
 
       }
 

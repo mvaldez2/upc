@@ -35,12 +35,11 @@
   <ion-list>
   <ion-item class="item-icon-right  item-royal" ui-sref="event({id: $index})"
   ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 5"
-  ng-init="place.start.dateTime= dateFormat(place.start.dateTime)">
+  ng-init="place.start.dateTime= dateFormat2(place)">
 
         <h2>{{place.summary}}</h2>
         <p class="light">
           <b>{{place.location}}</b> <br>
-          {{place.start.date}} {{place.end.date}}
           {{place.start.dateTime}}
         </p>
 

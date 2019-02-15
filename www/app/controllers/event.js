@@ -28,11 +28,7 @@ define([
       var cal = $firebaseArray(calRef);
       $scope.cal = $firebaseArray(calRef);
 
-
-
       var eventRef = firebase.database().ref('calendar/events/' + $stateParams.id);
-
-
       //get current event
       eventRef.on('value', function(snapshot) {
         console.log(snapshot.val());
@@ -40,24 +36,23 @@ define([
         $scope.summary = snapshot.val().summary
         $scope.location = snapshot.val().location
         $scope.date = snapshot.val().start.dateTime
-        $scope.dateStart =  snapshot.val().start.date
-        $scope.dateEnd =  snapshot.val().end.date
+        $scope.start =  snapshot.val().start.date
+        $scope.end =  snapshot.val().end.date
 
       });
+      
 
 
       var date = new Date($scope.date);
       var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       var timeOptions = { hour: 'numeric', minute: 'numeric' };
       $scope.formatedDay = date.toLocaleDateString("en-US", dayOptions);
-
-
       var time = date.toLocaleDateString("en-US", timeOptions);
       try {
         $scope.formatedTime = new Intl.DateTimeFormat("en-US", timeOptions).format(date);
       } catch(e) {
-        date = new Date($scope.dateStart);
-        var dateEnd = new Date($scope.dateEnd);
+        date = new Date($scope.start);
+        var dateEnd = new Date($scope.end);
         var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         $scope.formatedDay = date.toLocaleDateString("en-US", dayOptions);
         $scope.dateEnd = dateEnd.toLocaleDateString("en-US", dayOptions);

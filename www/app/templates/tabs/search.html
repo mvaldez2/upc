@@ -19,12 +19,11 @@
       <!-- don't order by index, it messes up the search -->
       <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
       ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 20 | filter:searchText"
-      ng-init="place.start.dateTime= dateFormat(place.start.dateTime)">
-            
+      ng-init="place.start.dateTime= dateFormat2(place)"
+
             <h2>{{place.summary}}</h2>
             <p class="light">
               <b>{{place.location}}</b> <br>
-              {{place.start.date}} {{place.end.date}}
               {{place.start.dateTime}}
             </p>
 
