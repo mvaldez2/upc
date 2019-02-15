@@ -34,7 +34,8 @@ define([
         var userId = googleUser.getId();
         var userEventRef = ref.child("googleUsers/"+ userId+ "/events");
         var userEvents = $firebaseArray(userEventRef);
-        $scope.gUserEvents = $firebaseArray(ref.child('googleUsers/'+ userId+ '/events'));
+        $scope.userEvents = $firebaseArray(userEventRef);
+        
       });
 
 

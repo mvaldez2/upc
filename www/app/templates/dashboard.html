@@ -4,8 +4,7 @@
   <ion-content padding="true">
 
 
-  <br>
-  <br>
+  
 
   <ion-list>
 
@@ -30,7 +29,7 @@
     </ion-item>
 
   </ion-list>
-  <br>
+
   <h3>Upcoming Events</h3>
   <ion-list>
   <ion-item class="item-icon-right  item-royal" ui-sref="event({id: $index})"
@@ -65,12 +64,14 @@
 <h3>My Events</h3>
   <ion-list>
   <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
-  ng-repeat="place in gUserEvents | orderBy: start.dateTime | limitTo: 5"
+  ng-repeat="place in userEvents | orderBy: start.dateTime | limitTo: 5"
   ng-init="place.start.dateTime= dateFormat2(place)">
 
-        <h2>{{place.summary}}</h2>
+        <h2>{{place.event.summary}}</h2>
         <p class="light">
-          {{place.start.dateTime}}
+          <b>{{place.event.location}}</b> <br>
+          {{place.event.start.dateTime}}
+          
         </p>
 
 
@@ -79,6 +80,8 @@
     </ion-list>
 
   <br>
+   <br>
+    <br>
 
 
 

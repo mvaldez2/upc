@@ -66,7 +66,7 @@ define([
           var userEventRef = ref.child("googleUsers/"+ userId + "/events");
 
           userEventRef.child($stateParams.id).set({
-            summary: $scope.summary,
+            event: $scope.event,
 
           }).then(function() {
              console.log('Event '+ $scope.summary +  ' added')
