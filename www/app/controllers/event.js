@@ -14,15 +14,12 @@ define([
     '$firebaseArray',
     '$ionicHistory',
     function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory) {
-       var ref = firebase.database().ref();
-       var userRef = ref.child("googleUsers");
+      var ref = firebase.database().ref();
+      var userRef = ref.child("googleUsers");
       var users = $firebaseArray(userRef);
 
 
-      var eventsRef = ref.child("events");
-
-      var events = $firebaseArray(eventsRef);
-      $scope.events = $firebaseArray(ref.child('events'));
+      //get users
       $scope.users = $firebaseArray(userRef);
       var calRef = ref.child("calendar/events");
       var cal = $firebaseArray(calRef);
@@ -40,9 +37,9 @@ define([
         $scope.end =  snapshot.val().end.date
 
       });
-      
 
 
+      //format dates
       var date = new Date($scope.date);
       var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       var timeOptions = { hour: 'numeric', minute: 'numeric' };
@@ -68,8 +65,6 @@ define([
 
           var userEventRef = ref.child("googleUsers/"+ userId + "/events");
 
-
-
           userEventRef.child($stateParams.id).set({
             summary: $scope.summary,
 
@@ -86,11 +81,6 @@ define([
       }
 
 
-
-
-
-
-
       $scope.call = function () {
         $window.open('tel: 219.464.5415', '_system');
       };
@@ -105,7 +95,6 @@ define([
 
       $scope.map = function () {
         if (ionic.Platform.isIOS()) {
-          //$window.open('maps://?q=' + $scope.lat + ',' + $scope.lng, '_system');
           $window.open('maps://?q=' + $scope.location , '_system');
         } else if (ionic.Platform.is('android')) {
           $window.open('geo://0,0?q=' + '(' + $scope.location  + ')&z=15', '_system');

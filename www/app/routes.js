@@ -2,6 +2,7 @@ define([
   'app',
   // Load Controllers here
   'controllers/app',
+  'controllers/signin',
   'controllers/dashboard',
   'controllers/oldControllers/results',
   'controllers/oldControllers/detail',
@@ -89,7 +90,7 @@ define([
         })
         .state('signIn', {
           url: '/signIn',
-          controller: 'AppCtrl',
+          controller: 'SigninCtrl',
           templateUrl: 'app/templates/signin.html'
         });
     }
