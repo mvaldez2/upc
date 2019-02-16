@@ -13,7 +13,8 @@ define([
     'eventService',
     '$firebaseArray',
     '$ionicHistory',
-    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory) {
+    '$timeout',
+    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, $timeout) {
       var ref = firebase.database().ref();
       var userRef = ref.child("googleUsers");
       var users = $firebaseArray(userRef);
@@ -32,16 +33,20 @@ define([
         $scope.event = snapshot.val()
         $scope.summary = snapshot.val().summary
         $scope.location = snapshot.val().location
-        $scope.date = snapshot.val().start.dateTime
+        $scope.startDate = snapshot.val().start.dateTime
+        $scope.endDate = snapshot.val().end.dateTime
         $scope.start =  snapshot.val().start.date
         $scope.end =  snapshot.val().end.date
 
       });
-      
+
+
+
+
 
 
       //format dates
-      var date = new Date($scope.date);
+      var date = new Date($scope.startDate);
       var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       var timeOptions = { hour: 'numeric', minute: 'numeric' };
       $scope.formatedDay = date.toLocaleDateString("en-US", dayOptions);
@@ -58,11 +63,55 @@ define([
       }
 
 
+      // fix date for calendar insert
+
+
       //add event to user
       $scope.addEvent = function(){
         firebase.auth().onAuthStateChanged(function(user) {
           var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+          var googleProfile = googleUser.getBasicProfile();
           var userId = googleUser.getId();
+
+          if ($scope.startDate == undefined) {
+            gapi.client.calendar.events.insert({
+              "calendarId": googleProfile.getEmail(),
+              "resource": {
+                "end": {
+                  "date": $scope.end
+                },
+                "start": {
+                  "date": $scope.start
+                },
+                "location": $scope.location,
+                "summary": $scope.summary
+              }
+            })
+            .then(function(response) {
+                        // Handle the results here (response.result has the parsed body).
+              console.log("Response", response);
+            },
+              function(err) { console.error("Execute error", err); });
+          } else {
+            gapi.client.calendar.events.insert({
+              "calendarId": googleProfile.getEmail(),
+              "resource": {
+                "end": {
+                  "dateTime": $scope.endDate
+                },
+                "start": {
+                  "dateTime": $scope.startDate
+                },
+                "location": $scope.location,
+                "summary": $scope.summary
+              }
+            })
+            .then(function(response) {
+                        // Handle the results here (response.result has the parsed body).
+              console.log("Response", response);
+            },
+              function(err) { console.error("Execute error", err); });
+          }
 
           var userEventRef = ref.child("googleUsers/"+ userId + "/events");
 
@@ -71,6 +120,15 @@ define([
 
           }).then(function() {
              console.log('Event '+ $scope.summary +  ' added')
+             var popup = $ionicPopup.show({
+               title: 'Event Added!',
+               template: $scope.summary + ' has been added to your calendar.',
+
+             });
+
+             $timeout(function() {
+               popup.close(); //close the popup after 3 seconds for some reason
+            }, 750);
 
           }, function(error) {
              console.log(error)

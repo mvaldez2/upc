@@ -68,6 +68,8 @@ define([
       //------------ get current user -------------------
       firebase.auth().onAuthStateChanged(function(user) {
         var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+
+
         var userId = googleUser.getId();
           // User is signed in
           var profileRef = firebase.database().ref('googleUsers/'+ userId+'/');

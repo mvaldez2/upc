@@ -6,7 +6,7 @@
     "upc-app": {
       "hosting": {
         "upc": [
-          "upc-app"
+          "dev-upc-app"
         ]
       }
     }

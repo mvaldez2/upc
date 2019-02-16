@@ -15,7 +15,8 @@ define([
     '$firebaseArray',
     '$firebaseAuth',
     '$state',
-    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $firebaseAuth, $state) {
+    '$timeout',
+    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $firebaseAuth, $state, $timeout) {
       var ref = firebase.database().ref();
       var userRef = ref.child("googleUsers");
       var users = $firebaseArray(userRef);
@@ -53,6 +54,13 @@ define([
           var userId = googleUser.getId();
           ref.child("googleUsers/"+ userId + "/events/"+ id).remove();
         });
+        var popup = $ionicPopup.show({
+          title: 'Event Deleted!',
+        });
+
+        $timeout(function() {
+          popup.close(); //close the popup after 3 seconds for some reason
+       }, 300);
       }
 
       $scope.deleteUser = function() {

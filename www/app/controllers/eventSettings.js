@@ -34,14 +34,8 @@ define([
         $scope.eventId = snapshot.val().eventId
       });
 
-      function makeid() {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (var i = 0; i < 10; i++)
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-        return text;
-      }
-      var eventId = makeid();
+
+
 
       firebase.auth().onAuthStateChanged(function(user) {
         var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
@@ -58,61 +52,8 @@ define([
 
 
 
-      var today = new Date();
-      var dd = today.getDate();
-      var mm = today.getMonth() + 1; //January is 0!
-      var yyyy = today.getFullYear();
-      if (dd < 10) {
-        dd = '0' + dd;
-      }
-      if (mm < 10) {
-        mm = '0' + mm;
-      }
-      today = mm + '/' + dd + '/' + yyyy;
 
 
-
-
-      $scope.submitEventAdmin = function(name, city, street, room, date, time) {
-        firebase.auth().onAuthStateChanged(function(user) {
-          var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-          var userId = googleUser.getId();
-          var profileRef = firebase.database().ref('googleUsers/' + userId);
-          profileRef.on('value', function(snapshot) {
-            $scope.admin = snapshot.val().admin
-          });
-
-          if ($scope.admin){
-            eventsRef.child(eventId).set({
-              name: name,
-              city: city,
-              street: street,
-              room: room,
-              eventId: eventId,
-              date: date,
-              time: time,
-              image: 'https://maps.gstatic.com/tactile/pane/default_geocode-1x.png',
-            })
-            .catch(function(error) {
-              console.log('Error');
-            });
-          } else {
-            console.log("Not permitted")
-            $ionicPopup.alert({
-              title: 'Access Denied',
-              template: 'You need to be an admin to do this.',
-              buttons: [
-              {
-                 text: '<b>OK</b>',
-                 onTap: function() {
-                   console.log('shown');
-                 }
-               }]
-            });
-          }
-          eventId = makeid();
-        });
-      }
 
 
       $scope.sortEvents = function(event) {
@@ -127,33 +68,7 @@ define([
         });
       }
 
-      $scope.deleteEvent = function(id) {
-        firebase.auth().onAuthStateChanged(function(user) {
-          var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-          var userId = googleUser.getId();
-          var profileRef = firebase.database().ref('googleUsers/' + userId);
-          profileRef.on('value', function(snapshot) {
-            $scope.admin = snapshot.val().admin
-          });
 
-          if ($scope.admin){
-            ref.child("events/"+ id).remove();
-          } else {
-            console.log("Not permitted")
-            $ionicPopup.alert({
-              title: 'Access Denied',
-              template: 'You need to be an admin to do this.',
-              buttons: [
-              {
-                 text: '<b>OK</b>',
-                 onTap: function() {
-                   console.log('shown');
-                 }
-               }]
-            });
-          }
-        });
-      }
 
 
 
@@ -161,7 +76,7 @@ define([
 
 
       $scope.makeAdmin = function(id) {
-        $ionicPopup.alert({
+        var popup = $ionicPopup.alert({
           title: 'Give Permission',
           template: 'Are you sure you want to give this user admin access?',
           buttons: [
@@ -179,6 +94,7 @@ define([
               }
             }]
         });
+        
 
       }
 

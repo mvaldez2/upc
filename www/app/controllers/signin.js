@@ -45,6 +45,7 @@ define([
        var today = new Date();
        var day = today.getDate() + 1;
        var month = today.getMonth() + 1;
+       var year = today.getFullYear();
        if (day < 10) {
          day = '0' + day;
        }
@@ -60,11 +61,28 @@ define([
            "maxResults": 20,
            "orderBy": "startTime",
            "singleEvents": true,
-           "timeMin": "2019-"+month.toString()+"-"+day.toString()+"T00:00:00+10:00"})
+           "timeMin": year.toString()+"-"+month.toString()+"-"+day.toString()+"T00:00:00+10:00"})
          .then(function(response) {
            console.log("Response", response);
            $scope.upcEvents = response.result.items;
            db.ref().child('calendar').set({
+             events: $scope.upcEvents
+           });
+         }, function(err) { console.error("Execute error", err); });
+
+
+       }
+       $scope.testSync = function() {
+         $scope.calendarEvents =  gapi.client.calendar.events.list({
+           "calendarId": "miguel.valdez@valpo.edu",
+           "maxResults": 20,
+           "orderBy": "startTime",
+           "singleEvents": true,
+           "timeMin": year.toString()+"-"+month.toString()+"-"+day.toString()+"T00:00:00+10:00"})
+         .then(function(response) {
+           console.log("Response", response);
+           $scope.upcEvents = response.result.items;
+           db.ref().child('myCalendar').set({
              events: $scope.upcEvents
            });
          }, function(err) { console.error("Execute error", err); });
