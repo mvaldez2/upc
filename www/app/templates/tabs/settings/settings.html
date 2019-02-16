@@ -1,9 +1,27 @@
 <ion-view>
   <ion-nav-title>Settings </ion-nav-title>
   <ion-content padding="true">
-
-
+  
     <ion-list>
+        <ion-item class="item-royal item-icon-right" ui-sref="about()">
+            About us
+            <i class="icon ion-information-circled"></i>
+          </ion-item>
+    
+          <ion-item class="item-royal item-icon-right" ui-sref="perks()">
+            Crusader Perks
+            <i class="icon ion-trophy"></i>
+          </ion-item>
+    
+          <ion-item class="item-royal item-icon-right" ui-sref="programs()">
+            Programs and Events
+            <i class="icon ion-location"></i>
+    
+          </ion-item>
+          <ion-item class="item-royal item-icon-right" ui-sref="calendar()">
+            UPC Calendar
+            <i class="icon ion-calendar"></i>
+          </ion-item>
       <ion-item class="item-icon-right  item-royal" ui-sref="profileSettings({id: user.uid})">
         <h2>Profile Settings</h2>
         <i class="icon ion-edit"></i>

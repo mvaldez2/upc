@@ -6,29 +6,6 @@
 
 
 
-    <ion-list>
-
-      <ion-item class="item-royal item-icon-right" ui-sref="about()">
-        About us
-        <i class="icon ion-information-circled"></i>
-      </ion-item>
-
-      <ion-item class="item-royal item-icon-right" ui-sref="perks()">
-        Crusader Perks
-        <i class="icon ion-trophy"></i>
-      </ion-item>
-
-      <ion-item class="item-royal item-icon-right" ui-sref="programs()">
-        Programs and Events
-        <i class="icon ion-location"></i>
-
-      </ion-item>
-      <ion-item class="item-royal item-icon-right" ui-sref="calendar()">
-        UPC Calendar
-        <i class="icon ion-calendar"></i>
-      </ion-item>
-
-    </ion-list>
 
     <h3>Upcoming Events</h3>
     <ion-list>
@@ -62,7 +39,7 @@
       </ion-item>
     </ion-list>
 
-    <h3>My Events</h3>
+    <h3> My Events</h3>
     <ion-list>
       <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
         ng-repeat="place in userEvents | orderBy: start.dateTime | limitTo: 5"
