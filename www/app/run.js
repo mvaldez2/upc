@@ -6,7 +6,7 @@ define([
   app.run([
     '$ionicPlatform',
     function ($ionicPlatform) {
-      $ionicPlatform.ready(function() {
+      $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -21,7 +21,7 @@ define([
     }
   ]);
 
-  app.config(function() {
+  app.config(function () {
     var config = {
       apiKey: "AIzaSyBeXrlBrm8mZIV9KRrCXXOT90BfJ_drxRQ",
       authDomain: "upc-app.firebaseapp.com",
@@ -31,19 +31,19 @@ define([
 
     };
     firebase.initializeApp(config);
-});
+  });
 
-  app.config(function($sceDelegateProvider) {
-   $sceDelegateProvider.resourceUrlWhitelist([
+  app.config(function ($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
 
-     'self',
-     'app/templates/**',
-     'app/templates/menu/**',
-     'C:/Users/miguel24valdez/Documents/upc/www/app/templates/menu/**',
-     ' http://localhost:8100/app/templates/menu/**']);
-   });
+      'self',
+      'app/templates/**',
+      'app/templates/menu/**',
+      'C:/Users/miguel24valdez/Documents/upc/www/app/templates/menu/**',
+      ' http://localhost:8100/app/templates/menu/**']);
+  });
 
-   app.value('GoogleApp', {
+  app.value('GoogleApp', {
     apiKey: 'AIzaSyBeXrlBrm8mZIV9KRrCXXOT90BfJ_drxRQ',
     clientId: '188526661745-b4m67m1md52qebfo5kfn00aqh8r58sn1.apps.googleusercontent.com',
     scopes: [
@@ -54,7 +54,7 @@ define([
       'https://www.googleapis.com/auth/calendar',
       // ...
     ]
-    
+
   });
 
 

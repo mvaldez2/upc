@@ -28,22 +28,18 @@ define([
 
       var eventRef = firebase.database().ref('calendar/events/' + $stateParams.id);
       //get current event
-      eventRef.on('value', function(snapshot) {
+      eventRef.on('value', function (snapshot) {
         console.log(snapshot.val());
         $scope.event = snapshot.val()
         $scope.summary = snapshot.val().summary
         $scope.location = snapshot.val().location
         $scope.startDate = snapshot.val().start.dateTime
         $scope.endDate = snapshot.val().end.dateTime
-        $scope.start =  snapshot.val().start.date
-        $scope.end =  snapshot.val().end.date
+        $scope.start = snapshot.val().start.date
+        $scope.end = snapshot.val().end.date
+        $scope.id = snapshot.val().id
 
       });
-
-
-
-
-
 
       //format dates
       var date = new Date($scope.startDate);
@@ -53,7 +49,7 @@ define([
       var time = date.toLocaleDateString("en-US", timeOptions);
       try {
         $scope.formatedTime = new Intl.DateTimeFormat("en-US", timeOptions).format(date);
-      } catch(e) {
+      } catch (e) {
         date = new Date($scope.start);
         var dateEnd = new Date($scope.end);
         var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -67,11 +63,12 @@ define([
 
 
       //add event to user
-      $scope.addEvent = function(){
-        firebase.auth().onAuthStateChanged(function(user) {
+      $scope.addEvent = function () {
+        firebase.auth().onAuthStateChanged(function (user) {
           var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
           var googleProfile = googleUser.getBasicProfile();
           var userId = googleUser.getId();
+          $scope.userId = googleUser.getId();
 
           if ($scope.startDate == undefined) {
             gapi.client.calendar.events.insert({
@@ -87,11 +84,11 @@ define([
                 "summary": $scope.summary
               }
             })
-            .then(function(response) {
-                        // Handle the results here (response.result has the parsed body).
-              console.log("Response", response);
-            },
-              function(err) { console.error("Execute error", err); });
+              .then(function (response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              },
+                function (err) { console.error("Execute error", err); });
           } else {
             gapi.client.calendar.events.insert({
               "calendarId": googleProfile.getEmail(),
@@ -106,38 +103,39 @@ define([
                 "summary": $scope.summary
               }
             })
-            .then(function(response) {
-                        // Handle the results here (response.result has the parsed body).
-              console.log("Response", response);
-            },
-              function(err) { console.error("Execute error", err); });
+              .then(function (response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              },
+                function (err) { console.error("Execute error", err); });
           }
 
-          var userEventRef = ref.child("googleUsers/"+ userId + "/events");
+          var userEventRef = ref.child("googleUsers/" + userId + "/events");
 
           userEventRef.child($stateParams.id).set({
             event: $scope.event,
 
-          }).then(function() {
-             console.log('Event '+ $scope.summary +  ' added')
-             var popup = $ionicPopup.show({
-               title: 'Event Added!',
-               template: $scope.summary + ' has been added to your calendar.',
+          }).then(function () {
+            console.log('Event ' + $scope.summary + ' added')
+            var popup = $ionicPopup.show({
+              title: 'Event Added!',
+              template: $scope.summary + ' has been added to your calendar.',
 
-             });
+            });
 
-             $timeout(function() {
-               popup.close(); //close the popup after 3 seconds for some reason
+            $timeout(function () {
+              popup.close(); //close the popup after 3 seconds for some reason
             }, 750);
 
-          }, function(error) {
-             console.log(error)
+          }, function (error) {
+            console.log(error)
           });
 
         });
 
-
       }
+
+
 
 
       $scope.call = function () {
@@ -154,12 +152,12 @@ define([
 
       $scope.map = function () {
         if (ionic.Platform.isIOS()) {
-          $window.open('maps://?q=' + $scope.location , '_system');
+          $window.open('maps://?q=' + $scope.location, '_system');
         } else if (ionic.Platform.is('android')) {
-          $window.open('geo://0,0?q=' + '(' + $scope.location  + ')&z=15', '_system');
+          $window.open('geo://0,0?q=' + '(' + $scope.location + ')&z=15', '_system');
 
         } else {
-          $window.open('https://www.google.com/maps/search/'+ $scope.location );
+          $window.open('https://www.google.com/maps/search/' + $scope.location);
         }
       };
 

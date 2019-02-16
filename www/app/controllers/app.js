@@ -42,23 +42,23 @@ define([
       $scope.googleUsers = $firebaseArray(gUsersRef);
 
       // ------- formats calendar dates -----------
-      $scope.dateFormat2 = function(place){
+      $scope.dateFormat2 = function (place) {
         var eventRef = firebase.database().ref('calendar/events/' + place.$id);
-        eventRef.on('value', function(snapshot) {
+        eventRef.on('value', function (snapshot) {
           $scope.dateTime = snapshot.val().start.dateTime
-          $scope.start =  snapshot.val().start.date
-          $scope.end =  snapshot.val().end.date
+          $scope.start = snapshot.val().start.date
+          $scope.end = snapshot.val().end.date
         });
         var date = new Date($scope.dateTime);
-        var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',  hour: 'numeric', minute: 'numeric' };
+        var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
         var finalDate = date.toLocaleDateString("en-US", dayOptions);
-        if (finalDate == 'Invalid Date'){
+        if (finalDate == 'Invalid Date') {
           date = new Date($scope.start);
           var end = new Date($scope.end);
           var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
           var startDate = date.toLocaleDateString("en-US", dayOptions);
           var endDate = end.toLocaleDateString("en-US", dayOptions);
-          finalDate = startDate +" - " + endDate;
+          finalDate = startDate + " - " + endDate;
 
         }
         return finalDate;
@@ -66,21 +66,21 @@ define([
       }
 
       //------------ get current user -------------------
-      firebase.auth().onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged(function (user) {
         var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
 
 
         var userId = googleUser.getId();
-          // User is signed in
-          var profileRef = firebase.database().ref('googleUsers/'+ userId+'/');
-          profileRef.on('value', function(snapshot) {
-            console.log(snapshot.val())
-            $scope.name = snapshot.val().name
-            $scope.photoUrl = snapshot.val().photoUrl
-            $scope.email = snapshot.val().email
-            $scope.event = snapshot.val().events
-            $scope.admin = snapshot.val().admin
-          });
+        // User is signed in
+        var profileRef = firebase.database().ref('googleUsers/' + userId + '/');
+        profileRef.on('value', function (snapshot) {
+          console.log(snapshot.val())
+          $scope.name = snapshot.val().name
+          $scope.photoUrl = snapshot.val().photoUrl
+          $scope.email = snapshot.val().email
+          $scope.event = snapshot.val().events
+          $scope.admin = snapshot.val().admin
+        });
       });
 
 
@@ -90,43 +90,43 @@ define([
       //--------- hides tabs on pages --------------
       $scope.shouldHide = function () {
         switch ($state.current.name) {
-            case 'profile':
-                return true;
-            case 'event':
-                return true;
-            case 'profileSettings':
-              return true;
-            case 'eventSettings':
-              return true;
-            case 'about':
-                return true;
-            case 'perks':
-              return true;
-            case 'programs':
-              return true;
-            case 'calendar':
-              return true;
-            case 'signIn':
-              return true;
-            default:
-                return false;
+          case 'profile':
+            return true;
+          case 'event':
+            return true;
+          case 'profileSettings':
+            return true;
+          case 'eventSettings':
+            return true;
+          case 'about':
+            return true;
+          case 'perks':
+            return true;
+          case 'programs':
+            return true;
+          case 'calendar':
+            return true;
+          case 'signIn':
+            return true;
+          default:
+            return false;
         }
       }
 
       $scope.signOff = function () {
         $firebaseAuth().$signOut()
 
-        .then(function() {
-           console.log('Signout Succesfull')
-           $state.go("signIn")
+          .then(function () {
+            console.log('Signout Succesfull')
+            $state.go("signIn")
 
-        }, function(error) {
-           console.log('Signout Failed')
-        });
+          }, function (error) {
+            console.log('Signout Failed')
+          });
       }
 
       //might be used for reload after submitting of something
-      $scope.reloadRoute = function() {
+      $scope.reloadRoute = function () {
         $window.location.reload();
       }
 
@@ -169,8 +169,8 @@ define([
 
       });*/
 
-      GAPI.init().then(function() {
-      }, function(){ console.log('Something went wrong yes?'); });
+      GAPI.init().then(function () {
+      }, function () { console.log('Something went wrong yes?'); });
 
 
 

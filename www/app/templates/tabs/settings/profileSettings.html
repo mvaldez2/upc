@@ -18,33 +18,35 @@
       </div>
 
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Update</b> <i class="icon ion-edit" ng-click="updateName(newName)" ></i></ion-item>
-          <br>
+        <ion-item class="item-divider item-icon-right"><b>Update</b> <i class="icon ion-edit"
+            ng-click="updateName(newName)"></i></ion-item>
+        <br>
         <label class="item item-input">
           <input type="text" placeholder="New Name" ng-model='newName'>
         </label>
-          <br>
+        <br>
         <button class="button button-royal" ng-click="updateName(newName)"> Update </button>
 
-      <br>
         <br>
-      <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i></ion-item>
-        <ion-item ng-repeat="event in userEvents" class="item-icon-right">
-          {{event.event.summary}}  <i class="icon ion-trash-b" ng-click="deleteEvent(event.$id)"> </i>
-        </ion-item>
-      </ion-list>
-      <br>
-      <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i></ion-item>
-        <ion-item class="item-icon-right" ng-click="mail()">
-          {{email}}
-          <i class="icon ion-ios-email"></i>
-        </ion-item>
+        <br>
+        <ion-list>
+          <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i>
+          </ion-item>
+          <ion-item ng-repeat="event in userEvents" class="item-icon-right">
+            {{event.event.summary}} <i class="icon ion-trash-b" ng-click="deleteEvent(event.$id)"> </i>
+          </ion-item>
+        </ion-list>
+        <br>
+        <ion-list>
+          <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i></ion-item>
+          <ion-item class="item-icon-right" ng-click="mail()">
+            {{email}}
+            <i class="icon ion-ios-email"></i>
+          </ion-item>
 
 
 
-      </ion-list>
+        </ion-list>
     </div>
   </ion-content>
 

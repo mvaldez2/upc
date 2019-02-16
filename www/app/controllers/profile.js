@@ -22,14 +22,14 @@ define([
 
       //individual user info
       var profileRef = firebase.database().ref('googleUsers/' + $stateParams.id);
-      profileRef.on('value', function(snapshot) {
+      profileRef.on('value', function (snapshot) {
         $scope.name = snapshot.val().name
         $scope.photoUrl = snapshot.val().photoUrl
         $scope.email = snapshot.val().email
         $scope.uid = snapshot.val().uid
       });
 
-      var userEventRef = ref.child("googleUsers/"+ $stateParams.id + "/events");
+      var userEventRef = ref.child("googleUsers/" + $stateParams.id + "/events");
       var userEvents = $firebaseArray(userEventRef);
       $scope.userEvents = $firebaseArray(userEventRef);
 

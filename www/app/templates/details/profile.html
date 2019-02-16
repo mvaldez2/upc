@@ -19,7 +19,8 @@
       </div>
 
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Info</b> <i class="icon ion-information-circled"></i></ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Info</b> <i class="icon ion-information-circled"></i>
+        </ion-item>
         <ion-item>
           {{ name}}<br>
 
@@ -27,7 +28,8 @@
       </ion-list>
       <br>
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i></ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i>
+        </ion-item>
         <ion-item ng-repeat="event in userEvents">
           {{event.summary}}
         </ion-item>

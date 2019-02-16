@@ -6,35 +6,35 @@
 
 
 
-  <ion-list>
+    <ion-list>
 
-    <ion-item class="item-royal item-icon-right" ui-sref="about()" >
-      About us
-    <i class="icon ion-information-circled"></i>
-    </ion-item>
+      <ion-item class="item-royal item-icon-right" ui-sref="about()">
+        About us
+        <i class="icon ion-information-circled"></i>
+      </ion-item>
 
-    <ion-item class="item-royal item-icon-right" ui-sref="perks()" >
-      Crusader Perks
-    <i class="icon ion-trophy"></i>
-    </ion-item>
+      <ion-item class="item-royal item-icon-right" ui-sref="perks()">
+        Crusader Perks
+        <i class="icon ion-trophy"></i>
+      </ion-item>
 
-    <ion-item class="item-royal item-icon-right" ui-sref="programs()" >
-      Programs and Events
-    <i class="icon ion-location"></i>
+      <ion-item class="item-royal item-icon-right" ui-sref="programs()">
+        Programs and Events
+        <i class="icon ion-location"></i>
 
-    </ion-item>
-    <ion-item class="item-royal item-icon-right" ui-sref="calendar()" >
-      UPC Calendar
-    <i class="icon ion-calendar"></i>
-    </ion-item>
+      </ion-item>
+      <ion-item class="item-royal item-icon-right" ui-sref="calendar()">
+        UPC Calendar
+        <i class="icon ion-calendar"></i>
+      </ion-item>
 
-  </ion-list>
+    </ion-list>
 
-  <h3>Upcoming Events</h3>
-  <ion-list>
-  <ion-item class="item-icon-right  item-royal" ui-sref="event({id: $index})"
-  ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 5"
-  ng-init="place.start.dateTime= dateFormat2(place)">
+    <h3>Upcoming Events</h3>
+    <ion-list>
+      <ion-item class="item-icon-right  item-royal" ui-sref="event({id: $index})"
+        ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 5"
+        ng-init="place.start.dateTime= dateFormat2(place)">
 
         <h2>{{place.summary}}</h2>
         <p class="light">
@@ -49,23 +49,24 @@
 
 
 
-  <h3>People</h3>
-  <ion-list>
-    <ion-item class="item-icon-right item-avatar item-royal" ui-sref="profile({id: user.uid})" ng-repeat="user in googleUsers | limitTo: 5">
+    <h3>People</h3>
+    <ion-list>
+      <ion-item class="item-icon-right item-avatar item-royal" ui-sref="profile({id: user.uid})"
+        ng-repeat="user in googleUsers | limitTo: 5">
         <img ng-src="{{user.photoUrl}}">
         <h2>{{user.name}}</h2>
-          <p>
+        <p>
 
-          </p>
+        </p>
         <i class="icon ion-ios-arrow-right"></i>
-    </ion-item>
-  </ion-list>
+      </ion-item>
+    </ion-list>
 
-<h3>My Events</h3>
-  <ion-list>
-  <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
-  ng-repeat="place in userEvents | orderBy: start.dateTime | limitTo: 5"
-  ng-init="place.event.start.dateTime= dateFormat2(place)">
+    <h3>My Events</h3>
+    <ion-list>
+      <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
+        ng-repeat="place in userEvents | orderBy: start.dateTime | limitTo: 5"
+        ng-init="place.event.start.dateTime= dateFormat2(place)">
 
         <h2>{{place.event.summary}}</h2>
         <p class="light">
@@ -79,8 +80,8 @@
       </ion-item>
     </ion-list>
 
-  <br>
-   <br>
+    <br>
+    <br>
     <br>
 
 

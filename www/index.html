@@ -1,99 +1,102 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>UPC</title>
 
-    <!-- compiled css output -->
-    <link href="css/ionic.app.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title>UPC</title>
 
-    
- <script src="https://apis.google.com/js/client.js?onload=onClientLoad"></script>
-
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="lib/firebase/firebase.js"></script>
-    <script src="lib/angularfire/dist/angularfire.min.js"></script>
-
-    <script src="lib/www/lib/ngGAPI/gapi.js"></script>
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-    <!-- load requirejs config -->
-    <script src="main.js"></script>
-    <!-- load requirejs -->
-    <script src="lib/requirejs/require.min.js"></script>
-    <!-- load boot-script - it loads configs, routes, runs and bootstraps the app -->
-    <script src="app/boot.js"></script>
+  <!-- compiled css output -->
+  <link href="css/ionic.app.css" rel="stylesheet">
 
 
+  <script src="https://apis.google.com/js/client.js?onload=onClientLoad"></script>
+
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="lib/firebase/firebase.js"></script>
+  <script src="lib/angularfire/dist/angularfire.min.js"></script>
+
+  <script src="lib/www/lib/ngGAPI/gapi.js"></script>
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+  <!-- load requirejs config -->
+  <script src="main.js"></script>
+  <!-- load requirejs -->
+  <script src="lib/requirejs/require.min.js"></script>
+  <!-- load boot-script - it loads configs, routes, runs and bootstraps the app -->
+  <script src="app/boot.js"></script>
 
 
-  </head>
-  <body ng-controller="AppCtrl" ng-show="ready" class="ng-hide">
-    <ion-side-menus>
-      <!-- Left menu -->
-      <ion-side-menu side="left">
-        <ion-header-bar class="bar-energized">
-          <h1 class="title item-icon-center" ng-click="login()"> <i class="icon ion-log-in"></i></h1>
-        </ion-header-bar>
-        <ion-content class="background-royal">
-          <!--<ion-list>
+
+
+</head>
+
+<body ng-controller="AppCtrl" ng-show="ready" class="ng-hide">
+  <ion-side-menus>
+    <!-- Left menu -->
+    <ion-side-menu side="left">
+      <ion-header-bar class="bar-energized">
+        <h1 class="title item-icon-center" ng-click="login()"> <i class="icon ion-log-in"></i></h1>
+      </ion-header-bar>
+      <ion-content class="background-royal">
+        <!--<ion-list>
             <ion-item class="item-royal item-icon-right" ui-sref="info({id: page.id})" ng-repeat="page in pages track by page.id" >
               <a href="{{page.content}}">{{page.title}} </a>
               <i class="icon" ng-class="page.icon"></i>
             </ion-item> -->
 
-            <ion-item class="item-royal item-icon-right" ui-sref="about()" >
-              About us
-            <i class="icon ion-information-circled"></i>
-            </ion-item>
+        <ion-item class="item-royal item-icon-right" ui-sref="about()">
+          About us
+          <i class="icon ion-information-circled"></i>
+        </ion-item>
 
-            <ion-item class="item-royal item-icon-right" ui-sref="perks()" >
-              Crusader Perks
-            <i class="icon ion-trophy"></i>
-            </ion-item>
+        <ion-item class="item-royal item-icon-right" ui-sref="perks()">
+          Crusader Perks
+          <i class="icon ion-trophy"></i>
+        </ion-item>
 
-            <ion-item class="item-royal item-icon-right" ui-sref="programs()" >
-              Programs and Events
-            <i class="icon ion-location"></i>
+        <ion-item class="item-royal item-icon-right" ui-sref="programs()">
+          Programs and Events
+          <i class="icon ion-location"></i>
 
-            </ion-item>
-            <ion-item class="item-royal item-icon-right" ui-sref="calendar()" >
-              UPC Calendar
-            <i class="icon ion-calendar"></i>
-            </ion-item>
+        </ion-item>
+        <ion-item class="item-royal item-icon-right" ui-sref="calendar()">
+          UPC Calendar
+          <i class="icon ion-calendar"></i>
+        </ion-item>
 
-          </ion-list>
-        </ion-content>
-      </ion-side-menu>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
 
-      <div class="tabs tabs-icon-top" ng-class="{'tabs-item-hide': shouldHide()}" >
-        <a class="tab-item" ui-sref="dashboard()" >
-          <i class="icon ion-home" ></i>
-          Home
-        </a>
-        <a class="tab-item" ui-sref="search()">
-          <i class="icon ion-search"></i>
-          Search
-        </a>
-        <a class="tab-item" ui-sref="settings()">
-          <i class="icon ion-gear-a"></i>
-          Settings
-        </a>
+    <div class="tabs tabs-icon-top" ng-class="{'tabs-item-hide': shouldHide()}">
+      <a class="tab-item" ui-sref="dashboard()">
+        <i class="icon ion-home"></i>
+        Home
+      </a>
+      <a class="tab-item" ui-sref="search()">
+        <i class="icon ion-search"></i>
+        Search
+      </a>
+      <a class="tab-item" ui-sref="settings()">
+        <i class="icon ion-gear-a"></i>
+        Settings
+      </a>
     </div>
 
 
-        <!-- The nav bar that will be updated as we navigate -->
-        <ion-nav-bar class="bar-energized">
-           <ion-nav-back-button></ion-nav-back-button>
+    <!-- The nav bar that will be updated as we navigate -->
+    <ion-nav-bar class="bar-energized">
+      <ion-nav-back-button></ion-nav-back-button>
 
-        </ion-nav-bar>
+    </ion-nav-bar>
 
-        <!-- where the initial view template will be rendered -->
-        <ion-nav-view>
-        </ion-nav-view>
+    <!-- where the initial view template will be rendered -->
+    <ion-nav-view>
+    </ion-nav-view>
 
 
-    </ion-side-menus>
-  </body>
+  </ion-side-menus>
+</body>
+
 </html>

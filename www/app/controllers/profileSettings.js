@@ -28,10 +28,10 @@ define([
       $scope.users = $firebaseArray(userRef);
 
 
-      firebase.auth().onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged(function (user) {
         var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
         $scope.userId = googleUser.getId();
-        var userEventRef = ref.child("googleUsers/"+ $scope.userId+ "/events");
+        var userEventRef = ref.child("googleUsers/" + $scope.userId + "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
 
@@ -40,31 +40,31 @@ define([
 
 
 
-      $scope.updateName = function(newName) {
-        firebase.auth().onAuthStateChanged(function(user) {
+      $scope.updateName = function (newName) {
+        firebase.auth().onAuthStateChanged(function (user) {
           var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
           var userId = googleUser.getId();
-          db.ref("googleUsers/"+ userId+ "/name").set(newName);
+          db.ref("googleUsers/" + userId + "/name").set(newName);
         });
       }
 
-      $scope.deleteEvent = function(id) {
-        firebase.auth().onAuthStateChanged(function(user) {
+      $scope.deleteEvent = function (id) {
+        firebase.auth().onAuthStateChanged(function (user) {
           var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
           var userId = googleUser.getId();
-          ref.child("googleUsers/"+ userId + "/events/"+ id).remove();
+          ref.child("googleUsers/" + userId + "/events/" + id).remove();
         });
         var popup = $ionicPopup.show({
           title: 'Event Deleted!',
         });
 
-        $timeout(function() {
+        $timeout(function () {
           popup.close(); //close the popup after 3 seconds for some reason
-       }, 300);
+        }, 300);
       }
 
-      $scope.deleteUser = function() {
-        firebase.auth().onAuthStateChanged(function(user) {
+      $scope.deleteUser = function () {
+        firebase.auth().onAuthStateChanged(function (user) {
           var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
           var userId = googleUser.getId();
           ref.child("googleUsers/" + userId).remove();
@@ -72,18 +72,18 @@ define([
         $state.go("dashboard");
       }
 
-      firebase.auth().onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged(function (user) {
         var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
         var userId = googleUser.getId();
-          // User is signed in
-          var profileRef = firebase.database().ref('googleUsers/'+ userId+'/');
-          profileRef.on('value', function(snapshot) {
-            console.log(snapshot.val())
-            $scope.name = snapshot.val().name
-            $scope.photoUrl = snapshot.val().photoUrl
-            $scope.email = snapshot.val().email
-            $scope.event = snapshot.val().events
-          });
+        // User is signed in
+        var profileRef = firebase.database().ref('googleUsers/' + userId + '/');
+        profileRef.on('value', function (snapshot) {
+          console.log(snapshot.val())
+          $scope.name = snapshot.val().name
+          $scope.photoUrl = snapshot.val().photoUrl
+          $scope.email = snapshot.val().email
+          $scope.event = snapshot.val().events
+        });
 
       });
 

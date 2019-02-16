@@ -1,4 +1,4 @@
-<ion-view >
+<ion-view>
   <ion-nav-title>Admin Settings </ion-nav-title>
   <ion-content padding="true">
 
@@ -8,26 +8,27 @@
     </label>
     <ion-list>
       <ion-item class="item-icon-right item-avatar item-royal" ng-click="makeAdmin(user.$id)"
-      ng-repeat='user in googleUsers | filter:searchText | limitTo: 1' ng-if="!user.admin">
-          <img ng-src="{{user.photoUrl}}">
-          <h2>{{user.name}}</h2>
+        ng-repeat='user in googleUsers | filter:searchText | limitTo: 1' ng-if="!user.admin">
+        <img ng-src="{{user.photoUrl}}">
+        <h2>{{user.name}}</h2>
       </ion-item>
 
       <br>
       <ion-list>
         <h3>Admins</h3>
         <ion-list>
-          <ion-item class="item-icon-right item-avatar item-royal"
-          ng-repeat="user in googleUsers | limitTo: 5" ng-if="user.admin && !user.owner">
-              <img ng-src="{{user.photoUrl}}">
-              <h2>{{user.name}}</h2>
-                <i class="icon ion-ios-arrow-left"></i>
-                <ion-option-button class="button-assertive" ng-click="removeAdmin(user.$id)"><i class="icon ion-trash-a"></i></ion-option-button>
+          <ion-item class="item-icon-right item-avatar item-royal" ng-repeat="user in googleUsers | limitTo: 5"
+            ng-if="user.admin && !user.owner">
+            <img ng-src="{{user.photoUrl}}">
+            <h2>{{user.name}}</h2>
+            <i class="icon ion-ios-arrow-left"></i>
+            <ion-option-button class="button-assertive" ng-click="removeAdmin(user.$id)"><i
+                class="icon ion-trash-a"></i></ion-option-button>
 
           </ion-item>
         </ion-list>
 
-    <!--<h3>Add Event</h3>
+        <!--<h3>Add Event</h3>
 
     <div class="list">
       <label class="item item-input">

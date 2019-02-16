@@ -18,16 +18,17 @@
       <div class="text-center">
 
         <br>
-        <button class=" button button-royal" ng-click="addEvent()">Add  <i class=" ion-plus-round"></i></button>
+        <button class=" button button-royal" ng-click="addEvent()">Add <i class=" ion-plus-round"></i></button>
         <br>
-         <br>
+        <br>
       </div>
 
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i></ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i>
+        </ion-item>
         <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map()">
           {{location}} <br>
-         
+
 
           <i class="icon ion-map"></i>
         </ion-item>
@@ -35,7 +36,8 @@
       </ion-list>
       <br>
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i class="icon ion-ios-calendar-outline"></i></ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i class="icon ion-ios-calendar-outline"></i>
+        </ion-item>
         <ion-item>
           {{formatedDay}}<br>
           {{formatedTime}}{{dateEnd}}
@@ -45,7 +47,7 @@
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i></ion-item>
         <ion-item class="item-icon-right" ng-click="call()">
-          (219) 464-5415  ex.5194
+          (219) 464-5415 ex.5194
           <i class="icon ion-android-call"></i>
         </ion-item>
         <ion-item class="item-icon-right" ng-click="mail()">

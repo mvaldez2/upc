@@ -28,18 +28,18 @@ define([
       };
       var ref = firebase.database().ref();
 
-      firebase.auth().onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged(function (user) {
         var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
         var googleProfile = googleUser.getBasicProfile();
         var userId = googleUser.getId();
-        var userEventRef = ref.child("googleUsers/"+ userId+ "/events");
+        var userEventRef = ref.child("googleUsers/" + userId + "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
 
       });
 
 
-      
+
 
       $state.go('dashboard');
 
