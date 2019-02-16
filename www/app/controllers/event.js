@@ -37,6 +37,7 @@ define([
         $scope.end =  snapshot.val().end.date
 
       });
+      
 
 
       //format dates

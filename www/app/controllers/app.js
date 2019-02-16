@@ -37,9 +37,9 @@ define([
 
 
       // -------- get google users -----------------
-      var gUserRef = ref.child("googleUsers");
-      var googleUsers = $firebaseArray(gUserRef);
-      $scope.googleUsers = $firebaseArray(gUserRef);
+      var gUsersRef = ref.child("googleUsers");
+      var googleUsers = $firebaseArray(gUsersRef);
+      $scope.googleUsers = $firebaseArray(gUsersRef);
 
       // ------- formats calendar dates -----------
       $scope.dateFormat2 = function(place){
@@ -56,7 +56,6 @@ define([
           date = new Date($scope.start);
           var end = new Date($scope.end);
           var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-          console.log("date: "+date);
           var startDate = date.toLocaleDateString("en-US", dayOptions);
           var endDate = end.toLocaleDateString("en-US", dayOptions);
           finalDate = startDate +" - " + endDate;
@@ -65,6 +64,25 @@ define([
         return finalDate;
 
       }
+
+      //------------ get current user -------------------
+      firebase.auth().onAuthStateChanged(function(user) {
+        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        var userId = googleUser.getId();
+          // User is signed in
+          var profileRef = firebase.database().ref('googleUsers/'+ userId+'/');
+          profileRef.on('value', function(snapshot) {
+            console.log(snapshot.val())
+            $scope.name = snapshot.val().name
+            $scope.photoUrl = snapshot.val().photoUrl
+            $scope.email = snapshot.val().email
+            $scope.event = snapshot.val().events
+            $scope.admin = snapshot.val().admin
+          });
+      });
+
+
+
 
 
       //--------- hides tabs on pages --------------

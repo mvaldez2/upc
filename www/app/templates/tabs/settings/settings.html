@@ -8,8 +8,8 @@
         <h2>Profile Settings</h2>
         <i class="icon ion-edit"></i>
     </ion-item>
-    <ion-item class="item-icon-right  item-royal" ui-sref="eventSettings()" >
-        <h2>Event Settings</h2>
+    <ion-item class="item-icon-right item-royal" ng-if="admin" ui-sref="eventSettings()" >
+        <h2>Admin Settings</h2>
         <i class="icon ion-edit"></i>
     </ion-item>
     <ion-item class="item-icon-right item-royal" ng-click="signOff()"" >

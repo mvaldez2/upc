@@ -49,7 +49,13 @@ define([
         var userEventRef = ref.child("googleUsers/"+ userId+ "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
-      });
+        var profileRef = firebase.database().ref('googleUsers/' + userId);
+        profileRef.on('value', function(snapshot) {
+          $scope.admin = snapshot.val().admin
+          $scope.owner = snapshot.val().owner
+          });
+        });
+
 
 
       var today = new Date();
@@ -150,21 +156,69 @@ define([
       }
 
 
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in
-          var profileRef = firebase.database().ref('users/'+ user.uid+'/');
-          profileRef.on('value', function(snapshot) {
-            
-            $scope.name = snapshot.val().name
-            $scope.photoUrl = snapshot.val().photoUrl
-            $scope.email = snapshot.val().email
-            $scope.event = snapshot.val().events
+
+
+
+
+      $scope.makeAdmin = function(id) {
+        $ionicPopup.alert({
+          title: 'Give Permission',
+          template: 'Are you sure you want to give this user admin access?',
+          buttons: [
+          {
+             text: '<b>OK</b>',
+             onTap:  function(){
+               db.ref("googleUsers/"+ id+ "/admin").set(true)
+             }
+           },
+           {
+              text: '<b>Cancel</b>',
+              onTap:  function(){
+
+                console.log('canceled');
+              }
+            }]
+        });
+
+      }
+
+      $scope.removeAdmin = function(id) {
+        if ($scope.owner){
+          $ionicPopup.alert({
+            title: 'Remove Admin Access',
+            template: 'Are you sure you want to remove admin access?',
+            buttons: [
+            {
+               text: '<b>OK</b>',
+               onTap:  function(){
+                 db.ref("googleUsers/"+ id+ "/admin").set(false)
+               }
+             },
+             {
+                text: '<b>Cancel</b>',
+                onTap:  function(){
+
+                  console.log('canceled');
+                }
+              }]
           });
         } else {
-          console.log("No user")
+          console.log("Not permitted")
+          $ionicPopup.alert({
+            title: 'Access Denied',
+            template: 'You need to be an Owner to do this.',
+            buttons: [
+            {
+               text: '<b>OK</b>',
+               onTap: function() {
+                 console.log('shown');
+               }
+             }]
+          });
         }
-      });
+
+
+      }
 
 
 

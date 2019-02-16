@@ -109,25 +109,28 @@ define([
                        email: googleProfile.getEmail(),
                        photoUrl: googleProfile.getImageUrl(),
                        uid: googleProfile.getId(),
-                       admin: false,}, onComplete);
-                     }
+                       admin: false,
+                       owner: false,
+                     }, onComplete);
+                    }
                  });
              });
-           }).then(function(){ //can't remember what this was for, it can be deleted
-             firebase.auth().onAuthStateChanged(function(user) {
-               var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-               var googleProfile = googleUser.getBasicProfile();
-               var userId = googleUser.getId();
-               var userEventRef = ref.child("googleUsers/"+ userId+ "/events");
-               var userEvents = $firebaseArray(userEventRef);
-               $scope.gUserEvents = $firebaseArray(ref.child('googleUsers/'+ userId+ '/events'));
-             });
+           }).then(function(){
+
              //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
              $scope.sync();
              $state.go("dashboard"); //go to dashboard after sign in
            });
 
-    }
+         }
+
+         $ionicHistory.nextViewOptions({
+           disableBack: true,
+           disableAnimate: false,
+           historyRoot: false,
+           cache: false
+
+         });
   }
   ]);
 });

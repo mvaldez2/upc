@@ -4,7 +4,7 @@
   <ion-content padding="true">
 
 
-  
+
 
   <ion-list>
 
@@ -65,13 +65,13 @@
   <ion-list>
   <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
   ng-repeat="place in userEvents | orderBy: start.dateTime | limitTo: 5"
-  ng-init="place.start.dateTime= dateFormat2(place)">
+  ng-init="place.event.start.dateTime= dateFormat2(place)">
 
         <h2>{{place.event.summary}}</h2>
         <p class="light">
           <b>{{place.event.location}}</b> <br>
           {{place.event.start.dateTime}}
-          
+
         </p>
 
 
