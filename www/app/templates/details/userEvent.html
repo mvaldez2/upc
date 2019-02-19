@@ -1,0 +1,78 @@
+<ion-view ng-int="load()">
+
+    <ion-nav-title>Event</ion-nav-title>
+  
+    <ion-content padding="true">
+      <ion-refresher class="spinner-balanced" on-refresh="reload()"></ion-refresher>
+      <div class="text-center">
+        <ion-spinner class="spinner-balanced" ng-show="loading"></ion-spinner>
+      </div>
+      <div ng-show="!loading">
+  
+  
+  
+  
+        <h4><span class="name"> </span><b></b> <small></small></h4>
+  
+        <h3 style="text-align:center">{{uSummary}}</h3>
+        <div class="text-center">
+  
+          <br>
+          
+          
+        </div>
+  
+        <ion-list>
+          <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i>
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map()">
+            {{uLocation}} <br>
+  
+  
+            <i class="icon ion-map"></i>
+          </ion-item>
+  
+        </ion-list>
+        <br>
+        <ion-list>
+          <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i class="icon ion-ios-calendar-outline"></i>
+          </ion-item>
+          <ion-item>
+            {{formatedDay}}<br>
+            {{formatedTime}}{{dateEnd}}
+          </ion-item>
+        </ion-list>
+        <br>
+        <ion-list>
+          <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i></ion-item>
+          <ion-item class="item-icon-right" ng-click="call()">
+            (219) 464-5415 ex.5194
+            <i class="icon ion-android-call"></i>
+          </ion-item>
+          <ion-item class="item-icon-right" ng-click="mail()">
+            upc@valpo.edu
+            <i class="icon ion-ios-email"></i>
+          </ion-item>
+          <ion-item class="item-icon-right" ng-click="website()">
+            Visit our homepage
+            <i class="icon ion-ios-home"></i>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-content>
+    <ion-footer-bar class="bar-stable">
+      <div class="buttons">
+        <div class="button button-clear" ng-disabled="loading" ng-click="map()">
+          <i class="icon ion-map"></i> Maps
+        </div>
+      </div>
+  
+      <h1 class="title"></h1>
+      <div class="buttons">
+        <div class="button button-clear" ng-disabled="loading" ng-click="report()">
+          Report
+          <i class="icon ion-android-alert"></i>
+        </div>
+      </div>
+    </ion-footer-bar>
+  </ion-view>

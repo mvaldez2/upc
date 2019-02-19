@@ -41,6 +41,27 @@ define([
 
       });
 
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        var userId = googleUser.getId();
+        var userEventRef = ref.child("googleUsers/" + userId + "/events/"+ $stateParams.id);
+        //get current user event
+        userEventRef.on('value', function (snapshot) {
+          console.log(snapshot.val());
+          $scope.uEvent = snapshot.val()
+          $scope.uSummary = snapshot.val().event.summary
+          $scope.uLocation = snapshot.val().event.location
+          $scope.uStartDate = snapshot.val().event.start.dateTime
+          $scope.uEndDate = snapshot.val().event.end.dateTime
+          $scope.uStart = snapshot.val().event.start.date
+          $scope.uEnd = snapshot.val().event.end.date
+          
+          
+        });
+      });
+      
+
       //format dates
       var date = new Date($scope.startDate);
       var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };

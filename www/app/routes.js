@@ -48,6 +48,11 @@ define([
           controller: 'EventCtrl',
           templateUrl: 'app/templates/details/event.html'
         })
+        .state('userEvent', {
+          url: '/userEvent/:id',
+          controller: 'EventCtrl',
+          templateUrl: 'app/templates/details/userEvent.html'
+        })
         .state('about', {
           url: '/about/:id',
           controller: 'AppCtrl',

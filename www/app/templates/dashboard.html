@@ -41,15 +41,14 @@
 
     <h3> My Events</h3>
     <ion-list>
-      <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
-        ng-repeat="place in userEvents | orderBy: start.dateTime | limitTo: 5"
-        ng-init="place.event.start.dateTime= dateFormat2(place)">
+      <ion-item class="item-icon-right  item-royal" ng-repeat="userEvent in userEvents | orderBy: start.dateTime | limitTo: 5"
+      ui-sref="userEvent({id: userEvent.$id})" ng-init="userEvent.event.start.dateTime= dateFormat2(userEvent)">
 
-        <h2>{{place.event.summary}}</h2>
+        <h2>{{userEvent.event.summary}}</h2>
         <p class="light">
-          <b>{{place.event.location}}</b> <br>
-          {{place.event.start.dateTime}}
-
+          <b>{{userEvent.event.location}}</b> <br>
+          {{userEvent.event.start.dateTime}}
+          
         </p>
 
 
