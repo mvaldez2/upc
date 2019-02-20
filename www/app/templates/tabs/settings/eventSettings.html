@@ -17,7 +17,7 @@
       <ion-list>
         <h3>Admins</h3>
         <ion-list>
-          <ion-item class="item-icon-right item-avatar item-royal" ng-repeat="user in googleUsers | limitTo: 5"
+          <ion-item class="item-icon-right item-avatar item-royal" ng-repeat="user in googleUsers"
             ng-if="user.admin && !user.owner">
             <img ng-src="{{user.photoUrl}}">
             <h2>{{user.name}}</h2>
