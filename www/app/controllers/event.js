@@ -89,7 +89,7 @@ define([
       $scope.showEventAddedAleart = function() {
           var alertPopup = $ionicPopup.alert({
               title: 'Event Added',
-              template: 'An event has been added to your profile and your Google Calendar!'
+              template: 'An event has been added to your profile and your Google Calendar. Find your events under your profile.'
           });
       }
 
