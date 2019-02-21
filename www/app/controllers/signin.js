@@ -107,10 +107,14 @@ define([
 
       // ------------ signs in with authentication ---------------------------
       $scope.login = function () {
+        $scope.LoggedIn=false;
         $scope.loadClient();
         gapi.auth2.getAuthInstance().signIn({ scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar" })
           .then(function () {
             console.log("Sign-in successful");
+            $scope.LoggedIn=true;
+            $scope.LoginTitle="Log Out";
+            console.log("LoginTitle =", $scope.LoginTitle);
             firebase.auth().onAuthStateChanged(function (user) {
               var googleUser = gapi.auth2.getAuthInstance().currentUser.get() //gets gppgle user
               $scope.isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get()
@@ -139,7 +143,7 @@ define([
 
             //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
             $scope.sync();
-            $state.go("dashboard"); //go to dashboard after sign in
+            $state.go("profileSettings"); //go to dashboard after sign in
           });
 
       }

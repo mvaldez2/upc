@@ -56,11 +56,11 @@ define([
           $scope.uEndDate = snapshot.val().event.end.dateTime
           $scope.uStart = snapshot.val().event.start.date
           $scope.uEnd = snapshot.val().event.end.date
-          
-          
+
+
         });
       });
-      
+
 
       //format dates
       var date = new Date($scope.startDate);
@@ -79,12 +79,31 @@ define([
 
       }
 
+      $scope.showLogInAlert = function() {
+          var alertPopup = $ionicPopup.alert({
+              title: 'Log In',
+              template: 'You need to be logged in to add an event!'
+          });
+      }
+
+      $scope.showEventAddedAleart = function() {
+          var alertPopup = $ionicPopup.alert({
+              title: 'Event Added',
+              template: 'An event has been added to your profile and your Google Calendar!'
+          });
+      }
+
 
       // fix date for calendar insert
 
 
       //add event to user
       $scope.addEvent = function () {
+        if ($scope.LoginTitle == "Log In") {
+            console.log("Can't add an event without being logged in!");
+            $scope.showLogInAlert();
+            return;
+        }
         firebase.auth().onAuthStateChanged(function (user) {
           var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
           var googleProfile = googleUser.getBasicProfile();
@@ -138,15 +157,8 @@ define([
 
           }).then(function () {
             console.log('Event ' + $scope.summary + ' added')
-            var popup = $ionicPopup.show({
-              title: 'Event Added!',
-              template: $scope.summary + ' has been added to your calendar.',
+            $scope.showEventAddedAleart();
 
-            });
-
-            $timeout(function () {
-              popup.close(); //close the popup after 3 seconds for some reason
-            }, 750);
 
           }, function (error) {
             console.log(error)

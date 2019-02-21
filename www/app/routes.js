@@ -19,7 +19,7 @@ define([
     '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
       // url routes/states
-      $urlRouterProvider.otherwise('signIn');
+      $urlRouterProvider.otherwise('dashboard');
 
       $stateProvider
         // app states

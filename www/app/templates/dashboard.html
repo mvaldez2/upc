@@ -1,11 +1,41 @@
 <ion-view>
 
-  <ion-nav-title>UPC <i class="icon ion-ios-location"></i> </ion-nav-title>
-  <ion-content padding="true">
+  <ion-nav-title>
+      Valparaiso University <i class="icon ion-ios-location"></i>
+  </ion-nav-title>
+  <ion-content padding="true" class="has-header has-tabs">
+          <div class="list card" ui-sref="calendar()">
+              <div class="item item-divider" align="center">
+                  <h2>Programs & Events</h2>
+              </div>
+              <div class="item item-body">
+                  <img class="full-image" src="https://www.valpo.edu/university-programming-council/files/2018/05/Programs.png">
+              </div>
+          </div>
 
+              <div class="list card" ui-sref="perks()">
+                  <div class="item item-divider" align="center">
+                      <h2>Crusader Perks</h2>
+                  </div>
+                  <div class="item item-body">
+                      <img class="full-image" src="https://www.valpo.edu/university-programming-council/files/2018/08/Screen-Shot-2018-08-28-at-6.34.58-PM.png">
+                  </div>
+              </div>
 
+              <div class="list card" ui-sref="about()">
+                  <div class="item item-divider" align="center">
+                      <h2>About Us</h2>
+                  </div>
+                  <div class="item item-body">
+                      <img class="full-image" src="https://www.valpo.edu/university-programming-council/files/2018/05/join-us.png">
+                  </div>
+              </div>
 
+      <div class="row">
 
+      </div>
+
+<!--
 
     <h3>Upcoming Events</h3>
     <ion-list>
@@ -24,8 +54,8 @@
       </ion-item>
     </ion-list>
 
-
-
+-->
+<!--
     <h3>People</h3>
     <ion-list>
       <ion-item class="item-icon-right item-avatar item-royal" ui-sref="profile({id: user.uid})"
@@ -48,18 +78,13 @@
         <p class="light">
           <b>{{userEvent.event.location}}</b> <br>
           {{userEvent.event.start.dateTime}}
-          
+
         </p>
 
 
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
-    </ion-list>
-
-    <br>
-    <br>
-    <br>
-
+  </ion-list> -->
 
 
 
