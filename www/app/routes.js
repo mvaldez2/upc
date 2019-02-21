@@ -97,6 +97,12 @@ define([
           url: '/signIn',
           controller: 'SigninCtrl',
           templateUrl: 'app/templates/signin.html'
+	})
+	.state('checkin', {
+		url: '/checkin/:id',
+		controller: 'AppCtrl',
+		templateUrl: 'app/templates/menu/checkin.html'
+
         });
     }
   ]);
