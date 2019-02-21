@@ -76,25 +76,39 @@ define([
 
 
       $scope.makeAdmin = function (id) {
-        var popup = $ionicPopup.alert({
-          title: 'Give Permission',
-          template: 'Are you sure you want to give this user admin access?',
-          buttons: [
-            {
-              text: '<b>OK</b>',
-              onTap: function () {
-                db.ref("googleUsers/" + id + "/admin").set(true)
-              }
-            },
-            {
-              text: '<b>Cancel</b>',
-              onTap: function () {
+        if ($scope.owner) {
+          var popup = $ionicPopup.alert({
+            title: 'Give Permission',
+            template: 'Are you sure you want to give this user admin access?',
+            buttons: [
+              {
+                text: '<b>OK</b>',
+                onTap: function () {
+                  db.ref("googleUsers/" + id + "/admin").set(true)
+                }
+              },
+              {
+                text: '<b>Cancel</b>',
+                onTap: function () {
 
-                console.log('canceled');
-              }
-            }]
-        });
-
+                  console.log('canceled');
+                }
+              }]
+          });
+        } else {
+          console.log("Not permitted")
+          $ionicPopup.alert({
+            title: 'Access Denied',
+            template: 'You need to be an Owner to do this.',
+            buttons: [
+              {
+                text: '<b>OK</b>',
+                onTap: function () {
+                  console.log('shown');
+                }
+              }]
+          });
+        }
 
       }
 
