@@ -19,7 +19,7 @@ define([
     '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
       // url routes/states
-      $urlRouterProvider.otherwise('signIn');
+      $urlRouterProvider.otherwise('dashboard');
 
       $stateProvider
         // app states
@@ -47,6 +47,11 @@ define([
           url: '/event/:id',
           controller: 'EventCtrl',
           templateUrl: 'app/templates/details/event.html'
+        })
+        .state('userEvent', {
+          url: '/userEvent/:id',
+          controller: 'EventCtrl',
+          templateUrl: 'app/templates/details/userEvent.html'
         })
         .state('about', {
           url: '/about/:id',
@@ -92,6 +97,12 @@ define([
           url: '/signIn',
           controller: 'SigninCtrl',
           templateUrl: 'app/templates/signin.html'
+	})
+	.state('checkin', {
+		url: '/checkin/:id',
+		controller: 'AppCtrl',
+		templateUrl: 'app/templates/menu/checkin.html'
+
         });
     }
   ]);

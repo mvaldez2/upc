@@ -1,6 +1,6 @@
 <ion-view>
   <ion-nav-title>Admin Settings </ion-nav-title>
-  <ion-content padding="true">
+  <ion-content padding="true" class="has-header has-tabs">
 
     <label class="item item-input">
       <i class="icon ion-search placeholder-icon"></i>
@@ -8,7 +8,7 @@
     </label>
     <ion-list>
       <ion-item class="item-icon-right item-avatar item-royal" ng-click="makeAdmin(user.$id)"
-        ng-repeat='user in googleUsers | filter:searchText | limitTo: 1' ng-if="!user.admin">
+        ng-repeat='user in googleUsers | filter:searchText | limitTo: 5' ng-if="!user.admin">
         <img ng-src="{{user.photoUrl}}">
         <h2>{{user.name}}</h2>
       </ion-item>

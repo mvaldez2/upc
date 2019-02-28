@@ -36,7 +36,7 @@
     <!-- Left menu -->
     <ion-side-menu side="left">
       <ion-header-bar class="bar-energized">
-        <h1 class="title item-icon-center" ng-click="login()"> <i class="icon ion-log-in"></i></h1>
+        <h1 ng-controller="SigninCtrl" class="title item-icon-center" ng-click="login()"> <i class="icon ion-log-in"></i></h1>
       </ion-header-bar>
       <ion-content class="background-royal">
         <!--<ion-list>
@@ -69,26 +69,32 @@
       </ion-content>
     </ion-side-menu>
 
-    <div class="tabs tabs-icon-top" ng-class="{'tabs-item-hide': shouldHide()}">
-      <a class="tab-item" ui-sref="dashboard()">
-        <i class="icon ion-home"></i>
-        Home
-      </a>
+    <div class="tabs tabs-icon-bottom" >
       <a class="tab-item" ui-sref="search()">
         <i class="icon ion-search"></i>
         Search
       </a>
-      <a class="tab-item" ui-sref="settings()">
-        <i class="icon ion-gear-a"></i>
-        Settings
+      <a class="tab-item" ui-sref="dashboard()">
+        <i class="icon ion-home"></i>
+        Home
+      </a>
+      <a class="tab-item" ng-click="profSettings()">
+        <i class="icon ion-person"></i>
+        Profile
       </a>
     </div>
 
 
     <!-- The nav bar that will be updated as we navigate -->
+    <ion-toolbar>
     <ion-nav-bar class="bar-energized">
-      <ion-nav-back-button></ion-nav-back-button>
+     <ion-nav-back-button></ion-nav-back-button>
 
+        <ion-nav-buttons side="right">
+            <button class="button button-royal" ng-click="clicked()">
+              {{LoginTitle}}
+            </button>
+        </ion-nav-buttons>
     </ion-nav-bar>
 
     <!-- where the initial view template will be rendered -->

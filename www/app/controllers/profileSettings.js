@@ -48,20 +48,34 @@ define([
         });
       }
 
-      $scope.deleteEvent = function (id) {
+      /******** Delete Event *********/
+
+      $scope.deletingEvent = function (id) {
         firebase.auth().onAuthStateChanged(function (user) {
           var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
           var userId = googleUser.getId();
           ref.child("googleUsers/" + userId + "/events/" + id).remove();
         });
-        var popup = $ionicPopup.show({
-          title: 'Event Deleted!',
-        });
-
-        $timeout(function () {
-          popup.close(); //close the popup after 3 seconds for some reason
-        }, 300);
       }
+
+      // Delete Event Popup 
+
+      $scope.deleteEvent = function(id) {
+          var confirmPopup = $ionicPopup.confirm({
+              title: 'Delete Event',
+              template: 'Are you sure you want to delete this event from your profile?',
+              cancelText: 'No',
+              okText: 'Yes'
+          });
+          confirmPopup.then(function(res) {
+              if(res) {
+                  $scope.deletingEvent(id);
+              } else {
+                  $state.go("profileSettings");
+              }
+          });
+      };
+
 
       $scope.deleteUser = function () {
         firebase.auth().onAuthStateChanged(function (user) {

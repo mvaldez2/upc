@@ -1,10 +1,11 @@
 <ion-view>
-  <ion-nav-title>Search </ion-nav-title>
-  <ion-content padding="true">
+  <ion-nav-title>Search Other Users</ion-nav-title>
+  <ion-content padding="true" class="has-header has-tabs">
+      <h3>Search for your friends to see what events they are going to.</h3>
 
     <label class="item item-input">
       <i class="icon ion-search placeholder-icon"></i>
-      <input type='text' ng-model='searchText' placeholder="Search for an Event or User " />
+      <input type='text' ng-model='searchText' placeholder="Search for a User " />
     </label>
     <h3>People</h3>
     <ion-list>
@@ -17,36 +18,7 @@
         </p>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
-      <h3>Events</h3>
-      <ion-list>
-        <!-- don't order by index, it messes up the search -->
-        <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
-          ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 20 | filter:searchText"
-          ng-init="place.start.dateTime= dateFormat2(place)" <h2>{{place.summary}}</h2>
-          <p class="light">
-            <b>{{place.location}}</b> <br>
-            {{place.start.dateTime}}
-          </p>
 
-
-          <i class="icon ion-ios-arrow-right"></i>
-        </ion-item>
-      </ion-list>
-      <ion-item class="item-icon-right item-avatar item-royal" ui-sref="event({id:$index})"
-        ng-repeat='place in places | filter:searchText | limitTo: 10'>
-        <img ng-src="{{place.image}}">
-        <h2>{{place.name}}</h2>
-        <p class="light">
-          <b>{{place.city}}</b> <br>
-          {{place.room}} - {{place.street}}
-        </p>
-
-
-        <i class="icon ion-ios-arrow-right"></i>
-      </ion-item>
-    </ion-list>
-    <br>
-    <br>
   </ion-content>
 </ion-view>
 <ion-item>
