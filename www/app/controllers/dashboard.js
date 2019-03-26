@@ -36,6 +36,7 @@ define([
         var userEventRef = ref.child("googleUsers/" + userId + "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
+        $scope.userAdmin = ref.child("googleUsers/" + userId + "/admin");
         profileRef.on('value', function (snapshot) {
           console.log(snapshot.val())
           $scope.name = snapshot.val().name
@@ -44,6 +45,7 @@ define([
           $scope.event = snapshot.val().events
         });
       });
+
 
       $scope.showConfirm = function() {
           var confirmPopup = $ionicPopup.confirm({

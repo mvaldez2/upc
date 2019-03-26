@@ -207,6 +207,26 @@ define([
           }
         });
       };
+
+      $scope.aboutText = "Well, look no further than University Programming Council! UPC is the Chicago bus trip leading, laughter inducing, Homecoming orchestrating, leadership inspiring, Valpo After Dark hosting, festival conducting, movie projecting, concert coordinating, Midnight Brunch managing, inexhaustible and irrepressible source of a good time on the Valparaiso University campus! We put together over 80 events each year!"
+
+
+      $scope.alterAboutText = function() {
+          $ionicPopup.prompt({
+            title: 'Edit About Text',
+            template: 'Current text:' + $scope.aboutText,
+            inputType: 'text'
+        })
+        .then(function(result) {
+            if (result == undefined || result == '') {
+                console.log("About text not changed")
+            }
+            else {
+                $scope.aboutText = result;
+            }
+
+        }); 
+      }
     }
   ]);
 });
