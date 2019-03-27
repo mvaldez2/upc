@@ -14,7 +14,8 @@ define([
     '$firebaseArray',
     '$ionicHistory',
     '$timeout',
-    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, $timeout) {
+    '$ionicPopover',
+    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, $timeout, $ionicPopover) {
       var ref = firebase.database().ref();
       var userRef = ref.child("googleUsers");
       var users = $firebaseArray(userRef);
@@ -169,6 +170,46 @@ define([
       }
 
 
+      /* ------ Sets address for Google Maps ------ */
+
+      $scope.currentAddress;
+
+      $scope.setAddress = function() {
+          var i =0;
+          if (!$scope.location || $scope.location == "None") {  // Checks to see if there is a location or not
+              $scope.location=undefined;
+              return;
+          }
+          $scope.strLocation = $scope.location.split(" ");
+          $scope.eventLocation = $scope.strLocation[0];
+          switch ($scope.eventLocation) {                       // Puts address based on building or location
+              case "Neils":
+                $scope.currentAddress = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
+                break;
+              case "West":
+                $scope.currentAddress = undefined;
+                break;
+              case "Hearth":
+              case "Cafe":
+              case "Community":
+              case "Ballrooms":
+              case "Grand":
+              case "Founders":
+                $scope.currentAddress = "Harre Union, Chapel Drive, Valparaiso, IN";
+                break;
+              default:
+                $scope.currentAddress = $scope.location;
+                break;
+
+          }
+          return $scope.currentAddress;
+      };
+
+      /* ------ Changes address ------ */
+      $scope.alterAddress = function(location) {
+          $scope.location = location;
+          $scope.setAddress();
+      }
 
 
       $scope.call = function () {
@@ -185,12 +226,12 @@ define([
 
       $scope.map = function () {
         if (ionic.Platform.isIOS()) {
-          $window.open('maps://?q=' + $scope.location, '_system');
+          $window.open('maps://?q=' + $scope.currentAddress, '_system');
         } else if (ionic.Platform.is('android')) {
-          $window.open('geo://0,0?q=' + '(' + $scope.location + ')&z=15', '_system');
+          $window.open('geo://0,0?q=' + '(' + $scope.currentAddress + ')&z=15', '_system');
 
         } else {
-          $window.open('https://www.google.com/maps/search/' + $scope.location);
+          $window.open('https://www.google.com/maps/search/' + $scope.currentAddress);
         }
       };
 
@@ -208,25 +249,45 @@ define([
         });
       };
 
-      $scope.aboutText = "Well, look no further than University Programming Council! UPC is the Chicago bus trip leading, laughter inducing, Homecoming orchestrating, leadership inspiring, Valpo After Dark hosting, festival conducting, movie projecting, concert coordinating, Midnight Brunch managing, inexhaustible and irrepressible source of a good time on the Valparaiso University campus! We put together over 80 events each year!"
+      $scope.possibleLocations = ["Neils", "Hearth", "Community Room", "Cafe", "Ballrooms", "Grand Lobby", "West Lawn", "None"];
 
+      var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Choose a Location</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
+      // .fromTemplate() method
 
-      $scope.alterAboutText = function() {
-          $ionicPopup.prompt({
-            title: 'Edit About Text',
-            template: 'Current text:' + $scope.aboutText,
-            inputType: 'text'
-        })
-        .then(function(result) {
-            if (result == undefined || result == '') {
-                console.log("About text not changed")
-            }
-            else {
-                $scope.aboutText = result;
-            }
+      $scope.popover = $ionicPopover.fromTemplate(template, {
+        scope: $scope
+      });
 
-        }); 
-      }
+      // .fromTemplateUrl() method
+      $ionicPopover.fromTemplateUrl('my-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+
+      $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+      };
+
+      $scope.closePopover = function() {
+        $scope.popover.hide();
+      };
+
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+      });
+
+      // Execute action on hidden popover
+      $scope.$on('popover.hidden', function() {
+        // Execute action
+      });
+
+      // Execute action on remove popover
+      $scope.$on('popover.removed', function() {
+        // Execute action
+      });
+
     }
   ]);
 });
