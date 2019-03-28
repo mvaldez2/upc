@@ -39,6 +39,7 @@ define([
         $scope.start = snapshot.val().start.date
         $scope.end = snapshot.val().end.date
         $scope.id = snapshot.val().id
+        $scope.address = snapshot.val().address
 
       });
 
@@ -185,6 +186,10 @@ define([
           switch ($scope.eventLocation) {                       // Puts address based on building or location
               case "Neils":
                 $scope.currentAddress = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
+                eventRef.update({
+                  address: $scope.currentAddress
+                });
+                //add to address info to database
                 break;
               case "West":
                 $scope.currentAddress = undefined;
@@ -196,6 +201,7 @@ define([
               case "Grand":
               case "Founders":
                 $scope.currentAddress = "Harre Union, Chapel Drive, Valparaiso, IN";
+                //add address to database
                 break;
               default:
                 $scope.currentAddress = $scope.location;
