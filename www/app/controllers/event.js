@@ -170,7 +170,7 @@ define([
       }
 
 
-      /* ------ Sets address for Google Maps ------ */
+      /* ------ Sets and Changes address for Google Maps based on location ------ */
 
       $scope.currentAddress;
 
@@ -178,16 +178,17 @@ define([
           var i =0;
           if (!$scope.location || $scope.location == "None") {  // Checks to see if there is a location or not
               $scope.location=undefined;
+              $scope.address = undefined;
               return;
           }
           $scope.strLocation = $scope.location.split(" ");
           $scope.eventLocation = $scope.strLocation[0];
           switch ($scope.eventLocation) {                       // Puts address based on building or location
               case "Neils":
-                $scope.currentAddress = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
+                $scope.address = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
                 break;
               case "West":
-                $scope.currentAddress = undefined;
+                $scope.address = undefined;
                 break;
               case "Hearth":
               case "Cafe":
@@ -195,65 +196,78 @@ define([
               case "Ballrooms":
               case "Grand":
               case "Founders":
-                $scope.currentAddress = "Harre Union, Chapel Drive, Valparaiso, IN";
+                $scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
                 break;
               default:
-                $scope.currentAddress = $scope.location;
+                $scope.address = $scope.location;
                 break;
 
           }
-          return $scope.currentAddress;
+          return $scope.address;
       };
 
-      /* ------ Changes address ------ */
-      $scope.alterAddress = function(location) {
-          $scope.location = location;
-          $scope.setAddress();
-      }
-
-
-      $scope.call = function () {
-        $window.open('tel: 219.464.5415', '_system');
-      };
-
-      $scope.mail = function () {
-        $window.open('mailto: upc@valpo.edu', '_system');
-      };
-
-      $scope.website = function () {
-        $window.open("https://www.valpo.edu/university-programming-council/", '_system');
-      };
-
-      $scope.map = function () {
-        if (ionic.Platform.isIOS()) {
-          $window.open('maps://?q=' + $scope.currentAddress, '_system');
-        } else if (ionic.Platform.is('android')) {
-          $window.open('geo://0,0?q=' + '(' + $scope.currentAddress + ')&z=15', '_system');
-
-        } else {
-          $window.open('https://www.google.com/maps/search/' + $scope.currentAddress);
-        }
-      };
-
-      $scope.report = function () {
-        $ionicPopup.prompt({
-          scope: $scope,
-          title: '<span class="energized">Report an issue</span>',
-          subTitle: '<span class="stable">What\'s wrong or missing?</span>',
-          inputType: 'text',
-          inputPlaceholder: ''
-        }).then(function (res) {
-          if (res) {
-            // here connect to backend and send report
-          }
-        });
-      };
+      /* ------ Changes Location ------ */
+      // Triggered on a button click, or some other target
 
       $scope.possibleLocations = ["Neils", "Hearth", "Community Room", "Cafe", "Ballrooms", "Grand Lobby", "West Lawn", "None"];
 
+      $scope.alterLocation = function(building) {
+          $scope.building = building;
+          $scope.room = {}
+
+          if (building == "None") {
+              $scope.address=undefined;
+              $scope.location=undefined;
+              $scope.closePopover();
+              return;
+          } else if (building == "Neils") {
+              // An elaborate, custom popup
+              var myPopup = $ionicPopup.show({
+                  template: '<input type="number" ng-model="room.number">',
+                  title: 'Enter a Room Number',
+                  subTitle: 'Cancel if there is no room number.',
+                  scope: $scope,
+                  buttons: [
+                      { text: 'Cancel' },
+                      {
+                          text: '<b>Save</b>',
+                          type: 'button-positive',
+                          onTap: function(e) {
+                              if (!$scope.room.number) {
+                                  //don't allow the user to save unless they enter a room number
+                                  if ($scope.room.number == 0) {
+                                      $scope.room.number = undefined;
+                                  } else {
+                                      e.preventDefault();
+                                  }
+                              } else {
+                                  return $scope.room.number;
+                              }
+                          }
+                      }
+                  ]
+              });
+              myPopup.then(function() {
+                  var i=0;
+                  if ($scope.room.number == undefined) {
+                      $scope.location = $scope.building;
+                  } else {
+                      $scope.location = $scope.building + " " + $scope.room.number;
+                      $scope.closePopover();
+                  }
+              });
+          } else {
+              $scope.location = $scope.building;
+              $scope.closePopover();
+          }
+      };
+
+      /* ------ Popup for changing location ------ */
       var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Choose a Location</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
       // .fromTemplate() method
 
+
+      /* ------ Functions for Custom Popup ------ */
       $scope.popover = $ionicPopover.fromTemplate(template, {
         scope: $scope
       });
@@ -287,6 +301,45 @@ define([
       $scope.$on('popover.removed', function() {
         // Execute action
       });
+
+
+      /* ------ Functions for Other Page Info ------ */
+      $scope.call = function () {
+        $window.open('tel: 219.464.5415', '_system');
+      };
+
+      $scope.mail = function () {
+        $window.open('mailto: upc@valpo.edu', '_system');
+      };
+
+      $scope.website = function () {
+        $window.open("https://www.valpo.edu/university-programming-council/", '_system');
+      };
+
+      $scope.map = function () {
+        if (ionic.Platform.isIOS()) {
+          $window.open('maps://?q=' + $scope.address, '_system');
+        } else if (ionic.Platform.is('android')) {
+          $window.open('geo://0,0?q=' + '(' + $scope.address + ')&z=15', '_system');
+
+        } else {
+          $window.open('https://www.google.com/maps/search/' + $scope.address);
+        }
+      };
+
+      $scope.report = function () {
+        $ionicPopup.prompt({
+          scope: $scope,
+          title: '<span class="energized">Report an issue</span>',
+          subTitle: '<span class="stable">What\'s wrong or missing?</span>',
+          inputType: 'text',
+          inputPlaceholder: ''
+        }).then(function (res) {
+          if (res) {
+            // here connect to backend and send report
+          }
+        });
+      };
 
     }
   ]);
