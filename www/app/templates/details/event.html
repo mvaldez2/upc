@@ -50,6 +50,7 @@
 
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i>
+            <button ng-if="admin" ng-click="openPopover($event)">Edit Address</button>
         </ion-item>
         <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map()">
            {{setAddress()}}<br>
