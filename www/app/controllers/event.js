@@ -188,6 +188,7 @@ define([
               case "Neils":
                 //$scope.address = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
                 $scope.currentAddress = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
+                $scope.address = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
                 eventRef.update({
                   address: $scope.currentAddress
                 });
@@ -204,6 +205,7 @@ define([
               case "Founders":
                 //$scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
                 $scope.currentAddress = "Harre Union, Chapel Drive, Valparaiso, IN";
+                $scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
                 eventRef.update({
                   address: $scope.currentAddress
                 });
@@ -235,7 +237,6 @@ define([
               $scope.closePopover();
               return;
           } else if (building == "Neils") {
-              // An elaborate, custom popup
               var myPopup = $ionicPopup.show({
                   template: '<input type="number" ng-model="room.number">',
                   title: 'Enter a Room Number',
