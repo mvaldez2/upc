@@ -177,6 +177,7 @@ define([
 
       $scope.setAddress = function() {
           var i =0;
+          console.log("$scope.location = " + $scope.location);
           if (!$scope.location || $scope.location == "None") {  // Checks to see if there is a location or not
               $scope.location=undefined;
               $scope.address = undefined;
@@ -190,12 +191,17 @@ define([
                 $scope.currentAddress = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
                 $scope.address = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
                 eventRef.update({
-                  address: $scope.currentAddress
+                  address: $scope.currentAddress,
+                  location: $scope.location
                 });
                 //add to address info to database
                 break;
               case "West":
                 $scope.address = undefined;
+                eventRef.update({
+                    address: $scope.currentAddress,
+                    location: $scope.location
+                });
                 break;
               case "Hearth":
               case "Cafe":
@@ -207,18 +213,22 @@ define([
                 $scope.currentAddress = "Harre Union, Chapel Drive, Valparaiso, IN";
                 $scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
                 eventRef.update({
-                  address: $scope.currentAddress
+                    address: $scope.currentAddress,
+                    location: $scope.location
                 });
                 //add address to database
                 break;
               default:
                 $scope.address = $scope.location;
                 eventRef.update({
-                  address: $scope.currentAddress
+                    address: $scope.currentAddress,
+                    location: $scope.location
                 });
                 break;
 
           }
+          //console.log("$scope.location = " + $scope.location);
+          //console.log("$scope.address = " + $scope.address);
           return $scope.address;
       };
 
@@ -230,6 +240,7 @@ define([
       $scope.alterLocation = function(building) {
           $scope.building = building;
           $scope.room = {}
+          console.log("$scope.building = " + $scope.building);
 
           if (building == "None") {
               $scope.address=undefined;
@@ -263,11 +274,14 @@ define([
                   ]
               });
               myPopup.then(function() {
-                  var i=0;
+                  console.log("$scope.room.number = " + $scope.room.number);
                   if ($scope.room.number == undefined) {
                       $scope.location = $scope.building;
+
                   } else {
+                      console.log("$scope.building = " + $scope.building);
                       $scope.location = $scope.building + " " + $scope.room.number;
+                      $scope.current
                       $scope.closePopover();
                   }
               });
