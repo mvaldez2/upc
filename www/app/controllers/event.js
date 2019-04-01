@@ -20,7 +20,6 @@ define([
       var userRef = ref.child("googleUsers");
       var users = $firebaseArray(userRef);
 
-
       //get users
       $scope.users = $firebaseArray(userRef);
       var calRef = ref.child("calendar/events");
@@ -173,14 +172,16 @@ define([
 
       /* ------ Sets and Changes address for Google Maps based on location ------ */
 
-      $scope.currentAddress;
+      $scope.currentAddress = null;
 
       $scope.setAddress = function() {
-          var i =0;
-          console.log("$scope.location = " + $scope.location);
           if (!$scope.location || $scope.location == "None") {  // Checks to see if there is a location or not
-              $scope.location=undefined;
+              $scope.location="";
               $scope.address = undefined;
+              eventRef.update({
+                  address: $scope.currentAddress,
+                  location: $scope.location
+              });
               return;
           }
           $scope.strLocation = $scope.location.split(" ");
@@ -240,11 +241,9 @@ define([
       $scope.alterLocation = function(building) {
           $scope.building = building;
           $scope.room = {}
-          console.log("$scope.building = " + $scope.building);
-
           if (building == "None") {
-              $scope.address=undefined;
-              $scope.location=undefined;
+              $scope.address=null;
+              $scope.location=null;
               $scope.closePopover();
               return;
           } else if (building == "Neils") {
@@ -274,12 +273,10 @@ define([
                   ]
               });
               myPopup.then(function() {
-                  console.log("$scope.room.number = " + $scope.room.number);
                   if ($scope.room.number == undefined) {
                       $scope.location = $scope.building;
 
                   } else {
-                      console.log("$scope.building = " + $scope.building);
                       $scope.location = $scope.building + " " + $scope.room.number;
                       $scope.current
                       $scope.closePopover();

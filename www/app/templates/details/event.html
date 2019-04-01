@@ -50,7 +50,6 @@
 
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i>
-            <button ng-if="admin" ng-click="openPopover($event)">Edit Address</button>
         </ion-item>
         <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map()">
            {{setAddress()}}<br>
@@ -69,15 +68,18 @@
       <br>
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i class="icon ion-ios-calendar-outline"></i>
+            <button ng-click="">Edit Dates</button>
         </ion-item>
         <ion-item>
+         <!-- {{place.start.dateTime}} -->
           {{formatedDay}}<br>
           {{formatedTime}}{{dateEnd}}
         </ion-item>
       </ion-list>
       <br>
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i></ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i>
+        <button ng-click="">Edit Contact Info</button></ion-item>
         <ion-item class="item-icon-right" ng-click="call()">
           (219) 464-5415 ex.5194
           <i class="icon ion-android-call"></i>
