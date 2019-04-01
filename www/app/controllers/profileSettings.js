@@ -38,6 +38,21 @@ define([
 
       });
 
+      var eventRef = firebase.database().ref('calendar/events/' + $stateParams.id);
+      //get current event
+      eventRef.on('value', function (snapshot) {
+        console.log(snapshot.val());
+        $scope.event = snapshot.val()
+        $scope.summary = snapshot.val().summary
+        $scope.location = snapshot.val().location
+        $scope.startDate = snapshot.val().start.dateTime
+        $scope.endDate = snapshot.val().end.dateTime
+        $scope.start = snapshot.val().start.date
+        $scope.end = snapshot.val().end.date
+        $scope.id = snapshot.val().id
+
+      });
+
 
 
       $scope.updateName = function (newName) {
@@ -58,7 +73,7 @@ define([
         });
       }
 
-      // Delete Event Popup 
+      // Delete Event Popup
 
       $scope.deleteEvent = function(id) {
           var confirmPopup = $ionicPopup.confirm({
@@ -97,6 +112,7 @@ define([
           $scope.photoUrl = snapshot.val().photoUrl
           $scope.email = snapshot.val().email
           $scope.event = snapshot.val().events
+          $scope.admin = snapshot.val().admin
         });
 
       });

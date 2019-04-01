@@ -14,11 +14,11 @@ define([
     '$firebaseArray',
     '$ionicHistory',
     '$timeout',
-    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, $timeout) {
+    '$ionicPopover',
+    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, $timeout, $ionicPopover) {
       var ref = firebase.database().ref();
       var userRef = ref.child("googleUsers");
       var users = $firebaseArray(userRef);
-
 
       //get users
       $scope.users = $firebaseArray(userRef);
@@ -38,6 +38,7 @@ define([
         $scope.start = snapshot.val().start.date
         $scope.end = snapshot.val().end.date
         $scope.id = snapshot.val().id
+        $scope.address = snapshot.val().address
 
       });
 
@@ -169,8 +170,166 @@ define([
       }
 
 
+      /* ------ Sets and Changes address for Google Maps based on location ------ */
+
+      $scope.currentAddress = null;
+
+      $scope.setAddress = function() {
+          if (!$scope.location || $scope.location == "None") {  // Checks to see if there is a location or not
+              $scope.location="";
+              $scope.address = undefined;
+              eventRef.update({
+                  address: $scope.currentAddress,
+                  location: $scope.location
+              });
+              return;
+          }
+          $scope.strLocation = $scope.location.split(" ");
+          $scope.eventLocation = $scope.strLocation[0];
+          switch ($scope.eventLocation) {                       // Puts address based on building or location
+              case "Neils":
+                //$scope.address = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
+                $scope.currentAddress = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
+                $scope.address = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
+                eventRef.update({
+                  address: $scope.currentAddress,
+                  location: $scope.location
+                });
+                //add to address info to database
+                break;
+              case "West":
+                $scope.address = undefined;
+                eventRef.update({
+                    address: $scope.currentAddress,
+                    location: $scope.location
+                });
+                break;
+              case "Hearth":
+              case "Cafe":
+              case "Community":
+              case "Ballrooms":
+              case "Grand":
+              case "Founders":
+                //$scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
+                $scope.currentAddress = "Harre Union, Chapel Drive, Valparaiso, IN";
+                $scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
+                eventRef.update({
+                    address: $scope.currentAddress,
+                    location: $scope.location
+                });
+                //add address to database
+                break;
+              default:
+                $scope.address = $scope.location;
+                eventRef.update({
+                    address: $scope.currentAddress,
+                    location: $scope.location
+                });
+                break;
+
+          }
+          //console.log("$scope.location = " + $scope.location);
+          //console.log("$scope.address = " + $scope.address);
+          return $scope.address;
+      };
+
+      /* ------ Changes Location ------ */
+      // Triggered on a button click, or some other target
+
+      $scope.possibleLocations = ["Neils", "Hearth", "Community Room", "Cafe", "Ballrooms", "Grand Lobby", "West Lawn", "None"];
+
+      $scope.alterLocation = function(building) {
+          $scope.building = building;
+          $scope.room = {}
+          if (building == "None") {
+              $scope.address=null;
+              $scope.location=null;
+              $scope.closePopover();
+              return;
+          } else if (building == "Neils") {
+              var myPopup = $ionicPopup.show({
+                  template: '<input type="number" ng-model="room.number">',
+                  title: 'Enter a Room Number',
+                  subTitle: 'Cancel if there is no room number.',
+                  scope: $scope,
+                  buttons: [
+                      { text: 'Cancel' },
+                      {
+                          text: '<b>Save</b>',
+                          type: 'button-positive',
+                          onTap: function(e) {
+                              if (!$scope.room.number) {
+                                  //don't allow the user to save unless they enter a room number
+                                  if ($scope.room.number == 0) {
+                                      $scope.room.number = undefined;
+                                  } else {
+                                      e.preventDefault();
+                                  }
+                              } else {
+                                  return $scope.room.number;
+                              }
+                          }
+                      }
+                  ]
+              });
+              myPopup.then(function() {
+                  if ($scope.room.number == undefined) {
+                      $scope.location = $scope.building;
+
+                  } else {
+                      $scope.location = $scope.building + " " + $scope.room.number;
+                      $scope.current
+                      $scope.closePopover();
+                  }
+              });
+          } else {
+              $scope.location = $scope.building;
+              $scope.closePopover();
+          }
+      };
+
+      /* ------ Popup for changing location ------ */
+      var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Choose a Location</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
+      // .fromTemplate() method
 
 
+      /* ------ Functions for Custom Popup ------ */
+      $scope.popover = $ionicPopover.fromTemplate(template, {
+        scope: $scope
+      });
+
+      // .fromTemplateUrl() method
+      $ionicPopover.fromTemplateUrl('my-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+
+      $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+      };
+
+      $scope.closePopover = function() {
+        $scope.popover.hide();
+      };
+
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+      });
+
+      // Execute action on hidden popover
+      $scope.$on('popover.hidden', function() {
+        // Execute action
+      });
+
+      // Execute action on remove popover
+      $scope.$on('popover.removed', function() {
+        // Execute action
+      });
+
+
+      /* ------ Functions for Other Page Info ------ */
       $scope.call = function () {
         $window.open('tel: 219.464.5415', '_system');
       };
@@ -185,12 +344,12 @@ define([
 
       $scope.map = function () {
         if (ionic.Platform.isIOS()) {
-          $window.open('maps://?q=' + $scope.location, '_system');
+          $window.open('maps://?q=' + $scope.address, '_system');
         } else if (ionic.Platform.is('android')) {
-          $window.open('geo://0,0?q=' + '(' + $scope.location + ')&z=15', '_system');
+          $window.open('geo://0,0?q=' + '(' + $scope.address + ')&z=15', '_system');
 
         } else {
-          $window.open('https://www.google.com/maps/search/' + $scope.location);
+          $window.open('https://www.google.com/maps/search/' + $scope.address);
         }
       };
 
@@ -207,6 +366,7 @@ define([
           }
         });
       };
+
     }
   ]);
 });

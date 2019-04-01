@@ -325,7 +325,7 @@ define([
 
       $scope.LoggedIn = false;
       $scope.LoginTitle = "Log In";
-
+      
       $scope.showConfirm = function() {
           var confirmPopup = $ionicPopup.confirm({
               title: 'Log in to see your profile',

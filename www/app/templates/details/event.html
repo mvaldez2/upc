@@ -10,7 +10,7 @@
     <div ng-show="!loading">
 
 
-      
+
 
       <h4><span class="name"> </span><b></b> <small></small></h4>
 
@@ -18,34 +18,68 @@
       <div class="text-center">
 
         <br>
-        <button class=" button button-royal" ng-click="addEvent()">Add <i class=" ion-plus-round"></i></button>
+    <button class=" button button-royal" ng-click="addEvent()">Add <i class=" ion-plus-round"></i></button>
         <br>
         <br>
       </div>
+
+<script id="my-popover.html" type="text/ng-template">
+  <ion-popover-view>
+    <ion-header-bar class="bar-energized">
+      <h1 class="title">Choose a Location</h1>
+      <button class="button button-clear ion-close-round" ng-click="closePopover()"></button>
+    </ion-header-bar>
+    <ion-content>
+
+        <ion-list>
+          <!-- don't order by index, it messes up the search -->
+          <ion-item class="item-icon-right  item-royal" ng-click="alterLocation(location)"
+          ng-repeat="location in possibleLocations"
+          <p>
+              {{location}}
+          </p>
+        <i class="icon ion-ios-arrow-right"></i>
+          </ion-item>
+          <ion-input placeholder="Enter Input"></ion-input>
+        </ion-list>
+
+
+    </ion-content>
+  </ion-popover-view>
+</script>
 
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i>
         </ion-item>
         <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map()">
-          {{location}} <br>
-
-
+           {{setAddress()}}<br>
           <i class="icon ion-map"></i>
         </ion-item>
+        <br />
+        <ion-list>
+          <ion-item class="item-divider item-icon-right"><b>Location</b> <i class="icon ion-location"></i>
+              <button ng-click="openPopover($event)">Edit Location</button>
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+             {{location}}<br>
+          </ion-item>
 
       </ion-list>
       <br>
       <ion-list>
         <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i class="icon ion-ios-calendar-outline"></i>
+            <button ng-click="">Edit Dates</button>
         </ion-item>
         <ion-item>
+         <!-- {{place.start.dateTime}} -->
           {{formatedDay}}<br>
           {{formatedTime}}{{dateEnd}}
         </ion-item>
       </ion-list>
       <br>
       <ion-list>
-        <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i></ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i>
+        <button ng-click="">Edit Contact Info</button></ion-item>
         <ion-item class="item-icon-right" ng-click="call()">
           (219) 464-5415 ex.5194
           <i class="icon ion-android-call"></i>

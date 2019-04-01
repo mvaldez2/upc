@@ -1,1 +1,12 @@
 /* Empty. Add your own CSS if you like */
+ul {
+    color: black;
+    list-style-type: disc;
+    width: auto;
+    padding-left: 17px;
+}
+
+ul li {             /* fix missing bullet list in "about" and "crusaderPerks" pages */
+    width: auto;
+    color: black;
+}
