@@ -37,13 +37,7 @@ define([
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
         $scope.userAdmin = ref.child("googleUsers/" + userId + "/admin");
-        profileRef.on('value', function (snapshot) {
-          console.log(snapshot.val())
-          $scope.name = snapshot.val().name
-          $scope.photoUrl = snapshot.val().photoUrl
-          $scope.email = snapshot.val().email
-          $scope.event = snapshot.val().events
-        });
+        
       });
 
 

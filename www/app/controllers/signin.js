@@ -20,6 +20,10 @@ define([
       var ref = firebase.database().ref();
 
 
+      document.addEventListener("deviceready", function () {
+        alert("123");
+      }, true);
+
       var onComplete = function (error) {
         if (error) {
           console.log('Failed');
@@ -107,13 +111,13 @@ define([
 
       // ------------ signs in with authentication ---------------------------
       $scope.login = function () {
-        $scope.LoggedIn=false;
+        $scope.LoggedIn = false;
         $scope.loadClient();
         gapi.auth2.getAuthInstance().signIn({ scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar" })
           .then(function () {
             console.log("Sign-in successful");
-            $scope.LoggedIn=true;
-            $scope.LoginTitle="Log Out";
+            $scope.LoggedIn = true;
+            $scope.LoginTitle = "Log Out";
             console.log("LoginTitle =", $scope.LoginTitle);
             firebase.auth().onAuthStateChanged(function (user) {
               var googleUser = gapi.auth2.getAuthInstance().currentUser.get() //gets gppgle user
@@ -146,6 +150,63 @@ define([
             $state.go("profileSettings"); //go to dashboard after sign in
           });
 
+      }
+
+      //Firebase login alternative (probably the better option)
+      $scope.login2 = function () {
+        var googleUser = gapi.auth2.getAuthInstance({ scope: "https://www.googleapis.com/auth/calendar" }).signIn().then((res) => {
+          var token = res.getAuthResponse().id_token;
+          var creds = firebase.auth.GoogleAuthProvider.credential(token);
+          firebase.auth().signInWithCredential(creds).then((user) => {
+            firebase.database().ref().child("googleUsers").orderByChild("email")
+              .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
+                if (snapshot.exists()) {  // account exists
+                  console.log("exists");
+
+
+                } else { //account deosn't exsist -> create new user
+                  console.log("doesn't exist");
+                  gUserRef.child(user.uid).set({
+                    name: user.displayName,
+                    email: user.email,
+                    photoUrl: user.photoURL,
+                    emailVerified: user.emailVerified,
+                    uid: user.uid,
+                    admin: false,
+                    owner: false,
+                  }, onComplete);
+                }
+              });
+            console.log(user)
+          })
+        }).then(function () {
+
+          //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
+          $scope.sync();
+          $state.go("profileSettings"); //go to dashboard after sign in
+        });
+
+
+      }
+
+      $scope.login3 = function() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithRedirect(provider).then(function() {
+          return firebase.auth().getRedirectResult();
+        }).then(function(result) {
+          // This gives you a Google Access Token.
+          // You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          
+          // The signed-in user info.
+          var user = result.user;
+          console.log(user)
+          // ...
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        });
       }
 
       $ionicHistory.nextViewOptions({
