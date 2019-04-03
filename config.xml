@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.cs358.upc" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>ionicMaps</name>
+    <name>UPC</name>
     <description>
         An Ionic Framework and Cordova project.
     </description>
@@ -49,7 +49,7 @@
     </plugin>
     <universal-links>
       <host name="upcapp.page.link" scheme="https" />
-      <host name="com.cs358.upc" scheme="https">
+      <host name="upc-app.firebaseapp.com" scheme="https">
           <path url="/__/auth/callback"/>
       </host>
     </universal-links>
