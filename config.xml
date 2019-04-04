@@ -16,7 +16,6 @@
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
-    
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
@@ -40,18 +39,18 @@
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
+    <preference name="AndroidLaunchMode" value="singleTask" />
     <plugin name="cordova-plugin-buildinfo" spec="2.0.2" />
-    <plugin name="cordova-universal-links-plugin" spec="~1.2.1" />
     <plugin name="cordova-plugin-browsertab" spec="0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="3.0.0" />
     <plugin name="cordova-plugin-customurlscheme" spec="4.4.0">
         <variable name="URL_SCHEME" value="com.cs358.upc" />
     </plugin>
+    <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
     <universal-links>
-      <host name="upcapp.page.link" scheme="https" />
-      <host name="upc-app.firebaseapp.com" scheme="https">
-          <path url="/__/auth/callback"/>
-      </host>
+        <host name="upcapp.page.link" scheme="https" />
+        <host name="upc-app.firebaseapp.com" scheme="https">
+            <path url="/__/auth/callback" />
+        </host>
     </universal-links>
-    <preference name="AndroidLaunchMode" value="singleTask" />
 </widget>
