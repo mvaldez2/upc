@@ -223,7 +223,7 @@ define([
       $scope.sync = function () {
         $scope.calendarEvents = gapi.client.calendar.events.list({
           "calendarId": "upc@valpo.edu",
-          "maxResults": 20,
+          "maxResults": 30,
           "orderBy": "startTime",
           "singleEvents": true,
           "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"

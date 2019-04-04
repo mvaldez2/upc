@@ -47,12 +47,10 @@ define([
     apiKey: 'AIzaSyBeXrlBrm8mZIV9KRrCXXOT90BfJ_drxRQ',
     clientId: '188526661745-b4m67m1md52qebfo5kfn00aqh8r58sn1.apps.googleusercontent.com',
     scopes: [
-      // whatever scopes you need for your app, for example:
       'https://www.googleapis.com/auth/drive',
       'https://www.googleapis.com/auth/youtube',
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/calendar',
-      // ...
     ]
 
   });
