@@ -1,0 +1,184 @@
+[debug] [2019-04-09T16:01:59.566Z] ----------------------------------------------------------------------
+[debug] [2019-04-09T16:01:59.569Z] Command:       E:\Programs\node.exe C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting:upc-app
+[debug] [2019-04-09T16:01:59.569Z] CLI Version:   6.6.0
+[debug] [2019-04-09T16:01:59.569Z] Platform:      win32
+[debug] [2019-04-09T16:01:59.569Z] Node Version:  v10.15.1
+[debug] [2019-04-09T16:01:59.570Z] Time:          Tue Apr 09 2019 11:01:59 GMT-0500 (Central Daylight Time)
+[debug] [2019-04-09T16:01:59.570Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-09T16:01:59.584Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-09T16:01:59.584Z] > authorizing via signed-in user
+[debug] [2019-04-09T16:01:59.585Z] [iam] checking project upc-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-04-09T16:01:59.586Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/upc-app:testIamPermissions  
+
+[debug] [2019-04-09T16:01:59.761Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-09T16:01:59.764Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/upc-app  
+ 
+[debug] [2019-04-09T16:01:59.962Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'upc-app'...
+[info] 
+[info] i  deploying hosting
+[info] 
+[info] +  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/upc-app/overview
+[debug] [2019-04-09T16:02:01.459Z] TypeError: Cannot read property 'deploys' of undefined
+    at C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:88:36
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-04-09T16:02:40.052Z] ----------------------------------------------------------------------
+[debug] [2019-04-09T16:02:40.056Z] Command:       E:\Programs\node.exe C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting:upc-app --debug
+[debug] [2019-04-09T16:02:40.057Z] CLI Version:   6.6.0
+[debug] [2019-04-09T16:02:40.057Z] Platform:      win32
+[debug] [2019-04-09T16:02:40.057Z] Node Version:  v10.15.1
+[debug] [2019-04-09T16:02:40.058Z] Time:          Tue Apr 09 2019 11:02:40 GMT-0500 (Central Daylight Time)
+[debug] [2019-04-09T16:02:40.058Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-09T16:02:40.068Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-09T16:02:40.069Z] > authorizing via signed-in user
+[debug] [2019-04-09T16:02:40.069Z] [iam] checking project upc-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-04-09T16:02:40.071Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/upc-app:testIamPermissions  
+
+[debug] [2019-04-09T16:02:40.230Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-09T16:02:40.234Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/upc-app  
+ 
+[debug] [2019-04-09T16:02:40.434Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'upc-app'...
+[info] 
+[info] i  deploying hosting
+[info] 
+[info] +  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/upc-app/overview
+[debug] [2019-04-09T16:02:41.825Z] TypeError: Cannot read property 'deploys' of undefined
+    at C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:88:36
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-04-09T16:04:04.901Z] ----------------------------------------------------------------------
+[debug] [2019-04-09T16:04:04.905Z] Command:       E:\Programs\node.exe C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting:upc-app --debug
+[debug] [2019-04-09T16:04:04.905Z] CLI Version:   6.6.0
+[debug] [2019-04-09T16:04:04.906Z] Platform:      win32
+[debug] [2019-04-09T16:04:04.906Z] Node Version:  v10.15.1
+[debug] [2019-04-09T16:04:04.907Z] Time:          Tue Apr 09 2019 11:04:04 GMT-0500 (Central Daylight Time)
+[debug] [2019-04-09T16:04:04.907Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-09T16:04:04.918Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-09T16:04:04.918Z] > authorizing via signed-in user
+[debug] [2019-04-09T16:04:04.918Z] [iam] checking project upc-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-04-09T16:04:04.920Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/upc-app:testIamPermissions  
+
+[debug] [2019-04-09T16:04:05.132Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-09T16:04:05.136Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/upc-app  
+ 
+[debug] [2019-04-09T16:04:05.332Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'upc-app'...
+[info] 
+[info] i  deploying hosting
+[info] 
+[info] +  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/upc-app/overview
+[debug] [2019-04-09T16:04:06.758Z] TypeError: Cannot read property 'deploys' of undefined
+    at C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:88:36
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-04-09T16:07:15.206Z] ----------------------------------------------------------------------
+[debug] [2019-04-09T16:07:15.209Z] Command:       E:\Programs\node.exe C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting:upc-app
+[debug] [2019-04-09T16:07:15.209Z] CLI Version:   6.6.0
+[debug] [2019-04-09T16:07:15.210Z] Platform:      win32
+[debug] [2019-04-09T16:07:15.210Z] Node Version:  v10.15.1
+[debug] [2019-04-09T16:07:15.211Z] Time:          Tue Apr 09 2019 11:07:15 GMT-0500 (Central Daylight Time)
+[debug] [2019-04-09T16:07:15.211Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-09T16:07:15.220Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-09T16:07:15.220Z] > authorizing via signed-in user
+[debug] [2019-04-09T16:07:15.221Z] [iam] checking project upc-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-04-09T16:07:15.222Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/upc-app:testIamPermissions  
+
+[debug] [2019-04-09T16:07:15.431Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-09T16:07:15.433Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/upc-app  
+ 
+[debug] [2019-04-09T16:07:15.691Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'upc-app'...
+[info] 
+[info] i  deploying hosting
+[info] 
+[info] +  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/upc-app/overview
+[debug] [2019-04-09T16:07:17.127Z] TypeError: Cannot read property 'deploys' of undefined
+    at C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:88:36
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-04-09T16:07:25.846Z] ----------------------------------------------------------------------
+[debug] [2019-04-09T16:07:25.850Z] Command:       E:\Programs\node.exe C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting:upc-app --debug
+[debug] [2019-04-09T16:07:25.850Z] CLI Version:   6.6.0
+[debug] [2019-04-09T16:07:25.850Z] Platform:      win32
+[debug] [2019-04-09T16:07:25.850Z] Node Version:  v10.15.1
+[debug] [2019-04-09T16:07:25.852Z] Time:          Tue Apr 09 2019 11:07:25 GMT-0500 (Central Daylight Time)
+[debug] [2019-04-09T16:07:25.852Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-09T16:07:25.861Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-09T16:07:25.862Z] > authorizing via signed-in user
+[debug] [2019-04-09T16:07:25.862Z] [iam] checking project upc-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-04-09T16:07:25.864Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/upc-app:testIamPermissions  
+
+[debug] [2019-04-09T16:07:26.009Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-09T16:07:26.012Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/upc-app  
+ 
+[debug] [2019-04-09T16:07:26.137Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'upc-app'...
+[info] 
+[info] i  deploying hosting
+[info] 
+[info] +  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/upc-app/overview
+[debug] [2019-04-09T16:07:27.579Z] TypeError: Cannot read property 'deploys' of undefined
+    at C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:88:36
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-04-09T16:50:52.331Z] ----------------------------------------------------------------------
+[debug] [2019-04-09T16:50:52.334Z] Command:       E:\Programs\node.exe C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting:upc-app
+[debug] [2019-04-09T16:50:52.334Z] CLI Version:   6.6.0
+[debug] [2019-04-09T16:50:52.335Z] Platform:      win32
+[debug] [2019-04-09T16:50:52.335Z] Node Version:  v10.15.1
+[debug] [2019-04-09T16:50:52.336Z] Time:          Tue Apr 09 2019 11:50:52 GMT-0500 (Central Daylight Time)
+[debug] [2019-04-09T16:50:52.336Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-09T16:50:55.561Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-09T16:50:55.562Z] > authorizing via signed-in user
+[debug] [2019-04-09T16:50:55.562Z] [iam] checking project upc-app for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-04-09T16:50:55.566Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-04-09T16:50:55.567Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-04-09T16:50:55.745Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-09T16:50:56.257Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/upc-app:testIamPermissions  
+
+[debug] [2019-04-09T16:50:56.454Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-09T16:50:56.456Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/upc-app  
+ 
+[debug] [2019-04-09T16:50:56.610Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'upc-app'...
+[info] 
+[info] i  deploying hosting
+[info] 
+[info] +  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/upc-app/overview
+[debug] [2019-04-09T16:50:58.073Z] TypeError: Cannot read property 'deploys' of undefined
+    at C:\Users\mvaldez2\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:88:36
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+[error] 
+[error] Error: An unexpected error has occurred.

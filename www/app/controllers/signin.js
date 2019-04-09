@@ -203,28 +203,7 @@ define([
           // You can use it to access the Google API.
           var token = result.credential.accessToken;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
-          firebase.auth().signInWithCredential(creds).then((user) => {
-            firebase.database().ref().child("googleUsers").orderByChild("email")
-              .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
-                if (snapshot.exists()) {  // account exists
-                  console.log("exists");
-
-
-                } else { //account deosn't exsist -> create new user
-                  console.log("doesn't exist");
-                  gUserRef.child(user.uid).set({
-                    name: user.displayName,
-                    email: user.email,
-                    photoUrl: user.photoURL,
-                    emailVerified: user.emailVerified,
-                    uid: user.uid,
-                    admin: false,
-                    owner: false,
-                  }, onComplete);
-                }
-              });
-            console.log(user)
-          })
+          
           
           // The signed-in user info.
           var user = result.user;
