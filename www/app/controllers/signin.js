@@ -16,7 +16,7 @@ define([
     'Calendar',
     'GAPI',
     '$state',
-    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, Calendar, GAPI, $state) {
+    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, Calendar, GAPI, $state, GooglePlus) {
       var ref = firebase.database().ref();
 
 
@@ -235,6 +235,22 @@ define([
           var errorCode = error.code;
           var errorMessage = error.message;
         });
+      }
+
+      $scope.login4 = function() {
+       GooglePlus.login(
+          {
+            'scopes': 'https://www.googleapis.com/auth/calendar', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+            'webClientId': '188526661745-1qvjgbd02e62kjg1it4tj05p14rveb21.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+            'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+          },
+          function (obj) {
+            alert(JSON.stringify(obj)); // do something useful instead of alerting
+          },
+          function (msg) {
+            alert('error: ' + msg);
+          }
+      );
       }
 
       $ionicHistory.nextViewOptions({

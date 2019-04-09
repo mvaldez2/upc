@@ -30,6 +30,8 @@ define([
 
 
       $scope.ready = true;
+
+      
       var ref = firebase.database().ref();
 
       // ---------------- Get calendar  ------------------------
@@ -140,11 +142,7 @@ define([
 
 
 
-      $ionicModal.fromTemplateUrl('app/templates/page.html', {
-        scope: $scope
-      }).then(function (modal) {
-        $scope.modal = modal;
-      });
+      
 
       $scope.openModal = function (index) {
         var notEqual = index !== $scope.currentPage;

@@ -53,4 +53,8 @@
             <path url="/__/auth/callback" />
         </host>
     </universal-links>
+    <plugin name="cordova-plugin-googleplus" spec="~7.0.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.188526661745-1qvjgbd02e62kjg1it4tj05p14rveb21" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="188526661745-1qvjgbd02e62kjg1it4tj05p14rveb21.apps.googleusercontent.com" />
+    </plugin>
 </widget>

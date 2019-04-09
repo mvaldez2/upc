@@ -52,6 +52,21 @@ define([
         $scope.id = snapshot.val().id
 
       });
+      firebase.auth().onAuthStateChanged(function (user) {
+        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        var userId = googleUser.getId();
+        // User is signed in
+        var profileRef = firebase.database().ref('googleUsers/' + userId + '/');
+        profileRef.on('value', function (snapshot) {
+          console.log(snapshot.val())
+          $scope.name = snapshot.val().name
+          $scope.photoUrl = snapshot.val().photoUrl
+          $scope.email = snapshot.val().email
+          $scope.event = snapshot.val().events
+          $scope.admin = snapshot.val().admin
+        });
+
+      });
 
 
 
@@ -68,9 +83,21 @@ define([
       $scope.deletingEvent = function (id) {
         firebase.auth().onAuthStateChanged(function (user) {
           var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+          var googleProfile = googleUser.getBasicProfile();
           var userId = googleUser.getId();
-          ref.child("googleUsers/" + userId + "/events/" + id).remove();
+          gapi.client.calendar.events.delete({
+            "calendarId": googleProfile.getEmail(),
+            "eventId": id
+          })
+              .then(function(response) {
+                      // Handle the results here (response.result has the parsed body).
+                      console.log("Response", response);
+                    },
+                    function(err) { console.error("Execute error", err); });
+        
         });
+          ref.child("googleUsers/" + userId + "/events/" + id).remove();
+          
       }
 
       // Delete Event Popup
@@ -101,21 +128,7 @@ define([
         $state.go("dashboard");
       }
 
-      firebase.auth().onAuthStateChanged(function (user) {
-        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-        var userId = googleUser.getId();
-        // User is signed in
-        var profileRef = firebase.database().ref('googleUsers/' + userId + '/');
-        profileRef.on('value', function (snapshot) {
-          console.log(snapshot.val())
-          $scope.name = snapshot.val().name
-          $scope.photoUrl = snapshot.val().photoUrl
-          $scope.email = snapshot.val().email
-          $scope.event = snapshot.val().events
-          $scope.admin = snapshot.val().admin
-        });
-
-      });
+      
 
 
 

@@ -6683,15 +6683,15 @@ progress {
         box-shadow: none;
         color: #fff; }
   .button.button-positive {
-    border-color: #1eb4f4;
-    background-color: #4fc4f6;
+    border-color: #ffcc00;
+    background-color: #ffcc00;
     color: #fff; }
     .button.button-positive:hover {
       color: #fff;
       text-decoration: none; }
     .button.button-positive.active, .button.button-positive.activated {
-      border-color: #1eb4f4;
-      background-color: #1eb4f4;
+      border-color: #381E0E;
+      background-color: #ffcc00;
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
     .button.button-positive.button-clear {
       border-color: transparent;

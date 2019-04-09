@@ -9,7 +9,10 @@ define([
   var app = angular.module('app', [
     'ionic',
     'firebase',
-    'gapi'
+    'gapi',
+    'ionic.native',
+    
+    
   ]);
   // return the app so you can require it in other components
   return app;
