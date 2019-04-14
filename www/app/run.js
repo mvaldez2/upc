@@ -5,6 +5,7 @@ define([
   // the run blocks
   app.run([
     '$ionicPlatform',
+    '$cordovaCamera',
     function ($ionicPlatform) {
       $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

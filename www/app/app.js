@@ -10,7 +10,8 @@ define([
     'ionic',
     'firebase',
     'gapi',
-    'ionic.native',
+    'ionic.native'
+
     
     
   ]);

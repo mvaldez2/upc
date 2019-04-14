@@ -19,13 +19,11 @@ define([
     '$ionicPopup',
     'Calendar',
     'Youtube',
-    'GAPI',
-
     '$stateParams',
     'eventService',
 
     function ($scope, $ionicModal, $ionicScrollDelegate, $sce, pageService, $firebaseObject,
-      $firebaseAuth, $firebaseArray, $window, $state, $ionicHistory, $ionicPopup, Calendar, Youtube, GAPI,
+      $firebaseAuth, $firebaseArray, $window, $state, $ionicHistory, $ionicPopup,
       $stateParams, eventService) {
 
 
@@ -74,7 +72,7 @@ define([
       }
 
       //------------ get current user -------------------
-      firebase.auth().onAuthStateChanged(function (user) {
+     /* firebase.auth().onAuthStateChanged(function (user) {
         var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
 
 
@@ -89,7 +87,7 @@ define([
           $scope.event = snapshot.val().events
           $scope.admin = snapshot.val().admin
         });
-      });
+      });*/
 
 
 
@@ -175,8 +173,8 @@ define([
 
       });*/
 
-      GAPI.init().then(function () {
-      }, function () { console.log('Something went wrong yes?'); });
+      /*GAPI.init().then(function () {
+      }, function () { console.log('Something went wrong yes?'); });*/
 
                                         // **************** Log In Here **************** //
 
@@ -256,12 +254,12 @@ define([
       }
 
 
-      gapi.load("client:auth2", function () {
+      /*gapi.load("client:auth2", function () {
         gapi.auth2.init({ client_id: '188526661745-1qvjgbd02e62kjg1it4tj05p14rveb21.apps.googleusercontent.com' });
       });
 
       GAPI.init().then(function () {
-      }, function () { console.log('Something went wrong yes?'); });
+      }, function () { console.log('Something went wrong yes?'); });*/
 
 
       var gUserRef = ref.child("googleUsers"); //get users
