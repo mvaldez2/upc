@@ -29,12 +29,13 @@ define([
 
 
       firebase.auth().onAuthStateChanged(function (user) {
-        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-        $scope.userId = googleUser.getId();
-        var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
-        var userEvents = $firebaseArray(userEventRef);
-        $scope.userEvents = $firebaseArray(userEventRef);
-
+        if (user){
+          var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+          $scope.userId = googleUser.getId();
+          var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
+          var userEvents = $firebaseArray(userEventRef);
+          $scope.userEvents = $firebaseArray(userEventRef);
+        }
 
       });
 
@@ -45,10 +46,10 @@ define([
         $scope.event = snapshot.val()
         $scope.summary = snapshot.val().summary
         $scope.location = snapshot.val().location
-        $scope.startDate = snapshot.val().start.dateTime
-        $scope.endDate = snapshot.val().end.dateTime
-        $scope.start = snapshot.val().start.date
-        $scope.end = snapshot.val().end.date
+        //$scope.startDate = snapshot.val().start.dateTime
+        //$scope.endDate = snapshot.val().end.dateTime
+       // $scope.start = snapshot.val().start.date
+        //$scope.end = snapshot.val().end.date
         $scope.id = snapshot.val().id
 
       });
@@ -113,19 +114,21 @@ $scope.deleteUser = function () {
 }
 
 firebase.auth().onAuthStateChanged(function (user) {
-  var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-  var userId = googleUser.getId();
-  // User is signed in
-  var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
-  profileRef.on('value', function (snapshot) {
-    console.log(snapshot.val())
-    $scope.name = snapshot.val().name
-    $scope.photoUrl = snapshot.val().photoUrl
-    $scope.email = snapshot.val().email
-    $scope.event = snapshot.val().events
-    $scope.admin = snapshot.val().admin
-  });
+  if (user){
+    var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+    var userId = googleUser.getId();
 
+    // User is signed in
+    var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
+    profileRef.on('value', function (snapshot) {
+      console.log(snapshot.val())
+      $scope.name = snapshot.val().name
+      $scope.photoUrl = snapshot.val().photoUrl
+      $scope.email = snapshot.val().email
+      $scope.event = snapshot.val().events
+      $scope.admin = snapshot.val().admin
+    });
+  }
 });
 
 

@@ -43,11 +43,13 @@ define([
         var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
-        var profileRef = firebase.database().ref('googleUsers/' + user.uid);
-        profileRef.on('value', function (snapshot) {
-          $scope.admin = snapshot.val().admin
-          $scope.owner = snapshot.val().owner
-        });
+        if (user) {
+          var profileRef = firebase.database().ref('googleUsers/' + user.uid);
+          profileRef.on('value', function (snapshot) {
+            $scope.admin = snapshot.val().admin
+            $scope.owner = snapshot.val().owner
+          });
+        }
       });
 
 

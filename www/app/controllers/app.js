@@ -73,21 +73,27 @@ define([
 
       //------------ get current user -------------------
       firebase.auth().onAuthStateChanged(function (user) {
-        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        //var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
 
 
-        var userId = googleUser.getId();
+        //var userId = googleUser.getId();
         // User is signed in
-        var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
-        profileRef.on('value', function (snapshot) {
-          console.log(snapshot.val())
-          $scope.name = snapshot.val().name
-          $scope.photoUrl = snapshot.val().photoUrl
-          $scope.email = snapshot.val().email
-          $scope.event = snapshot.val().events
-          $scope.admin = snapshot.val().admin
-          $scope.owner = snapshot.val().owner
-        });
+        if (user) {
+          // User is signed in
+          var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
+          profileRef.on('value', function (snapshot) {
+            console.log(snapshot.val())
+            $scope.name = snapshot.val().name
+            $scope.photoUrl = snapshot.val().photoUrl
+            $scope.email = snapshot.val().email
+            $scope.event = snapshot.val().events
+            $scope.admin = snapshot.val().admin
+            $scope.owner = snapshot.val().owner
+          });
+        } else {
+          $scope.admin = false
+          $scope.owner = false
+        }
       });
 
 
@@ -141,11 +147,11 @@ define([
 
 
 
-      $ionicModal.fromTemplateUrl('app/templates/page.html', {
+      /*$ionicModal.fromTemplateUrl('app/templates/page.html', {
         scope: $scope
       }).then(function (modal) {
         $scope.modal = modal;
-      });
+      });*/
 
       $scope.openModal = function (index) {
         var notEqual = index !== $scope.currentPage;

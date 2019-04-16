@@ -30,14 +30,12 @@ define([
       var ref = firebase.database().ref();
 
       firebase.auth().onAuthStateChanged(function (user) {
-        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-        var googleProfile = googleUser.getBasicProfile();
-        var userId = googleUser.getId();
-        var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
-        var userEvents = $firebaseArray(userEventRef);
-        $scope.userEvents = $firebaseArray(userEventRef);
-        $scope.userAdmin = ref.child("googleUsers/" + user.uid + "/admin");
-        
+       if (user) {
+          var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
+          var userEvents = $firebaseArray(userEventRef);
+          $scope.userEvents = $firebaseArray(userEventRef);
+          $scope.userAdmin = ref.child("googleUsers/" + user.uid + "/admin");
+        }
       });
 
 

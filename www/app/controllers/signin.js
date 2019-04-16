@@ -266,7 +266,7 @@ define([
           if (res) {
             $scope.login2();
           } else {
-            $state.go("profileSettings");
+            $state.go("dashboard");
           }
         });
       };
@@ -274,6 +274,7 @@ define([
       $scope.profSettings = function () {
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
+            $scope.LoginTitle = "Log Out"
             $state.go("profileSettings");
           } else {
             console.log("Tried seeing profile without being logged in!!");
