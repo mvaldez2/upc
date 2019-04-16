@@ -154,11 +154,8 @@ define([
 
       //Firebase login alternative (probably the better option)
       $scope.login2 = function () {
-        $scope.LoggedIn = false;
         $scope.loadClient();
         gapi.auth2.getAuthInstance({ scope: "https://www.googleapis.com/auth/calendar" }).signIn().then((res) => {
-          $scope.LoggedIn = true;
-          $scope.LoginTitle = "Log Out";
           console.log("LoginTitle =", $scope.LoginTitle)
           var token = res.getAuthResponse().id_token;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
@@ -188,7 +185,7 @@ define([
 
           //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
           $scope.sync();
-          $state.go("profileSettings"); //go to dashboard after sign in
+           
         });
 
 
@@ -252,8 +249,22 @@ define([
       }
 
       // ---------- Switch login/ logout buttons --------------
-      $scope.LoggedIn = false;
-      $scope.LoginTitle = "Log In";
+
+      firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            $scope.LoginTitle = "Log Out"
+          } else {
+            $scope.LoginTitle = "Log In";
+          }
+        });
+
+        $scope.clicked = function () {
+        if ($scope.LoginTitle == "Log In") {
+          $scope.login2();
+        } else {
+          $scope.signOff();
+        }
+      }
 
       $scope.showConfirm = function () {
         var confirmPopup = $ionicPopup.confirm({
@@ -271,28 +282,19 @@ define([
         });
       };
 
+      //stop it from being called again
       $scope.profSettings = function () {
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
-            $scope.LoginTitle = "Log Out"
             $state.go("profileSettings");
           } else {
             console.log("Tried seeing profile without being logged in!!");
-          $scope.showConfirm();
+            $scope.showConfirm();
           }
-        });
+        });        
         
       }
 
-      $scope.clicked = function () {
-        if ($scope.LoggedIn == false) {
-          $scope.LoginTitle = "Log In";
-          $scope.login2();
-        } else {
-          $scope.signOff();
-          $scope.LoginTitle = "Log Out"
-        }
-      }
 
       $ionicHistory.nextViewOptions({
         disableBack: true,
