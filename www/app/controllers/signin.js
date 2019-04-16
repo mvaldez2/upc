@@ -294,7 +294,7 @@ define([
           if (res) {
             $scope.login3();
           } else {
-            $state.go("profileSettings");
+            $state.go("dashboard");
           }
         });
       };
@@ -312,6 +312,7 @@ define([
       }
 
       $scope.clicked2 = function () {
+        
         if ($scope.LoggedIn == false) {
           $scope.LoginTitle = "Log In";
           $scope.login3();
@@ -327,6 +328,7 @@ define([
         cache: false
 
       });
+      
     }
   ]);
 });

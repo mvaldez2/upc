@@ -29,7 +29,7 @@ define([
 
       $scope.ready = true;
 
-      
+
       var ref = firebase.database().ref();
 
       // ---------------- Get calendar  ------------------------
@@ -73,17 +73,22 @@ define([
 
       //------------ get current user -------------------
       firebase.auth().onAuthStateChanged(function (user) {
-        // User is signed in
-        var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
-        profileRef.on('value', function (snapshot) {
-          console.log(snapshot.val())
-          $scope.name = snapshot.val().name
-          $scope.photoUrl = snapshot.val().photoUrl
-          $scope.email = snapshot.val().email
-          $scope.event = snapshot.val().events
-          $scope.admin = snapshot.val().admin
-          $scope.owner = snapshot.val().owner
-        });
+        if (user) {
+          // User is signed in
+          var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
+          profileRef.on('value', function (snapshot) {
+            console.log(snapshot.val())
+            $scope.name = snapshot.val().name
+            $scope.photoUrl = snapshot.val().photoUrl
+            $scope.email = snapshot.val().email
+            $scope.event = snapshot.val().events
+            $scope.admin = snapshot.val().admin
+            $scope.owner = snapshot.val().owner
+          });
+        } else {
+          $scope.admin = false
+          $scope.owner = false
+        }
       });
 
 
@@ -116,7 +121,7 @@ define([
         }
       }
 
-      
+
 
       //might be used for reload after submitting of something
       $scope.reloadRoute = function () {
@@ -125,7 +130,7 @@ define([
 
 
 
-      
+
 
       $scope.openModal = function (index) {
         var notEqual = index !== $scope.currentPage;
@@ -161,7 +166,7 @@ define([
       /*GAPI.init().then(function () {
       }, function () { console.log('Something went wrong yes?'); });*/
 
-                                        // **************** Log In Here **************** //
+      // **************** Log In Here **************** //
 
       var ref = firebase.database().ref();
 
@@ -254,7 +259,7 @@ define([
 
 
       // ------------ signs in with authentication ---------------------------
-     
+
 
       $ionicHistory.nextViewOptions({
         disableBack: true,
@@ -266,7 +271,7 @@ define([
 
       // ---------- Switch login/ logout buttons --------------
 
-      
+
 
     }
   ]);
