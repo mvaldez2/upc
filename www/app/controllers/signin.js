@@ -195,7 +195,7 @@ define([
 
           //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
           $scope.sync();
-          $state.go("profileSettings"); //go to dashboard after sign in
+          //go to dashboard after sign in
         });
 
 
@@ -280,8 +280,21 @@ define([
       }
 
       // ---------- Switch login/ logout buttons --------------
-      $scope.LoggedIn = false;
-      $scope.LoginTitle = "Log In";
+      firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            $scope.LoginTitle = "Log Out"
+          } else {
+            $scope.LoginTitle = "Log In";
+          }
+        });
+
+        $scope.clicked2 = function () {
+        if ($scope.LoginTitle == "Log In") {
+          $scope.login3();
+        } else {
+          $scope.signOff();
+        }
+      }
 
       $scope.showConfirm = function () {
         var confirmPopup = $ionicPopup.confirm({
@@ -299,35 +312,18 @@ define([
         });
       };
 
+      //stop it from being called again
       $scope.profSettings = function () {
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
             $state.go("profileSettings");
           } else {
             console.log("Tried seeing profile without being logged in!!");
-          $scope.showConfirm();
+            $scope.showConfirm();
           }
-        });
+        });        
         
       }
-
-      $scope.clicked2 = function () {
-        
-        if ($scope.LoggedIn == false) {
-          $scope.LoginTitle = "Log In";
-          $scope.login3();
-        } else {
-          $scope.signOff();
-          $scope.LoginTitle = "Log Out"
-        }
-      }
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-        disableAnimate: false,
-        historyRoot: false,
-        cache: false
-
-      });
       
     }
   ]);
