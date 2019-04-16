@@ -38,12 +38,12 @@ define([
 
 
       firebase.auth().onAuthStateChanged(function (user) {
-        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-        var userId = googleUser.getId();
-        var userEventRef = ref.child("googleUsers/" + userId + "/events");
+        //var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        //var userId = googleUser.getId();
+        var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
-        var profileRef = firebase.database().ref('googleUsers/' + userId);
+        var profileRef = firebase.database().ref('googleUsers/' + user.uid);
         profileRef.on('value', function (snapshot) {
           $scope.admin = snapshot.val().admin
           $scope.owner = snapshot.val().owner

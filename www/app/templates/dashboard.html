@@ -1,57 +1,63 @@
 <ion-view>
 
-  <ion-nav-title>
-      Valparaiso   <img width=14px height=40% src="https://www.valpo.edu/brand/files/2014/06/master_separated_flame_shield.png"/>   University
-  </ion-nav-title>
-  <ion-content padding="true" class="has-header has-tabs">
-        <button ng-controller="SigninCtrl" ng-click="login2()">login2(web)</button>
+    <ion-nav-title>
+        Valparaiso <img width=14px height=40%
+            src="https://www.valpo.edu/brand/files/2014/06/master_separated_flame_shield.png" /> University
+    </ion-nav-title>
+    <ion-content padding="true" class="has-header has-tabs">
+        <!-- <button ng-controller="SigninCtrl" ng-click="login2()">login2(web)</button>
         <button ng-controller="SigninCtrl" ng-click="login3()">login3(android)</button> 
-       <!-- <button ng-controller="SigninCtrl" ng-click="takePicture()">pic</button> 
+        <button ng-controller="SigninCtrl" ng-click="signOff()">Sign Off(android)</button> 
+       <button ng-controller="SigninCtrl" ng-click="takePicture()">pic</button> 
         <button ng-controller="SigninCtrl" ng-click="login4()">login4</button> -->
-        
-        
-
-          <div class="list card" ui-sref="calendar()">
-              <div class="item item-divider" align="center">
-                  <h2>Programs & Events</h2>
-              </div>
-              <div class="item item-body">
-                  <img class="full-image" src="https://www.valpo.edu/university-programming-council/files/2018/05/Programs.png">
-              </div>
-          </div>
-
-              <div class="list card" ui-sref="perks()">
-                  <div class="item item-divider" align="center">
-                      <h2>Crusader Perks</h2>
-                  </div>
-                  <div class="item item-body">
-                      <img class="full-image" src="https://www.valpo.edu/university-programming-council/files/2018/08/Screen-Shot-2018-08-28-at-6.34.58-PM.png">
-                  </div>
-              </div>
-
-              <div class="list card" ui-sref="about()">
-                  <div class="item item-divider" align="center">
-                      <h2>About Us</h2>
-                  </div>
-                  <div class="item item-body">
-                      <img class="full-image" src="https://www.valpo.edu/university-programming-council/files/2018/05/join-us.png">
-                  </div>
-              </div>
-
-              <div class="list card" ui-sref="eventSettings()" >
-        <!--        <div class="list card" ui-sref="eventSettings()" > -->
-                  <div class="item item-divider" align="center">
-                      <h2>Admin Settings</h2>
-                  </div>
-                  <div class="item item-body">
-                      <img class="full-image" src="https://bloximages.chicago2.vip.townnews.com/nwitimes.com/content/tncms/assets/v3/editorial/d/b4/db4a3591-e604-542a-96cd-5b888bfe4498/581791369ac8c.image.jpg?resize=400%2C267">
-                  </div>
-              </div>
-
-      <div class="row">
-
-      </div>
 
 
-  </ion-content>
+
+        <div class="list card" ui-sref="calendar()">
+            <div class="item item-divider" align="center">
+                <h2>Programs & Events</h2>
+            </div>
+            <div class="item item-body">
+                <img class="full-image"
+                    src="https://www.valpo.edu/university-programming-council/files/2018/05/Programs.png">
+            </div>
+        </div>
+
+        <div class="list card" ui-sref="perks()">
+            <div class="item item-divider" align="center">
+                <h2>Crusader Perks</h2>
+            </div>
+            <div class="item item-body">
+                <img class="full-image"
+                    src="https://www.valpo.edu/university-programming-council/files/2018/08/Screen-Shot-2018-08-28-at-6.34.58-PM.png">
+            </div>
+        </div>
+
+        <div class="list card" ui-sref="about()">
+            <div class="item item-divider" align="center">
+                <h2>About Us</h2>
+            </div>
+            <div class="item item-body">
+                <img class="full-image"
+                    src="https://www.valpo.edu/university-programming-council/files/2018/05/join-us.png">
+            </div>
+        </div>
+
+        <div ng-if="admin" class="list card" ui-sref="eventSettings()">
+            <!--        <div class="list card" ui-sref="eventSettings()" > -->
+            <div class="item item-divider" align="center">
+                <h2>Admin Settings</h2>
+            </div>
+            <div class="item item-body">
+                <img class="full-image"
+                    src="https://bloximages.chicago2.vip.townnews.com/nwitimes.com/content/tncms/assets/v3/editorial/d/b4/db4a3591-e604-542a-96cd-5b888bfe4498/581791369ac8c.image.jpg?resize=400%2C267">
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+
+
+    </ion-content>
 </ion-view>

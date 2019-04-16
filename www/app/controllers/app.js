@@ -72,13 +72,9 @@ define([
       }
 
       //------------ get current user -------------------
-     /* firebase.auth().onAuthStateChanged(function (user) {
-        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-
-
-        var userId = googleUser.getId();
+      firebase.auth().onAuthStateChanged(function (user) {
         // User is signed in
-        var profileRef = firebase.database().ref('googleUsers/' + userId + '/');
+        var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
         profileRef.on('value', function (snapshot) {
           console.log(snapshot.val())
           $scope.name = snapshot.val().name
@@ -86,8 +82,9 @@ define([
           $scope.email = snapshot.val().email
           $scope.event = snapshot.val().events
           $scope.admin = snapshot.val().admin
+          $scope.owner = snapshot.val().owner
         });
-      });*/
+      });
 
 
 
@@ -119,19 +116,7 @@ define([
         }
       }
 
-      $scope.signOff = function () {
-        $firebaseAuth().$signOut()
-
-          .then(function () {
-            console.log('Signout Succesfull')
-            $scope.LoggedIn=false;
-            $scope.LoginTitle="Log In"
-            $state.go("dashboard")
-
-          }, function (error) {
-            console.log('Signout Failed')
-          });
-      }
+      
 
       //might be used for reload after submitting of something
       $scope.reloadRoute = function () {
@@ -269,45 +254,7 @@ define([
 
 
       // ------------ signs in with authentication ---------------------------
-      $scope.login = function () {
-        $scope.loadClient();
-        gapi.auth2.getAuthInstance().signIn({ scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar" })
-          .then(function () {
-            console.log("Sign-in successful");
-            $scope.LoggedIn=true;
-            $scope.LoginTitle="Log Out";
-            firebase.auth().onAuthStateChanged(function (user) {
-              var googleUser = gapi.auth2.getAuthInstance().currentUser.get() //gets gppgle user
-              $scope.isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get()
-              var googleProfile = googleUser.getBasicProfile()
-              $scope.googleProfile = googleUser.getBasicProfile()
-              firebase.database().ref().child("googleUsers").orderByChild("email")
-                .equalTo(googleProfile.getEmail()).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
-                  if (snapshot.exists()) {  // account exists
-                    console.log("exists");
-                    console.log($scope.isSignedIn);
-
-                  } else { //account deosn't exsist -> create new user
-                    console.log("doesn't exist");
-                    gUserRef.child(googleProfile.getId()).set({
-                      name: googleProfile.getName(),
-                      email: googleProfile.getEmail(),
-                      photoUrl: googleProfile.getImageUrl(),
-                      uid: googleProfile.getId(),
-                      admin: false,
-                      owner: false,
-                    }, onComplete);
-                  }
-                });
-            });
-          }).then(function () {
-
-            //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
-            $scope.sync();
-            $state.go("dashboard"); //go to dashboard after sign in
-          });
-
-      }
+     
 
       $ionicHistory.nextViewOptions({
         disableBack: true,
@@ -319,43 +266,7 @@ define([
 
       // ---------- Switch login/ logout buttons --------------
 
-      $scope.LoggedIn = false;
-      $scope.LoginTitle = "Log In";
       
-      $scope.showConfirm = function() {
-          var confirmPopup = $ionicPopup.confirm({
-              title: 'Log in to see your profile',
-              template: 'Would you like to log in?',
-              cancelText: 'No',
-              okText: 'Yes'
-          });
-          confirmPopup.then(function(res) {
-              if(res) {
-                  $scope.login();
-              } else {
-                  $state.go("dashboard");
-              }
-          });
-      };
-
-      $scope.profSettings = function() {
-          if ($scope.LoginTitle == "Log In") {
-              console.log("Tried seeing profile without being logged in!!");
-              $scope.showConfirm();
-          } else {
-              $state.go("profileSettings");
-          }
-      }
-
-      $scope.clicked = function() {
-          if ($scope.LoggedIn == false) {
-              $scope.LoginTitle = "Log In";
-              $scope.login();
-          } else {
-              $scope.signOff();
-              $scope.LoginTitle = "Log Out"
-          }
-      }
 
     }
   ]);

@@ -16,19 +16,20 @@ define([
     'Calendar',
     '$state',
     '$cordovaCamera',
-    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, Calendar, $state, GooglePlus, $cordovaCamera) {
+    '$firebaseAuth',
+    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, Calendar, $state, GooglePlus, $cordovaCamera, $firebaseAuth) {
       var ref = firebase.database().ref();
 
 
       document.addEventListener("deviceready", function () {
-        
+
       }, true);
 
-      $scope.takePicture = function() {
-        $cordovaCamera.getPicture(opts).then(function(p) {
-        }, function(err) {
+      $scope.takePicture = function () {
+        $cordovaCamera.getPicture(opts).then(function (p) {
+        }, function (err) {
         });
-    };
+      };
 
       var onComplete = function (error) {
         if (error) {
@@ -200,51 +201,54 @@ define([
 
       }
 
-      $scope.login3 = function() {
+      $scope.login3 = function () {
+        $scope.LoggedIn = false;
         var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithRedirect(provider).then(function() {
+        firebase.auth().signInWithRedirect(provider).then(function () {
           return firebase.auth().getRedirectResult();
-        }).then(function(result) {
+        }).then(function (result) {
+          $scope.LoggedIn = true;
+          $scope.LoginTitle = "Log Out";
           // This gives you a Google Access Token.
           // You can use it to access the Google API.
           var token = result.credential.accessToken;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
-          
-          
+
+
           // The signed-in user info.
           var user = result.user;
           console.log(user)
           console.log(user.displayName)
           firebase.database().ref().child("googleUsers").orderByChild("email")
-              .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
-                if (snapshot.exists()) {  // account exists
-                  console.log("exists");
+            .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
+              if (snapshot.exists()) {  // account exists
+                console.log("exists");
 
 
-                } else { //account deosn't exsist -> create new user
-                  console.log("doesn't exist");
-                  gUserRef.child(user.uid).set({
-                    name: user.displayName,
-                    email: user.email,
-                    photoUrl: user.photoURL,
-                    emailVerified: user.emailVerified,
-                    uid: user.uid,
-                    admin: false,
-                    owner: false,
-                  }, onComplete);
-                }
-              });
+              } else { //account deosn't exsist -> create new user
+                console.log("doesn't exist");
+                gUserRef.child(user.uid).set({
+                  name: user.displayName,
+                  email: user.email,
+                  photoUrl: user.photoURL,
+                  emailVerified: user.emailVerified,
+                  uid: user.uid,
+                  admin: false,
+                  owner: false,
+                }, onComplete);
+              }
+            });
           // ...
-        }).catch(function(error) {
+        }).catch(function (error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
         });
       }
 
-      
 
-      $scope.login4 = function() {
+
+      $scope.login4 = function () {
         GooglePlus.login(
           {
             'scopes': 'https://www.googleapis.com/auth/calendar', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
@@ -261,6 +265,61 @@ define([
         );
       }
 
+      $scope.signOff = function () {
+        firebase.auth().signOut()
+
+          .then(function () {
+            console.log('Signout Succesfull')
+            $scope.LoggedIn = false;
+            $scope.LoginTitle = "Log In"
+            $state.go("dashboard")
+
+          }, function (error) {
+            console.log('Signout Failed')
+          });
+      }
+
+      // ---------- Switch login/ logout buttons --------------
+      $scope.LoggedIn = false;
+      $scope.LoginTitle = "Log In";
+
+      $scope.showConfirm = function () {
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Log in to see your profile',
+          template: 'Would you like to log in?',
+          cancelText: 'No',
+          okText: 'Yes'
+        });
+        confirmPopup.then(function (res) {
+          if (res) {
+            $scope.login3();
+          } else {
+            $state.go("profileSettings");
+          }
+        });
+      };
+
+      $scope.profSettings = function () {
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            $state.go("profileSettings");
+          } else {
+            console.log("Tried seeing profile without being logged in!!");
+          $scope.showConfirm();
+          }
+        });
+        
+      }
+
+      $scope.clicked2 = function () {
+        if ($scope.LoggedIn == false) {
+          $scope.LoginTitle = "Log In";
+          $scope.login3();
+        } else {
+          $scope.signOff();
+          $scope.LoginTitle = "Log Out"
+        }
+      }
       $ionicHistory.nextViewOptions({
         disableBack: true,
         disableAnimate: false,

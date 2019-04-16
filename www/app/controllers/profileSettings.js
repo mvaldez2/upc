@@ -29,9 +29,9 @@ define([
 
 
       firebase.auth().onAuthStateChanged(function (user) {
-        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-        $scope.userId = googleUser.getId();
-        var userEventRef = ref.child("googleUsers/" + $scope.userId + "/events");
+        //var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        // $scope.userId = googleUser.getId();
+        var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
 
@@ -53,10 +53,10 @@ define([
 
       });
       firebase.auth().onAuthStateChanged(function (user) {
-        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-        var userId = googleUser.getId();
+        //var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        //var userId = googleUser.getId();
         // User is signed in
-        var profileRef = firebase.database().ref('googleUsers/' + userId + '/');
+        var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
         profileRef.on('value', function (snapshot) {
           console.log(snapshot.val())
           $scope.name = snapshot.val().name
@@ -72,9 +72,9 @@ define([
 
       $scope.updateName = function (newName) {
         firebase.auth().onAuthStateChanged(function (user) {
-          var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-          var userId = googleUser.getId();
-          db.ref("googleUsers/" + userId + "/name").set(newName);
+          //var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+          //var userId = googleUser.getId();
+          db.ref("googleUsers/" + user.uid + "/name").set(newName);
         });
       }
 
@@ -82,7 +82,7 @@ define([
 
       $scope.deletingEvent = function (id) {
         firebase.auth().onAuthStateChanged(function (user) {
-          var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+          /*var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
           var googleProfile = googleUser.getBasicProfile();
           var userId = googleUser.getId();
           gapi.client.calendar.events.delete({
@@ -95,27 +95,28 @@ define([
                     },
                     function(err) { console.error("Execute error", err); });
         
+        });*/
+          ref.child("googleUsers/" + user.uid + "/events/" + id).remove();
+
         });
-          ref.child("googleUsers/" + userId + "/events/" + id).remove();
-          
       }
 
       // Delete Event Popup
 
-      $scope.deleteEvent = function(id) {
-          var confirmPopup = $ionicPopup.confirm({
-              title: 'Delete Event',
-              template: 'Are you sure you want to delete this event from your profile?',
-              cancelText: 'No',
-              okText: 'Yes'
-          });
-          confirmPopup.then(function(res) {
-              if(res) {
-                  $scope.deletingEvent(id);
-              } else {
-                  $state.go("profileSettings");
-              }
-          });
+      $scope.deleteEvent = function (id) {
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Delete Event',
+          template: 'Are you sure you want to delete this event from your profile?',
+          cancelText: 'No',
+          okText: 'Yes'
+        });
+        confirmPopup.then(function (res) {
+          if (res) {
+            $scope.deletingEvent(id);
+          } else {
+            $state.go("profileSettings");
+          }
+        });
       };
 
 
@@ -128,9 +129,11 @@ define([
         $state.go("dashboard");
       }
 
-      
 
 
+      $scope.mail = function () {
+        $window.open('mailto:' + $scope.email, '_system');
+      };
 
 
 
