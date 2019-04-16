@@ -35,7 +35,7 @@
                   </div>
               </div>
 
-              <div class="list card" ng-if="admin" ui-sref="eventSettings()" >
+              <div ng-if="admin || owner"class="list card"  ui-sref="eventSettings()" >
         <!--        <div class="list card" ui-sref="eventSettings()" > -->
                   <div class="item item-divider" align="center">
                       <h2>Admin Settings</h2>

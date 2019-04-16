@@ -46,7 +46,7 @@ define([
       firebase.auth().onAuthStateChanged(function (user) {
         var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
         var userId = googleUser.getId();
-        var userEventRef = ref.child("googleUsers/" + userId + "/events/"+ $stateParams.id);
+        var userEventRef = ref.child("googleUsers/" + user.uid + "/events/"+ $stateParams.id);
         //get current user event
         userEventRef.on('value', function (snapshot) {
           console.log(snapshot.val());
@@ -151,7 +151,7 @@ define([
                 function (err) { console.error("Execute error", err); });
           }
 
-          var userEventRef = ref.child("googleUsers/" + userId + "/events");
+          var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
 
           userEventRef.child($stateParams.id).set({
             event: $scope.event,

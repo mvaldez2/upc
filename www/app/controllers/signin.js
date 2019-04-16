@@ -237,6 +237,62 @@ define([
         });
       }
 
+      $scope.signOff = function () {
+        firebase.auth().signOut()
+
+          .then(function () {
+            console.log('Signout Succesfull')
+            $scope.LoggedIn = false;
+            $scope.LoginTitle = "Log In"
+            $state.go("dashboard")
+
+          }, function (error) {
+            console.log('Signout Failed')
+          });
+      }
+
+      // ---------- Switch login/ logout buttons --------------
+      $scope.LoggedIn = false;
+      $scope.LoginTitle = "Log In";
+
+      $scope.showConfirm = function () {
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Log in to see your profile',
+          template: 'Would you like to log in?',
+          cancelText: 'No',
+          okText: 'Yes'
+        });
+        confirmPopup.then(function (res) {
+          if (res) {
+            $scope.login2();
+          } else {
+            $state.go("profileSettings");
+          }
+        });
+      };
+
+      $scope.profSettings = function () {
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            $state.go("profileSettings");
+          } else {
+            console.log("Tried seeing profile without being logged in!!");
+          $scope.showConfirm();
+          }
+        });
+        
+      }
+
+      $scope.clicked = function () {
+        if ($scope.LoggedIn == false) {
+          $scope.LoginTitle = "Log In";
+          $scope.login2();
+        } else {
+          $scope.signOff();
+          $scope.LoginTitle = "Log Out"
+        }
+      }
+
       $ionicHistory.nextViewOptions({
         disableBack: true,
         disableAnimate: false,

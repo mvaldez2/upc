@@ -78,7 +78,7 @@
         <i class="icon ion-home"></i>
         Home
       </a>
-      <a class="tab-item" ng-click="profSettings()">
+      <a ng-controller="SigninCtrl" class="tab-item" ng-click="profSettings()">
         <i class="icon ion-person"></i>
         Profile
       </a>
@@ -91,7 +91,7 @@
      <ion-nav-back-button></ion-nav-back-button>
 
         <ion-nav-buttons side="right">
-            <button class="button button-royal" ng-click="clicked()">
+            <button ng-controller="SigninCtrl" class="button button-royal" ng-click="clicked()">
               {{LoginTitle}}
             </button>
         </ion-nav-buttons>

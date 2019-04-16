@@ -78,7 +78,7 @@ define([
 
         var userId = googleUser.getId();
         // User is signed in
-        var profileRef = firebase.database().ref('googleUsers/' + userId + '/');
+        var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
         profileRef.on('value', function (snapshot) {
           console.log(snapshot.val())
           $scope.name = snapshot.val().name
@@ -86,6 +86,7 @@ define([
           $scope.email = snapshot.val().email
           $scope.event = snapshot.val().events
           $scope.admin = snapshot.val().admin
+          $scope.owner = snapshot.val().owner
         });
       });
 
@@ -321,46 +322,9 @@ define([
 
       });
 
-      // ---------- Switch login/ logout buttons --------------
-
-      $scope.LoggedIn = false;
-      $scope.LoginTitle = "Log In";
       
-      $scope.showConfirm = function() {
-          var confirmPopup = $ionicPopup.confirm({
-              title: 'Log in to see your profile',
-              template: 'Would you like to log in?',
-              cancelText: 'No',
-              okText: 'Yes'
-          });
-          confirmPopup.then(function(res) {
-              if(res) {
-                  $scope.login();
-              } else {
-                  $state.go("dashboard");
-              }
-          });
-      };
 
-      $scope.profSettings = function() {
-          if ($scope.LoginTitle == "Log In") {
-              console.log("Tried seeing profile without being logged in!!");
-              $scope.showConfirm();
-          } else {
-              $state.go("profileSettings");
-          }
-      }
-
-      $scope.clicked = function() {
-          if ($scope.LoggedIn == false) {
-              $scope.LoginTitle = "Log In";
-              $scope.login();
-          } else {
-              $scope.signOff();
-              $scope.LoginTitle = "Log Out"
-          }
-      }
-
+      
     }
   ]);
 });
