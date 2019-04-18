@@ -2,42 +2,43 @@
   <ion-nav-title>UPC Calendar</ion-nav-title>
 
   <ion-content padding="true" class="has-header has-tabs">
-       <h3>Upcoming Events</h3>
-      <label class="item item-input">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input type='text' ng-model='searchText' placeholder="Search for an Event" />
-      </label>
-      <br />
-<img src="https://www.valpo.edu/university-programming-council/files/2018/05/Programs.png" height="auto" width=100%/>
+    <h3>Upcoming Events</h3>
+    <label class="item item-input">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type='text' ng-model='searchText' placeholder="Search for an Event" />
+    </label>
+    <br />
+    <img src="https://www.valpo.edu/university-programming-council/files/2018/05/Programs.png" height="auto"
+      width=100% />
 
-      <ion-list>
-        <!-- don't order by index, it messes up the search -->
-        <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
-          ng-repeat="place in cal | orderBy: start.dateTime | limitTo: 30 | filter:searchText"
-          ng-init="place.start.dateTime= dateFormat2(place)" <h2>{{place.summary}}</h2>
-          <p class="light">
-            <b>{{place.location}}</b> <br>
-            {{place.start.dateTime}}
-          </p>
-
-
-          <i class="icon ion-ios-arrow-right"></i>
-        </ion-item>
-      </ion-list>
-      <ion-item class="item-icon-right item-avatar item-royal" ui-sref="event({id:$index})"
-        ng-repeat='place in places | filter:searchText | limitTo: 10'>
-        <img ng-src="{{place.image}}">
-        <h2>{{place.name}}</h2>
+    <ion-list>
+      <!-- don't order by index, it messes up the search -->
+      <ion-item class="item-icon-right  item-royal" ui-sref="event({id: place.$id})"
+        ng-repeat="place in cal | orderBy : sortDate : true | limitTo: 30 | filter:searchText"
+        ng-init="place.start.dateTime= dateFormat2(place)" <h2>{{place.summary}}</h2>
         <p class="light">
-          <b>{{place.city}}</b> <br>
-          {{place.room}} - {{place.street}}
+          <b>{{place.location}}</b> <br>
+          {{place.start.dateTime}}
         </p>
 
 
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
+    </ion-list>
+    <ion-item class="item-icon-right item-avatar item-royal" ui-sref="event({id:$index})"
+      ng-repeat='place in places | filter:searchText | limitTo: 10'>
+      <img ng-src="{{place.image}}">
+      <h2>{{place.name}}</h2>
+      <p class="light">
+        <b>{{place.city}}</b> <br>
+        {{place.room}} - {{place.street}}
+      </p>
 
-      </ion-list>
 
-</ion-content>
+      <i class="icon ion-ios-arrow-right"></i>
+    </ion-item>
+
+    </ion-list>
+
+  </ion-content>
 </ion-view>

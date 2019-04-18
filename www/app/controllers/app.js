@@ -33,11 +33,14 @@ define([
       var ref = firebase.database().ref();
 
       // ---------------- Get calendar  ------------------------
-      var calRef = ref.child("calendar/events");
+      var calRef = ref.child("calendar");
       var cal = $firebaseArray(calRef);
+
+      var eventsRef = ref.child("events");
+      $scope.events = $firebaseArray(eventsRef);
       console.log(cal);
       $scope.cal = $firebaseArray(calRef);
-      var mycalRef = ref.child("myCalendar/events");
+      var mycalRef = ref.child("mycalendar");
       var mycal = $firebaseArray(mycalRef);
       $scope.mycal = $firebaseArray(mycalRef);
 
@@ -47,9 +50,14 @@ define([
       var googleUsers = $firebaseArray(gUsersRef);
       $scope.googleUsers = $firebaseArray(gUsersRef);
 
+      $scope.sortDate = function(event) {
+        var date = new Date(event.start.dateTime);
+        return -date;
+    };
+
       // ------- formats calendar dates -----------
       $scope.dateFormat2 = function (place) {
-        var eventRef = firebase.database().ref('calendar/events/' + place.$id);
+        var eventRef = firebase.database().ref('calendar/' + place.$id);
         eventRef.on('value', function (snapshot) {
           $scope.dateTime = snapshot.val().start.dateTime
           $scope.start = snapshot.val().start.date
@@ -64,7 +72,7 @@ define([
           var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
           var startDate = date.toLocaleDateString("en-US", dayOptions);
           var endDate = end.toLocaleDateString("en-US", dayOptions);
-          finalDate = startDate + " - " + endDate;
+          finalDate = startDate; // for multiple days: finalDate = startDate + " - " + endDate; This messes with the order of the events
 
         }
         return finalDate;

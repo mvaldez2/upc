@@ -66,6 +66,8 @@ define([
 
       //---------------syncs calendar ---------
       var db = firebase.database();
+      var eventRef = ref.child("events");
+      var calendarRef = ref.child("calendar");
       $scope.sync = function () {
         $scope.calendarEvents = gapi.client.calendar.events.list({
           "calendarId": "upc@valpo.edu",
@@ -81,9 +83,67 @@ define([
               events: $scope.upcEvents
             });
           }, function (err) { console.error("Execute error", err); });
-
-
       }
+
+      $scope.sync2 = function () {
+        $scope.calendarEvents = gapi.client.calendar.events.list({
+          "calendarId": "upc@valpo.edu",
+          "maxResults": 30,
+          "orderBy": "startTime",
+          "singleEvents": true,
+          "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"
+        })
+          .then(function (response) {
+            console.log("Response", response);
+            console.log("events", response.result.items[0].creator.displayName);
+            $scope.upcEvents = response.result.items;
+            var events = response.result.items
+            for (var i in $scope.upcEvents) {
+              console.log($scope.upcEvents[i].created);
+
+              if ($scope.upcEvents[i].location == undefined) {
+                calendarRef.child($scope.upcEvents[i].id).set({
+                  created: $scope.upcEvents[i].created,
+                  creator: $scope.upcEvents[i].creator,
+                  end: $scope.upcEvents[i].end,
+                  etag: $scope.upcEvents[i].etag,
+                  htmlLink: $scope.upcEvents[i].htmlLink,
+                  iCalUID: $scope.upcEvents[i].iCalUID,
+                  id: $scope.upcEvents[i].id,
+                  kind: $scope.upcEvents[i].kind,
+                  organizer: $scope.upcEvents[i].organizer,
+                  reminders: $scope.upcEvents[i].reminders,
+                  start: $scope.upcEvents[i].start,
+                  status: $scope.upcEvents[i].status,
+                  summary: $scope.upcEvents[i].summary,
+                  updated: $scope.upcEvents[i].updated
+                });
+              } else {
+                calendarRef.child($scope.upcEvents[i].id).set({
+                  created: $scope.upcEvents[i].created,
+                  creator: $scope.upcEvents[i].creator,
+                  end: $scope.upcEvents[i].end,
+                  etag: $scope.upcEvents[i].etag,
+                  htmlLink: $scope.upcEvents[i].htmlLink,
+                  iCalUID: $scope.upcEvents[i].iCalUID,
+                  id: $scope.upcEvents[i].id,
+                  kind: $scope.upcEvents[i].kind,
+                  location: $scope.upcEvents[i].location,
+                  organizer: $scope.upcEvents[i].organizer,
+                  reminders: $scope.upcEvents[i].reminders,
+                  start: $scope.upcEvents[i].start,
+                  status: $scope.upcEvents[i].status,
+                  summary: $scope.upcEvents[i].summary,
+                  updated: $scope.upcEvents[i].updated
+                });
+              }
+            }
+
+
+          }, function (err) { console.error("Execute error", err); });
+      }
+
+
       $scope.testSync = function () {
         $scope.calendarEvents = gapi.client.calendar.events.list({
           "calendarId": "miguel.valdez@valpo.edu",
@@ -195,7 +255,7 @@ define([
         }).then(function () {
 
           //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
-          $scope.sync();
+          $scope.sync2();
           //go to dashboard after sign in
         });
 

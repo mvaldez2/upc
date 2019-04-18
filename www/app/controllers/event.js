@@ -22,11 +22,11 @@ define([
 
       //get users
       $scope.users = $firebaseArray(userRef);
-      var calRef = ref.child("calendar/events");
+      var calRef = ref.child("calendar");
       var cal = $firebaseArray(calRef);
       $scope.cal = $firebaseArray(calRef);
 
-      var eventRef = firebase.database().ref('calendar/events/' + $stateParams.id);
+      var eventRef = firebase.database().ref('calendar/' + $stateParams.id);
       //get current event
       eventRef.on('value', function (snapshot) {
         console.log(snapshot.val());
