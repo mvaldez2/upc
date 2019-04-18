@@ -39,7 +39,7 @@ define([
 
       });
 
-      var eventRef = firebase.database().ref('calendar/events/' + $stateParams.id);
+      var eventRef = firebase.database().ref('calendar/' + $stateParams.id);
       //get current event
       eventRef.on('value', function (snapshot) {
         console.log(snapshot.val());

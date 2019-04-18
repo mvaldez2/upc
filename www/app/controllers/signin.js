@@ -21,7 +21,7 @@ define([
 
 
       document.addEventListener("deviceready", function () {
-        
+
       }, true);
 
       var onComplete = function (error) {
@@ -59,10 +59,12 @@ define([
 
       //---------------syncs calendar ---------
       var db = firebase.database();
+      var eventRef = ref.child("events");
+      var calendarRef = ref.child("calendar");
       $scope.sync = function () {
         $scope.calendarEvents = gapi.client.calendar.events.list({
           "calendarId": "upc@valpo.edu",
-          "maxResults": 20,
+          "maxResults": 30,
           "orderBy": "startTime",
           "singleEvents": true,
           "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"
@@ -74,9 +76,69 @@ define([
               events: $scope.upcEvents
             });
           }, function (err) { console.error("Execute error", err); });
-
-
       }
+
+
+      
+      $scope.sync2 = function () {
+        $scope.calendarEvents = gapi.client.calendar.events.list({
+          "calendarId": "upc@valpo.edu",
+          "maxResults": 30,
+          "orderBy": "startTime",
+          "singleEvents": true,
+          "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"
+        })
+          .then(function (response) {
+            console.log("Response", response);
+            console.log("events", response.result.items[0].creator.displayName);
+            $scope.upcEvents = response.result.items;
+            var events = response.result.items
+            for (var i in $scope.upcEvents) {
+              console.log($scope.upcEvents[i].created);
+
+              if ($scope.upcEvents[i].location == undefined) {
+                calendarRef.child($scope.upcEvents[i].id).set({
+                  created: $scope.upcEvents[i].created,
+                  creator: $scope.upcEvents[i].creator,
+                  end: $scope.upcEvents[i].end,
+                  etag: $scope.upcEvents[i].etag,
+                  htmlLink: $scope.upcEvents[i].htmlLink,
+                  iCalUID: $scope.upcEvents[i].iCalUID,
+                  id: $scope.upcEvents[i].id,
+                  kind: $scope.upcEvents[i].kind,
+                  organizer: $scope.upcEvents[i].organizer,
+                  reminders: $scope.upcEvents[i].reminders,
+                  start: $scope.upcEvents[i].start,
+                  status: $scope.upcEvents[i].status,
+                  summary: $scope.upcEvents[i].summary,
+                  updated: $scope.upcEvents[i].updated
+                });
+              } else {
+                calendarRef.child($scope.upcEvents[i].id).set({
+                  created: $scope.upcEvents[i].created,
+                  creator: $scope.upcEvents[i].creator,
+                  end: $scope.upcEvents[i].end,
+                  etag: $scope.upcEvents[i].etag,
+                  htmlLink: $scope.upcEvents[i].htmlLink,
+                  iCalUID: $scope.upcEvents[i].iCalUID,
+                  id: $scope.upcEvents[i].id,
+                  kind: $scope.upcEvents[i].kind,
+                  location: $scope.upcEvents[i].location,
+                  organizer: $scope.upcEvents[i].organizer,
+                  reminders: $scope.upcEvents[i].reminders,
+                  start: $scope.upcEvents[i].start,
+                  status: $scope.upcEvents[i].status,
+                  summary: $scope.upcEvents[i].summary,
+                  updated: $scope.upcEvents[i].updated
+                });
+              }
+            }
+
+
+          }, function (err) { console.error("Execute error", err); });
+      }
+
+
       $scope.testSync = function () {
         $scope.calendarEvents = gapi.client.calendar.events.list({
           "calendarId": "miguel.valdez@valpo.edu",
@@ -184,18 +246,18 @@ define([
         }).then(function () {
 
           //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
-          $scope.sync();
-           
+          $scope.sync2();
+
         });
 
 
       }
 
-      $scope.login3 = function() {
+      $scope.login3 = function () {
         var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithRedirect(provider).then(function() {
+        firebase.auth().signInWithRedirect(provider).then(function () {
           return firebase.auth().getRedirectResult();
-        }).then(function(result) {
+        }).then(function (result) {
           // This gives you a Google Access Token.
           // You can use it to access the Google API.
           var token = result.credential.accessToken;
@@ -222,12 +284,12 @@ define([
               });
             console.log(user)
           })
-          
+
           // The signed-in user info.
           var user = result.user;
           console.log(user)
           // ...
-        }).catch(function(error) {
+        }).catch(function (error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -250,15 +312,15 @@ define([
 
       // ---------- Switch login/ logout buttons --------------
 
-      firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            $scope.LoginTitle = "Log Out"
-          } else {
-            $scope.LoginTitle = "Log In";
-          }
-        });
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          $scope.LoginTitle = "Log Out"
+        } else {
+          $scope.LoginTitle = "Log In";
+        }
+      });
 
-        $scope.clicked = function () {
+      $scope.clicked = function () {
         if ($scope.LoginTitle == "Log In") {
           $scope.login2();
         } else {
@@ -284,15 +346,15 @@ define([
 
       //stop it from being called again
       $scope.profSettings = function () {
-        firebase.auth().onAuthStateChanged(function(user) {
+        firebase.auth().onAuthStateChanged(function (user) {
           if (user) {
             $state.go("profileSettings");
           } else {
             console.log("Tried seeing profile without being logged in!!");
             $scope.showConfirm();
           }
-        });        
-        
+        });
+
       }
 
 
