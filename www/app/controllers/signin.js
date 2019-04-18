@@ -161,6 +161,7 @@ define([
 
       //Firebase login alternative (probably the better option)
       $scope.login2 = function () {
+        
         $scope.LoggedIn = false;
         $scope.loadClient();
         gapi.auth2.getAuthInstance({ scope: "https://www.googleapis.com/auth/calendar" }).signIn().then((res) => {
@@ -290,7 +291,7 @@ define([
 
         $scope.clicked2 = function () {
         if ($scope.LoginTitle == "Log In") {
-          $scope.login3();
+          $scope.signIn();
         } else {
           $scope.signOff();
         }
@@ -305,7 +306,7 @@ define([
         });
         confirmPopup.then(function (res) {
           if (res) {
-            $scope.login3();
+            $scope.signIn();
           } else {
             $state.go("dashboard");
           }
@@ -323,6 +324,16 @@ define([
           }
         });        
         
+      }
+
+      $scope.signIn = function () {
+        if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+          console.log("Phone")
+          $scope.login3();
+        } else {
+          console.log("Web")
+          $scope.login2();
+        }
       }
       
     }
