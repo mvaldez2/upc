@@ -82,21 +82,27 @@ define([
 
       $scope.deletingEvent = function (id) {
         firebase.auth().onAuthStateChanged(function (user) {
-          /*var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-          var googleProfile = googleUser.getBasicProfile();
-          var userId = googleUser.getId();
-          gapi.client.calendar.events.delete({
-            "calendarId": googleProfile.getEmail(),
-            "eventId": id
-          })
-              .then(function(response) {
-                      // Handle the results here (response.result has the parsed body).
-                      console.log("Response", response);
-                    },
-                    function(err) { console.error("Execute error", err); });
-        
-        });*/
-          ref.child("googleUsers/" + user.uid + "/events/" + id).remove();
+          if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+            console.log("Phone")
+            ref.child("googleUsers/" + user.uid + "/events/" + id).remove();
+          } else {
+            console.log("Web")
+            var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+            var googleProfile = googleUser.getBasicProfile();
+            var userId = googleUser.getId();
+            gapi.client.calendar.events.delete({
+              "calendarId": googleProfile.getEmail(),
+              "eventId": id
+            })
+              .then(function (response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              },
+                function (err) { console.error("Execute error", err); });
+            ref.child("googleUsers/" + user.uid + "/events/" + id).remove();
+          }
+         
+         
 
         });
       }
