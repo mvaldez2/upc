@@ -49,12 +49,12 @@ define([
         userEventRef.on('value', function (snapshot) {
           console.log(snapshot.val());
           $scope.uEvent = snapshot.val()
-          $scope.uSummary = snapshot.val().event.summary
-          $scope.uLocation = snapshot.val().event.location
-          $scope.uStartDate = snapshot.val().event.start.dateTime
-          $scope.uEndDate = snapshot.val().event.end.dateTime
-          $scope.uStart = snapshot.val().event.start.date
-          $scope.uEnd = snapshot.val().event.end.date
+          $scope.uSummary = snapshot.val().summary
+          $scope.uLocation = snapshot.val().location
+          $scope.uStartDate = snapshot.val().start.dateTime
+          $scope.uEndDate = snapshot.val().end.dateTime
+          $scope.uStart = snapshot.val().start.date
+          $scope.uEnd = snapshot.val().end.date
 
 
         });
@@ -152,7 +152,21 @@ define([
           var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
 
           userEventRef.child($stateParams.id).set({
-            event: $scope.event,
+            created: $scope.event.created,
+            creator: $scope.event.creator,
+            end: $scope.event.end,
+            etag: $scope.event.etag,
+            htmlLink: $scope.event.htmlLink,
+            iCalUID: $scope.event.iCalUID,
+            id: $scope.event.id,
+            kind: $scope.event.kind,
+            location: $scope.event.location,
+            organizer: $scope.event.organizer,
+            reminders: $scope.event.reminders,
+            start: $scope.event.start,
+            status: $scope.event.status,
+            summary: $scope.event.summary,
+            updated: $scope.event.updated
 
           }).then(function () {
             console.log('Event ' + $scope.summary + ' added')
@@ -207,6 +221,13 @@ define([
           case "Community":
           case "Ballrooms":
           case "Grand":
+          case "Union":
+            $scope.currentAddress = "Harre Union, Chapel Drive, Valparaiso, IN";
+            $scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
+            eventRef.update({
+              address: $scope.currentAddress,
+              location: $scope.location
+            });
           case "Founders":
             //$scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
             $scope.currentAddress = "Harre Union, Chapel Drive, Valparaiso, IN";
@@ -234,14 +255,14 @@ define([
       /* ------ Changes Location ------ */
       // Triggered on a button click, or some other target
 
-      $scope.possibleLocations = ["Neils", "Hearth", "Community Room", "Cafe", "Ballrooms", "Grand Lobby", "West Lawn", "None"];
+      $scope.possibleLocations = ["Neils", "Hearth", "Community Room", "Cafe", "Ballrooms", "Grand Lobby", "West Lawn", "Union", "None"];
 
       $scope.alterLocation = function (building) {
         $scope.building = building;
         $scope.room = {}
         if (building == "None") {
-          $scope.address = null;
-          $scope.location = null;
+          $scope.address = "No location specified";
+          $scope.location = "No location specified";
           $scope.closePopover();
           return;
         } else if (building == "Neils") {

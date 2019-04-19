@@ -31,7 +31,7 @@
         <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i>
         </ion-item>
         <ion-item ng-repeat="event in userEvents | orderBy: start.dateTime | limitTo: 5">
-          {{event.event.summary}}
+          {{event.summary}}
         </ion-item>
       </ion-list>
       <br>
