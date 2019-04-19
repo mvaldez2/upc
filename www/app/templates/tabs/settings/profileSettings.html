@@ -32,7 +32,7 @@
         <ion-list>
           <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i>
           </ion-item>
-          <ion-item ng-repeat="event in userEvents | orderBy: start.dateTime | limitTo: 5" class="item-icon-right" ui-sref="userEvent({id: event.$id})">
+          <ion-item ng-repeat="event in userEvents | orderBy : sortDate : true | limitTo: 5" class="item-icon-right" ui-sref="userEvent({id: event.$id})">
             {{event.summary}} <i class="icon ion-ios-arrow-left"></i>
             <ion-option-button class="button-assertive" ng-click="deleteEvent(event.$id)"><i
               class="icon ion-trash-a"></i></ion-option-button>
