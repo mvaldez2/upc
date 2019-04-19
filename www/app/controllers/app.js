@@ -55,6 +55,12 @@ define([
         return -date;
     };
 
+    $scope.upcomingEvents = function (event) {
+      var date = new Date();
+      var eventDate = new Date(event.start.dateTime);
+      return eventDate >= date;
+  };
+
       // ------- formats calendar dates -----------
       $scope.dateFormat2 = function (place) {
         var eventRef = firebase.database().ref('calendar/' + place.$id);

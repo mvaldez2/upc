@@ -104,80 +104,113 @@ define([
           return;
         }
         firebase.auth().onAuthStateChanged(function (user) {
-          //var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-          //var googleProfile = googleUser.getBasicProfile();
-          // var userId = googleUser.getId();
-          //$scope.userId = googleUser.getId();
 
           firebase.database().ref().child("googleUsers/" + user.uid + "/events").orderByChild("id")
             .equalTo($scope.event.id).on("value", function (snapshot) {
               if (snapshot.exists()) {
                 console.log("already added: ", $scope.event.summary)
               } else {
-                /*if ($scope.startDate == undefined) {
-                  gapi.client.calendar.events.insert({
-                    "calendarId": googleProfile.getEmail(),
-                    "resource": {
-                      "end": {
-                        "date": $scope.end
-                      },
-                      "start": {
-                        "date": $scope.start
-                      },
-                      "location": $scope.location,
-                      "summary": $scope.summary
-                    }
-                  })
-                    .then(function (response) {
-                      // Handle the results here (response.result has the parsed body).
-                      console.log("Response", response);
-                    },
-                      function (err) { console.error("Execute error", err); });
-                } else {
-                  gapi.client.calendar.events.insert({
-                    "calendarId": googleProfile.getEmail(),
-                    "resource": {
-                      "end": {
-                        "dateTime": $scope.endDate
-                      },
-                      "start": {
-                        "dateTime": $scope.startDate
-                      },
-                      "location": $scope.location,
-                      "summary": $scope.summary
-                    }
-                  })
-                    .then(function (response) {
-                      // Handle the results here (response.result has the parsed body).
-                      console.log("Response", response);
-                    },
-                      function (err) { console.error("Execute error", err); });
-                }*/
-                var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
-                userEventRef.child($stateParams.id).set({
-                  created: $scope.event.created,
-                  creator: $scope.event.creator,
-                  end: $scope.event.end,
-                  etag: $scope.event.etag,
-                  htmlLink: $scope.event.htmlLink,
-                  iCalUID: $scope.event.iCalUID,
-                  id: $scope.event.id,
-                  kind: $scope.event.kind,
-                  location: $scope.event.location,
-                  organizer: $scope.event.organizer,
-                  reminders: $scope.event.reminders,
-                  start: $scope.event.start,
-                  status: $scope.event.status,
-                  summary: $scope.event.summary,
-                  updated: $scope.event.updated
-                }).then(function () {
-                  console.log('Event ' + $scope.summary + ' added')
-                  $scope.showEventAddedAleart();
+                if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+                  console.log("Phone")
+                  var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
+                  userEventRef.child($stateParams.id).set({
+                    created: $scope.event.created,
+                    creator: $scope.event.creator,
+                    end: $scope.event.end,
+                    etag: $scope.event.etag,
+                    htmlLink: $scope.event.htmlLink,
+                    iCalUID: $scope.event.iCalUID,
+                    id: $scope.event.id,
+                    kind: $scope.event.kind,
+                    location: $scope.event.location,
+                    organizer: $scope.event.organizer,
+                    reminders: $scope.event.reminders,
+                    start: $scope.event.start,
+                    status: $scope.event.status,
+                    summary: $scope.event.summary,
+                    updated: $scope.event.updated
+                  }).then(function () {
+                    console.log('Event ' + $scope.summary + ' added')
+                    $scope.showEventAddedAleart();
 
 
-                }, function (error) {
-                  console.log(error)
-                });
+                  }, function (error) {
+                    console.log(error)
+                  });
+                } else { //if web
+                  var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+                  var googleProfile = googleUser.getBasicProfile();
+                  var userId = googleUser.getId();
+                  $scope.userId = googleUser.getId();
+
+                  if ($scope.startDate == undefined) {
+
+                    gapi.client.calendar.events.insert({
+                      "calendarId": googleProfile.getEmail(),
+                      "resource": {
+                        "end": {
+                          "date": $scope.end
+                        },
+                        "start": {
+                          "date": $scope.start
+                        },
+                        "location": $scope.location,
+                        "summary": $scope.summary
+                      }
+                    })
+                      .then(function (response) {
+                        // Handle the results here (response.result has the parsed body).
+                        console.log("Response", response);
+                      },
+                        function (err) { console.error("Execute error", err); });
+                  } else {
+                    gapi.client.calendar.events.insert({
+                      "calendarId": googleProfile.getEmail(),
+                      "resource": {
+                        "end": {
+                          "dateTime": $scope.endDate
+                        },
+                        "start": {
+                          "dateTime": $scope.startDate
+                        },
+                        "location": $scope.location,
+                        "summary": $scope.summary
+                      }
+                    })
+                      .then(function (response) {
+                        // Handle the results here (response.result has the parsed body).
+                        console.log("Response", response);
+                      },
+                        function (err) { console.error("Execute error", err); });
+                    var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
+                    userEventRef.child($stateParams.id).set({
+                      created: $scope.event.created,
+                      creator: $scope.event.creator,
+                      end: $scope.event.end,
+                      etag: $scope.event.etag,
+                      htmlLink: $scope.event.htmlLink,
+                      iCalUID: $scope.event.iCalUID,
+                      id: $scope.event.id,
+                      kind: $scope.event.kind,
+                      location: $scope.event.location,
+                      organizer: $scope.event.organizer,
+                      reminders: $scope.event.reminders,
+                      start: $scope.event.start,
+                      status: $scope.event.status,
+                      summary: $scope.event.summary,
+                      updated: $scope.event.updated
+                    }).then(function () {
+                      console.log('Event ' + $scope.summary + ' added')
+                      $scope.showEventAddedAleart();
+
+
+                    }, function (error) {
+                      console.log(error)
+                    });
+                  }
+                }
+
+
 
               }
             });

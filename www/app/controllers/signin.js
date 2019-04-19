@@ -14,22 +14,15 @@ define([
     '$firebaseArray',
     '$ionicHistory',
     'Calendar',
+    'GAPI',
     '$state',
-    '$cordovaCamera',
-    '$firebaseAuth',
-    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, Calendar, $state, GooglePlus, $cordovaCamera, $firebaseAuth) {
+    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, Calendar, GAPI, $state) {
       var ref = firebase.database().ref();
 
 
       document.addEventListener("deviceready", function () {
 
       }, true);
-
-      $scope.takePicture = function () {
-        $cordovaCamera.getPicture(opts).then(function (p) {
-        }, function (err) {
-        });
-      };
 
       var onComplete = function (error) {
         if (error) {
@@ -71,7 +64,7 @@ define([
       $scope.sync = function () {
         $scope.calendarEvents = gapi.client.calendar.events.list({
           "calendarId": "upc@valpo.edu",
-          "maxResults": 20,
+          "maxResults": 30,
           "orderBy": "startTime",
           "singleEvents": true,
           "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"
@@ -84,6 +77,8 @@ define([
             });
           }, function (err) { console.error("Execute error", err); });
       }
+
+
 
       $scope.sync2 = function () {
         $scope.calendarEvents = gapi.client.calendar.events.list({
@@ -170,12 +165,12 @@ define([
       }
 
 
-      /*gapi.load("client:auth2", function () {
+      gapi.load("client:auth2", function () {
         gapi.auth2.init({ client_id: '188526661745-1qvjgbd02e62kjg1it4tj05p14rveb21.apps.googleusercontent.com' });
       });
 
       GAPI.init().then(function () {
-      }, function () { console.log('Something went wrong yes?'); });*/
+      }, function () { console.log('Something went wrong yes?'); });
 
 
       var gUserRef = ref.child("googleUsers"); //get users
@@ -227,12 +222,8 @@ define([
 
       //Firebase login alternative (probably the better option)
       $scope.login2 = function () {
-        
-        $scope.LoggedIn = false;
         $scope.loadClient();
         gapi.auth2.getAuthInstance({ scope: "https://www.googleapis.com/auth/calendar" }).signIn().then((res) => {
-          $scope.LoggedIn = true;
-          $scope.LoginTitle = "Log Out";
           console.log("LoginTitle =", $scope.LoginTitle)
           var token = res.getAuthResponse().id_token;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
@@ -262,7 +253,7 @@ define([
 
           //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
           $scope.sync2();
-          //go to dashboard after sign in
+
         });
 
 
