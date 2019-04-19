@@ -46,7 +46,7 @@ define([
         $scope.event = snapshot.val()
         $scope.summary = snapshot.val().summary
         $scope.location = snapshot.val().location
-        //$scope.startDate = snapshot.val().start.dateTime
+        $scope.startDate = snapshot.val().start
         //$scope.endDate = snapshot.val().end.dateTime
        // $scope.start = snapshot.val().start.date
         //$scope.end = snapshot.val().end.date
