@@ -384,9 +384,13 @@ define([
       }
 
       $scope.signIn = function () {
-        if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+        if (document.URL.startsWith('http')) {
+          console.log("Web 1")
+          $scope.login2();
+        } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
           console.log("Phone")
           $scope.login3();
+          
         } else {
           console.log("Web")
           $scope.login2();
