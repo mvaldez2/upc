@@ -219,6 +219,47 @@ define([
 
       }
 
+      $scope.deletingEvent = function (id) {
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+            console.log("Phone")
+            ref.child("calendar/" + id).remove();
+          } else {
+            console.log("Web")
+            ref.child("calendar/" + id).remove();
+            /*gapi.client.calendar.events.delete({
+              "calendarId": "upc@valpo.edu",
+              "eventId": id
+            })
+              .then(function (response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              },
+                function (err) { console.error("Execute error", err); });*/
+            
+          }
+         
+         
+
+        });
+      }
+
+      $scope.deleteEvent = function (id) {
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Delete Event',
+          template: 'Are you sure you want to delete this event from the calendar?',
+          cancelText: 'No',
+          okText: 'Yes'
+        });
+        confirmPopup.then(function (res) {
+          if (res) {
+            $scope.deletingEvent(id);
+          } else {
+            $state.go("manageEvents");
+          }
+        });
+      };
+
 
       /* ------ Sets and Changes address for Google Maps based on location ------ */
 

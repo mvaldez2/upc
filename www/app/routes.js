@@ -89,19 +89,39 @@ define([
           templateUrl: 'app/templates/tabs/settings/profileSettings.html'
         })
         .state('eventSettings', {
-          url: '/settings/eventSettings/:id',
+          url: '/settings/adminSettings/:id',
           controller: 'EventSettingsCtrl',
-          templateUrl: 'app/templates/tabs/settings/eventSettings.html'
+          templateUrl: function (){
+            if  (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+              return 'app/templates/tabs/settings/eventSettings-phone.html'
+            }
+            return 'app/templates/tabs/settings/eventSettings.html'
+          }
         })
         .state('signIn', {
           url: '/signIn',
           controller: 'SigninCtrl',
           templateUrl: 'app/templates/signin.html'
-	})
-	.state('checkin', {
-		url: '/checkin/:id',
-		controller: 'AppCtrl',
-		templateUrl: 'app/templates/menu/checkin.html'
+        })
+        .state('checkin', {
+          url: '/checkin/:id',
+          controller: 'AppCtrl',
+          templateUrl: 'app/templates/menu/checkin.html'
+
+        }).state('roles', {
+          url: '/settings/adminSettings/roles',
+          controller: 'EventSettingsCtrl',
+          templateUrl: 'app/templates/tabs/settings/roles.html'
+
+        }).state('manageEvents', {
+          url: '/settings/adminSettings/manageEvents',
+          controller: 'EventSettingsCtrl',
+          templateUrl: 'app/templates/tabs/settings/manageEvents.html'
+
+        }).state('editEvent', {
+          url: '/settings/adminSettings/editEvent/:id',
+          controller: 'EventCtrl',
+          templateUrl: 'app/templates/tabs/settings/editEvent.html'
 
         });
     }

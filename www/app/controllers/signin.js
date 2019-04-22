@@ -89,8 +89,6 @@ define([
           "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"
         })
           .then(function (response) {
-            console.log("Response", response);
-            console.log("events", response.result.items[0].creator.displayName);
             $scope.upcEvents = response.result.items;
             var events = response.result.items
             for (var i in $scope.upcEvents) {
@@ -99,6 +97,7 @@ define([
                   if (snapshot.exists()) {
                     console.log("already added: ", $scope.upcEvents[i].summary)
                   } else {
+                    console.log("event added: ", $scope.upcEvents[i].summary)
                     if ($scope.upcEvents[i].location == undefined) {
                       calendarRef.child($scope.upcEvents[i].id).set({
                         created: $scope.upcEvents[i].created,
@@ -228,6 +227,7 @@ define([
           var token = res.getAuthResponse().id_token;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
           firebase.auth().signInWithCredential(creds).then((user) => {
+            $scope.LoginTitle = "Log Out";
             firebase.database().ref().child("googleUsers").orderByChild("email")
               .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
                 if (snapshot.exists()) {  // account exists
@@ -338,13 +338,25 @@ define([
       }
 
       // ---------- Switch login/ logout buttons --------------
-      firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            $scope.LoginTitle = "Log Out"
-          } else {
-            $scope.LoginTitle = "Log In";
-          }
-        });
+     
+
+        if (document.URL.startsWith('http')) {
+          $scope.LoginTitle = "Log In";
+          
+        } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+          firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+              $scope.LoginTitle = "Log Out"
+            } else {
+              $scope.LoginTitle = "Log In";
+            }
+          });
+          
+        } else {
+          $scope.LoginTitle = "Log In";
+          
+        }
+      
 
         $scope.clicked2 = function () {
         if ($scope.LoginTitle == "Log In") {

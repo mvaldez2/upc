@@ -3,33 +3,32 @@
   <ion-nav-back-button></ion-nav-back-button>
   <ion-content padding="true" class="has-header has-tabs">
 
-    <label class="item item-input">
-      <i class="icon ion-search placeholder-icon"></i>
-      <input type='text' ng-model='searchText' placeholder="Give admin permission" />
-    </label>
-    <ion-list>
-      <ion-item class="item-icon-right item-avatar item-royal" ng-click="makeAdmin(user.$id)"
-        ng-repeat='user in googleUsers | filter:searchText | limitTo: 5' ng-if="!user.admin">
-        <img ng-src="{{user.photoUrl}}">
-        <h2>{{user.name}}</h2>
-      </ion-item>
+    <div ng-if="admin" class="list card" ui-sref="roles()">
+      <!--        <div class="list card" ui-sref="eventSettings()" > -->
+      <div class="item item-divider" align="center">
+        <h2>Roles</h2>
+      </div>
+      <div class="item item-body">
+        <img class="full-image"
+          src="https://bloximages.chicago2.vip.townnews.com/nwitimes.com/content/tncms/assets/v3/editorial/d/b4/db4a3591-e604-542a-96cd-5b888bfe4498/581791369ac8c.image.jpg?resize=400%2C267">
+      </div>
+    </div>
 
-      <br>
-      <ion-list>
-        <h3>Admins</h3>
-        <ion-list>
-          <ion-item class="item-icon-right item-avatar item-royal" ng-repeat="user in googleUsers"
-            ng-if="user.admin && !user.owner">
-            <img ng-src="{{user.photoUrl}}">
-            <h2>{{user.name}}</h2>
-            <i class="icon ion-ios-arrow-left"></i>
-            <ion-option-button class="button-assertive" ng-click="removeAdmin(user.$id)"><i
-                class="icon ion-trash-a"></i></ion-option-button>
+    <div ng-if="admin" class="list card" ui-sref="manageEvents()">
+        <!--        <div class="list card" ui-sref="eventSettings()" > -->
+        <div class="item item-divider" align="center">
+          <h2>Manage Events</h2>
+        </div>
+        <div class="item item-body">
+          <img class="full-image"
+            src="https://bloximages.chicago2.vip.townnews.com/nwitimes.com/content/tncms/assets/v3/editorial/d/b4/db4a3591-e604-542a-96cd-5b888bfe4498/581791369ac8c.image.jpg?resize=400%2C267">
+        </div>
+      </div>
+    
 
-          </ion-item>
-        </ion-list>
 
-        <!--<h3>Add Event</h3>
+
+    <!--<h3>Add Event</h3>
 
     <div class="list">
       <label class="item item-input">

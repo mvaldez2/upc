@@ -272,20 +272,15 @@ define([
 
 
 
-      // ------------ signs in with authentication ---------------------------
-
-
       $ionicHistory.nextViewOptions({
-        disableBack: true,
+        disableBack: false,
         disableAnimate: false,
         historyRoot: false,
         cache: false
 
       });
 
-      // ---------- Switch login/ logout buttons --------------
-
-
+      
 
     }
   ]);
