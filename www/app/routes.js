@@ -94,6 +94,8 @@ define([
           templateUrl: function (){
             if  (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
               return 'app/templates/tabs/settings/eventSettings-phone.html'
+            } else if(document.URL.startsWith('http')){
+              return 'app/templates/tabs/settings/eventSettings.html'
             }
             return 'app/templates/tabs/settings/eventSettings.html'
           }
