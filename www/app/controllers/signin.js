@@ -359,7 +359,9 @@ define([
           title: 'Log in to see your profile',
           template: 'Would you like to log in?',
           cancelText: 'No',
-          okText: 'Yes'
+          okText: 'Yes',
+          okType: "button-energized",
+          cancelType: "button-energized"
         });
         confirmPopup.then(function (res) {
           if (res) {
@@ -379,8 +381,8 @@ define([
             console.log("Tried seeing profile without being logged in!!");
             $scope.showConfirm();
           }
-        });        
-        
+        });
+
       }
 
       $scope.signIn = function () {
@@ -390,13 +392,13 @@ define([
         } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
           console.log("Phone")
           $scope.login3();
-          
+
         } else {
           console.log("Web")
           $scope.login2();
         }
       }
-      
+
     }
   ]);
 });

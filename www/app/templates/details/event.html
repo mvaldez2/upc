@@ -19,7 +19,7 @@
       <div class="text-center">
 
         <br>
-        <button class=" button button-royal" ng-click="addEvent()">Add <i class=" ion-plus-round"></i></button>
+        <button class="button" ng-click="addEvent()">Add <i class=" ion-plus-round"></i></button>
         <br>
         <br>
       </div>
@@ -34,11 +34,11 @@
 
         <ion-list>
           <!-- don't order by index, it messes up the search -->
-          <ion-item class="item-icon-right  item-royal" ng-click="alterLocation(location)"
+          <ion-item class="item-icon-right item-royal" ng-click="alterLocation(location)"
           ng-repeat="location in possibleLocations">
-          
+
               {{location}}
-          
+
         <i class="icon ion-ios-arrow-right"></i>
           </ion-item>
           <ion-input placeholder="Enter Input"></ion-input>

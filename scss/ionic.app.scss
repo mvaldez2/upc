@@ -16,27 +16,27 @@ $dark:                            #444 !default;
 */
 
 $light:                           #fff !default;
-$stable:                          #394264 !default; // bg color dark
-$positive:                        #4fc4f6 !default; // okay button popup, item headings
-$calm:                            #11c1f3 !default;
+$stable:                          #8b7b6e !default; // Valpo Gray
+$positive:                        #381e0e !default; // okay button popup, item headings
+$calm:                            #a58329 !default; // Valpo Prestige Gold
 $balanced:                        #fcb150 !default; // spinner orange
-$energized:                       #11a8ab !default; // top header cyan
+$energized:                       #381e0e !default; // Valpo Brown
 $assertive:                       #BF3030 !default;
-$royal:                           #50597b !default; // items
+$royal:                           #e3dac8 !default; // Valpo Tan
 $dark:                            #444 !default;
 
-$base-background-color:           $stable;
+$base-background-color:           white;
 $base-color:                      $light;
 
-$item-royal-text:                 $light;
+$item-royal-text:                 black;
 
 $scroll-refresh-icon-color:       $balanced;
 
 $bar-stable-text:                 $light;
 $bar-stable-border:               #383f5d;
 
-$button-default-text:             $light !default;
-$button-default-active-bg:        darken($stable, 10) !default;
+$button-default-text:             $royal !default;
+$button-default-active-bg:        $calm !default;
 
 $checkbox-width:                  20px !default;
 $checkbox-height:                 20px !default;
@@ -67,17 +67,23 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .item {
   &.item-divider {
-    background-color: $stable;
+    background-color: $royal;
     border-width: 0px;
     color: $light;
+    > p, b, h2, h3 {
+      color: black;
+    }
+    > i {
+        color: $energized;
+    }
   }
 
   > .item-content {
     > p {
-      color: $light;
+      color: black;
     }
     > h2 {
-      color: $positive;
+      color: black;
       font-weight: bold;
     }
   }
@@ -99,9 +105,33 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .popup .popup-body input[type="text"] {
   border: 1px solid lighten($stable, 40);
   padding: 0 5px;
+  > p, h1, h2, h3 {
+      color: white;
+  }
+}
+
+.popup .popup-head {
+    background-color: $energized;
+    > p, h1, h2, h3 {
+        color: white;
+    }
+}
+
+.popup .popup-body {
+    color: black;
+    background-color: white;
+}
+
+.button {
+    background-color: $energized;
+    color: white;
 }
 
 .spinner svg {
   stroke: $balanced;
   fill: $balanced;
+}
+
+p, h1, h2, h3 {
+    color: black;
 }
