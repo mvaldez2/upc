@@ -288,6 +288,10 @@ define([
           $state.go("calendar");
       }
 
+      $scope.adminBackButton = function() {
+          $state.go("eventSettings");
+      }
+
 
 
       // ---------- Switch login/ logout buttons --------------

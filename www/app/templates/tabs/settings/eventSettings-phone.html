@@ -1,8 +1,21 @@
+<ion-nav-view>
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Admin Settings
+      </ion-nav-title>
+      <!--<ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+    </ion-nav-buttons>-->
+      <ion-nav-buttons side="left">
+          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
 <ion-view>
-        <ion-nav-title>Admin Settings </ion-nav-title>
-        <ion-nav-back-button></ion-nav-back-button>
         <ion-content padding="true" class="has-header has-tabs">
-      
+
           <div ng-if="admin" class="list card" ui-sref="roles()">
             <!--        <div class="list card" ui-sref="eventSettings()" > -->
             <div class="item item-divider" align="center">
@@ -13,7 +26,7 @@
                 src="https://bloximages.chicago2.vip.townnews.com/nwitimes.com/content/tncms/assets/v3/editorial/d/b4/db4a3591-e604-542a-96cd-5b888bfe4498/581791369ac8c.image.jpg?resize=400%2C267">
             </div>
           </div>
-          
+
             <div ng-click="adminSite()" class="list card">
               <!--        <div class="list card" ui-sref="eventSettings()" > -->
               <div class="item item-divider" align="center">
@@ -35,12 +48,12 @@
                     src="https://bloximages.chicago2.vip.townnews.com/nwitimes.com/content/tncms/assets/v3/editorial/d/b4/db4a3591-e604-542a-96cd-5b888bfe4498/581791369ac8c.image.jpg?resize=400%2C267">
                 </div>
               </div>
-         
-      
-      
-      
+
+
+
+
           <!--<h3>Add Event</h3>
-      
+
           <div class="list">
             <label class="item item-input">
               <input type="text" placeholder="Event Name" ng-model='eventName'>
@@ -60,17 +73,17 @@
             <label class="item item-input">
               <input type="text" placeholder="hh:mm" ng-model='time'>
             </label>
-      
-      
-      
+
+
+
           </div>
           <button class="button button-royal" ng-click="submitEventAdmin(eventName, city, street, room, date, time)">
             Submit
           </button>
-      
+
           <br> <br>
-      
-      
+
+
           <h3>Delete Event</h3>
           <ion-list>
             <ion-item class="item-icon-right item-royal"  ng-repeat="place in cal">
@@ -79,12 +92,13 @@
                   <b>{{place.location}}</b> <br>
                   {{place.start.dateTime}}
                 </p>
-      
-      
+
+
                 <i class="icon icon ion-trash-b" ng-click="deleteEvent(place.eventId)"></i>
             </ion-item>
           </ion-list> -->
-      
-      
+
+
         </ion-content>
       </ion-view>
+  </ion-nav-view>

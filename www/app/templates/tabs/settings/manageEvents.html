@@ -1,6 +1,19 @@
+<ion-nav-view>
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Manage Events
+      </ion-nav-title>
+      <!--<ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+    </ion-nav-buttons>-->
+      <ion-nav-buttons side="left">
+          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="adminBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
 <ion-view>
-    <ion-nav-title>Manage Events</ion-nav-title>
-    <ion-nav-back-button></ion-nav-back-button>
     <ion-content padding="true" class="has-header has-tabs">
 
 
@@ -37,7 +50,7 @@
         <br> <br>-->
         <h3>Events</h3>
 
-        <button ng-controller="SigninCtrl" class=" button button-royal" ng-click="sync2()">Sync Calendar</button>
+        <button ng-controller="SigninCtrl" class=" button button-energized" ng-click="sync2()">Sync Calendar</button>
         <br>
         <br>
         <ion-list>
@@ -64,3 +77,4 @@
 
     </ion-content>
 </ion-view>
+</ion-nav-view>

@@ -1,7 +1,20 @@
+<ion-nav-view>
+
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Event
+      </ion-nav-title>
+      <!--<ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+    </ion-nav-buttons>-->
+      <ion-nav-buttons side="left">
+          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
 <ion-view ng-int="load()">
-
-    <ion-nav-title>Event</ion-nav-title>
-
 
     <ion-content padding="true">
         <ion-refresher class="spinner-balanced" on-refresh="reload()"></ion-refresher>
@@ -18,7 +31,7 @@
             <h3 style="text-align:center">{{summary}}</h3>
             <div class="text-center">
 
-                
+
                 <button class=" button button-royal" ng-click="deleteEvent(id)"><i class="icon ion-trash-a"></i></button>
                 <br>
                 <br>
@@ -33,20 +46,20 @@
             <button class="button button-clear ion-close-round" ng-click="closePopover()"></button>
           </ion-header-bar>
           <ion-content>
-      
+
               <ion-list>
                 <!-- don't order by index, it messes up the search -->
                 <ion-item class="item-icon-right  item-royal" ng-click="alterLocation(location)"
                 ng-repeat="location in possibleLocations">
-                
+
                     {{location}}
-                
+
               <i class="icon ion-ios-arrow-right"></i>
                 </ion-item>
                 <ion-input placeholder="Enter Input"></ion-input>
               </ion-list>
-      
-      
+
+
           </ion-content>
         </ion-popover-view>
       </script>
@@ -116,3 +129,4 @@
         </div>
     </ion-footer-bar>
 </ion-view>
+</ion-nav-view>

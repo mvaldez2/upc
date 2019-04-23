@@ -4,21 +4,17 @@
       <ion-nav-title>
           Event
       </ion-nav-title>
-      <ion-nav-buttons side="right">
+      <!--<ion-nav-buttons side="right">
         <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
           {{LoginTitle}}
         </button>
-      </ion-nav-buttons>
+    </ion-nav-buttons>-->
       <ion-nav-buttons side="left">
           <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="eventBackButton()"><i class="ion-chevron-left button-clear"></i></button>
       </ion-nav-buttons>
     </ion-nav-bar>
 
 <ion-view ng-int="load()">
-
-  <ion-nav-title>Event</ion-nav-title>
-  <ion-nav-back-button></ion-nav-back-button>
-
 
   <ion-content padding="true">
     <ion-refresher class="spinner-balanced" on-refresh="reload()"></ion-refresher>
@@ -76,7 +72,7 @@
         <br />
         <ion-list>
           <ion-item class="item-divider item-icon-right"><b>Location</b> <i class="icon ion-location"></i>
-            
+
           </ion-item>
           <ion-item class="item-icon-right" ng-disabled="loading">
             {{location}}<br>
@@ -87,7 +83,7 @@
         <ion-list>
           <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i
               class="icon ion-ios-calendar-outline"></i>
-            
+
           </ion-item>
           <ion-item>
             <!-- {{place.start.dateTime}} -->
