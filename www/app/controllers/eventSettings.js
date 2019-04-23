@@ -28,11 +28,7 @@ define([
 
       var eventRef = firebase.database().ref('events/' + $stateParams.id);
 
-      //get current user
-      eventRef.on('value', function (snapshot) {
-        console.log(snapshot.val());
-        $scope.eventId = snapshot.val().eventId
-      });
+     
 
 
 
@@ -153,7 +149,51 @@ define([
 
       }
 
+      $scope.adminSite = function () {
+        $window.open("https://dev-upc-app.firebaseapp.com", '_system');
+      };
 
+
+      $scope.deletingEvent = function (id) {
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+            console.log("Phone")
+            ref.child("calendar/" + id).remove();
+          } else {
+            console.log("Web")
+            ref.child("calendar/" + id).remove();
+            /*gapi.client.calendar.events.delete({
+              "calendarId": "upc@valpo.edu",
+              "eventId": id
+            })
+              .then(function (response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              },
+                function (err) { console.error("Execute error", err); });*/
+            
+          }
+         
+         
+
+        });
+      }
+
+      $scope.deleteEvent = function (id) {
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Delete Event',
+          template: 'Are you sure you want to delete this event from the calendar?',
+          cancelText: 'No',
+          okText: 'Yes'
+        });
+        confirmPopup.then(function (res) {
+          if (res) {
+            $scope.deletingEvent(id);
+          } else {
+            $state.go("manageEvents");
+          }
+        });
+      };
 
 
 

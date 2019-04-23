@@ -38,11 +38,11 @@
           <b>{{place.location}}</b> <br>
           {{place.start.dateTime}}
         </p>
-
-
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
     </ion-list>
+
+    
     <ion-item class="item-icon-right item-avatar item-royal" ui-sref="event({id:$index})"
       ng-repeat='place in places | filter:searchText | limitTo: 10'>
       <img ng-src="{{place.image}}">
