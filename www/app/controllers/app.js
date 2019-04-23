@@ -85,7 +85,7 @@ define([
 
       }
 
-      /*//------------ get current user -------------------
+      //------------ get current user -------------------
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is signed in
@@ -103,7 +103,7 @@ define([
           $scope.admin = false
           $scope.owner = false
         }
-    });*/
+    });
 
 
 
