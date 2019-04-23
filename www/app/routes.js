@@ -92,10 +92,10 @@ define([
           url: '/settings/adminSettings/:id',
           controller: 'EventSettingsCtrl',
           templateUrl: function (){
-            if  (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
-              return 'app/templates/tabs/settings/eventSettings-phone.html'
-            } else if(document.URL.startsWith('http')){
+            if  (document.URL.startsWith('http')) {
               return 'app/templates/tabs/settings/eventSettings.html'
+            } else if(ionic.Platform.isIOS() || ionic.Platform.is('android')){
+              return 'app/templates/tabs/settings/eventSettings-phone.html'
             }
             return 'app/templates/tabs/settings/eventSettings.html'
           }
