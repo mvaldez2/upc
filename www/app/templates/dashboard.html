@@ -1,9 +1,19 @@
+<ion-nav-view>
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Valparaiso <img width=14px height=40%
+              src="https://www.valpo.edu/brand/files/2014/06/master_separated_flame_shield.png" /> University
+      </ion-nav-title>
+      <ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
 <ion-view>
 
-    <ion-nav-title>
-        Valparaiso <img width=14px height=40%
-            src="https://www.valpo.edu/brand/files/2014/06/master_separated_flame_shield.png" /> University
-    </ion-nav-title>
+
     <ion-content padding="true" class="has-header has-tabs">
         <!-- <button ng-controller="SigninCtrl" ng-click="login2()">login2(web)</button>
         <button ng-controller="SigninCtrl" ng-click="login3()">login3(android)</button>
@@ -61,3 +71,4 @@
 
     </ion-content>
 </ion-view>
+</ion-nav-view>

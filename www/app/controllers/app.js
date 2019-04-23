@@ -283,6 +283,16 @@ define([
 
       });
 
+      $scope.pageBackButton = function() {
+          $state.go("dashboard");
+      }
+
+      $scope.eventBackButton = function() {
+          $state.go("calendar");
+      }
+
+
+
       // ---------- Switch login/ logout buttons --------------
 
 

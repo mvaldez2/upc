@@ -1,3 +1,20 @@
+<ion-nav-view>
+
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          About Us
+      </ion-nav-title>
+      <ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="left">
+          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+
 <ion-view>
   <ion-nav-title>About Us</i></ion-nav-title>
   <link rel="stylesheet" type="text/css" href="../../css/style.css">
@@ -5,8 +22,7 @@
       <img src="https://www.valpo.edu/university-programming-council/files/2018/05/join-us.png" width=100% height="auto">
 <h4>Looking to get involved on campus?</h4>
 
-<p>{{aboutText}}</p>
-<!--<p>Well, look no further than University Programming Council! UPC is the Chicago bus trip leading, laughter inducing, Homecoming orchestrating, leadership inspiring, Valpo After Dark hosting, festival conducting, movie projecting, concert coordinating, Midnight Brunch managing, inexhaustible and irrepressible source of a good time on the Valparaiso University campus! We put together over 80 events each year!</p>-->
+<p>Well, look no further than University Programming Council! UPC is the Chicago bus trip leading, laughter inducing, Homecoming orchestrating, leadership inspiring, Valpo After Dark hosting, festival conducting, movie projecting, concert coordinating, Midnight Brunch managing, inexhaustible and irrepressible source of a good time on the Valparaiso University campus! We put together over 80 events each year!</p>
 <p>So don’t waste your time doing laundry or eating balanced meals! Come together with some of VU’s best and brightest to program activities that will make everyone’s stay here a heck of a lot more fun! Devote a little time and gain useful experience in fields as diverse as our events! It’s a great way to meet people, learn leadership skills, and recommended by four out of five dentists for their patients who attend VU!</p>
 
 
@@ -33,3 +49,4 @@
 </p>
 </ion-content>
 </ion-view>
+</ion-nav-view>
