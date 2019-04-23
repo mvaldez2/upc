@@ -19,6 +19,8 @@ define([
     function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, Calendar, GAPI, $state) {
       var ref = firebase.database().ref();
 
+      $scope.user;
+
 
       document.addEventListener("deviceready", function () {
 
@@ -227,6 +229,7 @@ define([
           var token = res.getAuthResponse().id_token;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
           firebase.auth().signInWithCredential(creds).then((user) => {
+              console.log(user);
             $scope.LoginTitle = "Log Out";
             firebase.database().ref().child("googleUsers").orderByChild("email")
               .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
@@ -338,11 +341,15 @@ define([
       }
 
       // ---------- Switch login/ logout buttons --------------
-     
+
 
         if (document.URL.startsWith('http')) {
-          $scope.LoginTitle = "Log In";
-          
+            if($scope.user) {
+                $scope.LoginTitle = "Log Out"
+            } else {
+                $scope.LoginTitle = "Log In";
+            }
+
         } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
           firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -351,12 +358,12 @@ define([
               $scope.LoginTitle = "Log In";
             }
           });
-          
+
         } else {
           $scope.LoginTitle = "Log In";
-          
+
         }
-      
+
 
         $scope.clicked2 = function () {
         if ($scope.LoginTitle == "Log In") {
@@ -410,6 +417,28 @@ define([
           $scope.login2();
         }
       }
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            //console.log(user);
+            $scope.LoginTitle = "Log Out";
+          // User is signed in
+          var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
+          profileRef.on('value', function (snapshot) {
+            console.log(snapshot.val())
+            $scope.name = snapshot.val().name
+            $scope.photoUrl = snapshot.val().photoUrl
+            $scope.email = snapshot.val().email
+            $scope.event = snapshot.val().events
+            $scope.admin = snapshot.val().admin
+            $scope.owner = snapshot.val().owner
+          });
+        } else {
+            $scope.LoginTitle = "Log In";
+          $scope.admin = false
+          $scope.owner = false
+        }
+      });
 
     }
   ]);

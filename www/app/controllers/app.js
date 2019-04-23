@@ -85,13 +85,13 @@ define([
 
       }
 
-      //------------ get current user -------------------
+      /*//------------ get current user -------------------
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is signed in
           var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
           profileRef.on('value', function (snapshot) {
-            console.log(snapshot.val())
+            //console.log(snapshot.val())
             $scope.name = snapshot.val().name
             $scope.photoUrl = snapshot.val().photoUrl
             $scope.email = snapshot.val().email
@@ -103,7 +103,7 @@ define([
           $scope.admin = false
           $scope.owner = false
         }
-      });
+    });*/
 
 
 
