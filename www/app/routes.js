@@ -75,7 +75,7 @@ define([
         })
         .state('search', {
           url: '/search/:id',
-          controller: 'AppCtrl',
+          controller: 'EventCtrl',
           templateUrl: 'app/templates/tabs/search.html'
         })
         .state('settings', {

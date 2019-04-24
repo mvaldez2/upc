@@ -22,7 +22,7 @@
     <div class="text-center">
 
       <br>
-      <button class="button" ng-click="addEvent()">Add <i class=" ion-plus-round"></i></button>
+      <button class="button" ng-click="addEvent(recentEvent)">Add <i class=" ion-plus-round"></i></button>
       <br>
       <br>
     </div>
@@ -55,7 +55,7 @@
     <ion-list>
       <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i>
       </ion-item>
-      <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map()">
+      <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map(recentEvent.address)">
         {{recentEvent.address}}<br>
         <i class="icon ion-map"></i>
       </ion-item>
@@ -101,7 +101,7 @@
 </ion-content>
 <ion-footer-bar class="bar-stable">
   <div class="buttons">
-    <div class="button button-clear" ng-disabled="loading" ng-click="map()">
+    <div class="button button-clear" ng-disabled="loading" ng-click="map(recentEvent.address)">
       <i class="icon ion-map"></i> Maps
     </div>
   </div>
