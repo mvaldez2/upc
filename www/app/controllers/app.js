@@ -50,16 +50,16 @@ define([
       var googleUsers = $firebaseArray(gUsersRef);
       $scope.googleUsers = $firebaseArray(gUsersRef);
 
-      $scope.sortDate = function(event) {
+      $scope.sortDate = function (event) {
         var date = new Date(event.start.dateTime);
         return -date;
-    };
+      };
 
-    $scope.upcomingEvents = function (event) {
-      var date = new Date();
-      var eventDate = new Date(event.start.dateTime);
-      return eventDate >= date;
-  };
+      $scope.upcomingEvents = function (event) {
+        var date = new Date();
+        var eventDate = new Date(event.start.dateTime);
+        return eventDate >= date;
+      };
 
       // ------- formats calendar dates -----------
       $scope.dateFormat2 = function (place) {
@@ -70,6 +70,24 @@ define([
           $scope.end = snapshot.val().end.date
         });
         var date = new Date($scope.dateTime);
+        var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+        var finalDate = date.toLocaleDateString("en-US", dayOptions);
+        if (finalDate == 'Invalid Date') {
+          date = new Date($scope.start);
+          var end = new Date($scope.end);
+          var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          var startDate = date.toLocaleDateString("en-US", dayOptions);
+          var endDate = end.toLocaleDateString("en-US", dayOptions);
+          finalDate = startDate; // for multiple days: finalDate = startDate + " - " + endDate; This messes with the order of the events
+
+        }
+        return finalDate;
+
+      }
+
+      $scope.formatDate = function (eventDate) {
+        
+        var date = new Date(eventDate);
         var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
         var finalDate = date.toLocaleDateString("en-US", dayOptions);
         if (finalDate == 'Invalid Date') {
@@ -103,10 +121,58 @@ define([
           $scope.admin = false
           $scope.owner = false
         }
-    });
+      });
 
 
+      firebase.database().ref().child("calendar/").orderByChild("id").on("value", function (snapshot) {
+        var recent = Infinity;
+        var recentEvent = "";
+        var date = new Date();
+        date.setDate(date.getDate());
+        snapshot.forEach((child) => {
+          var start = new Date(child.val().start.dateTime);
+          if (start > date && (start < new Date(recent) || start < recent)) {
+            recent = start;
+            recentEvent = child.val();
+          }
 
+
+        });
+        $scope.recentEvent = recentEvent
+        $scope.summary = recentEvent.summary
+        $scope.location = recentEvent.location
+        $scope.startDate = recentEvent.start.dateTime
+        $scope.endDate = recentEvent.end.dateTime
+        $scope.start = recentEvent.start.date
+        $scope.end = recentEvent.end.date
+        $scope.id = recentEvent.id
+        $scope.address = recentEvent.address
+        console.log(recentEvent.summary)
+      });
+
+      /* ------ Functions for Other Page Info ------ */
+      $scope.call = function () {
+        $window.open('tel: 219.464.5415', '_system');
+      };
+
+      $scope.mail = function () {
+        $window.open('mailto: upc@valpo.edu', '_system');
+      };
+
+      $scope.website = function () {
+        $window.open("https://www.valpo.edu/university-programming-council/", '_system');
+      };
+
+      $scope.map = function () {
+        if (ionic.Platform.isIOS()) {
+          $window.open('maps://?q=' + $scope.address, '_system');
+        } else if (ionic.Platform.is('android')) {
+          $window.open('geo://0,0?q=' + '(' + $scope.address + ')&z=15', '_system');
+
+        } else {
+          $window.open('https://www.google.com/maps/search/' + $scope.address);
+        }
+      };
 
 
       //--------- hides tabs on pages --------------
@@ -280,21 +346,141 @@ define([
 
       });
 
-      $scope.pageBackButton = function() {
-          $state.go("dashboard");
+      $scope.pageBackButton = function () {
+        $state.go("dashboard");
       }
 
-      $scope.eventBackButton = function() {
-          $state.go("calendar");
+      $scope.eventBackButton = function () {
+        $state.go("calendar");
       }
 
-      $scope.adminBackButton = function() {
-          $state.go("eventSettings");
+      $scope.adminBackButton = function () {
+        $state.go("eventSettings");
       }
 
 
 
-      // ---------- Switch login/ logout buttons --------------
+      $scope.addEvent = function () {
+        if ($scope.LoginTitle == "Log In") {
+          console.log("Can't add an event without being logged in!");
+          $scope.showLogInAlert();
+          return;
+        }
+        firebase.auth().onAuthStateChanged(function (user) {
+
+          firebase.database().ref().child("googleUsers/" + user.uid + "/events").orderByChild("id")
+            .equalTo($scope.recentEvent.id).on("value", function (snapshot) {
+              if (snapshot.exists()) {
+                console.log("already added: ", $scope.recentEvent.summary)
+              } else {
+                if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+                  console.log("Phone")
+                  var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
+                  userEventRef.child($stateParams.id).set({
+                    created: $scope.recentEvent.created,
+                    creator: $scope.recentEvent.creator,
+                    end: $scope.recentEvent.end,
+                    etag: $scope.recentEvent.etag,
+                    htmlLink: $scope.recentEvent.htmlLink,
+                    iCalUID: $scope.recentEvent.iCalUID,
+                    id: $scope.recentEvent.id,
+                    kind: $scope.recentEvent.kind,
+                    location: $scope.recentEvent.location,
+                    organizer: $scope.recentEvent.organizer,
+                    reminders: $scope.recentEvent.reminders,
+                    start: $scope.recentEvent.start,
+                    status: $scope.recentEvent.status,
+                    summary: $scope.recentEvent.summary,
+                    updated: $scope.recentEvent.updated
+                  }).then(function () {
+                    console.log('Event ' + $scope.summary + ' added')
+                    $scope.showEventAddedAleart();
+
+
+                  }, function (error) {
+                    console.log(error)
+                  });
+                } else { //if web
+                  var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+                  var googleProfile = googleUser.getBasicProfile();
+                  var userId = googleUser.getId();
+                  $scope.userId = googleUser.getId();
+
+                  if ($scope.startDate == undefined) {
+
+                    gapi.client.calendar.events.insert({
+                      "calendarId": googleProfile.getEmail(),
+                      "resource": {
+                        "end": {
+                          "date": $scope.end
+                        },
+                        "start": {
+                          "date": $scope.start
+                        },
+                        "location": $scope.location,
+                        "summary": $scope.summary
+                      }
+                    })
+                      .then(function (response) {
+                        // Handle the results here (response.result has the parsed body).
+                        console.log("Response", response);
+                      },
+                        function (err) { console.error("Execute error", err); });
+                  } else {
+                    gapi.client.calendar.events.insert({
+                      "calendarId": googleProfile.getEmail(),
+                      "resource": {
+                        "end": {
+                          "dateTime": $scope.endDate
+                        },
+                        "start": {
+                          "dateTime": $scope.startDate
+                        },
+                        "location": $scope.location,
+                        "summary": $scope.summary
+                      }
+                    })
+                      .then(function (response) {
+                        // Handle the results here (response.result has the parsed body).
+                        console.log("Response", response);
+                      },
+                        function (err) { console.error("Execute error", err); });
+                    var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
+                    userEventRef.child($stateParams.id).set({
+                      created: $scope.recentEvent.created,
+                      creator: $scope.recentEvent.creator,
+                      end: $scope.recentEvent.end,
+                      etag: $scope.recentEvent.etag,
+                      htmlLink: $scope.recentEvent.htmlLink,
+                      iCalUID: $scope.recentEvent.iCalUID,
+                      id: $scope.recentEvent.id,
+                      kind: $scope.recentEvent.kind,
+                      location: $scope.recentEvent.location,
+                      organizer: $scope.recentEvent.organizer,
+                      reminders: $scope.recentEvent.reminders,
+                      start: $scope.recentEvent.start,
+                      status: $scope.recentEvent.status,
+                      summary: $scope.recentEvent.summary,
+                      updated: $scope.recentEvent.updated
+                    }).then(function () {
+                      console.log('Event ' + $scope.recentEvent.summary + ' added')
+                      $scope.showEventAddedAleart();
+
+
+                    }, function (error) {
+                      console.log(error)
+                    });
+                  }
+                }
+
+
+
+              }
+            });
+
+        });
+
+      }
 
 
     }

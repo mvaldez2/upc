@@ -59,6 +59,8 @@ define([
         });
       });
 
+      
+
 
       //format dates
       var date = new Date($scope.startDate);
