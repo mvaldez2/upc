@@ -61,6 +61,22 @@ define([
       return eventDate >= date;
   };
 
+     //--------- Count Checked in Events ----------
+	var checkEventsRef = ref.child("checkEvents");
+	var checkEvents = $firebaseArray(checkEventsRef);
+	$scope.checkEvents = $firebaseArray(checkEventsRef);
+
+	$scope.countCEvents = function () {
+		var countCEvents = 0;
+		var x;
+		for (x in $scope.checkEvents) {
+			countCEvents = countCEvents + 1;
+		}
+
+		return countCEvents;
+	}
+
+
       // ------- formats calendar dates -----------
       $scope.dateFormat2 = function (place) {
         var eventRef = firebase.database().ref('calendar/' + place.$id);
@@ -98,6 +114,7 @@ define([
             $scope.event = snapshot.val().events
             $scope.admin = snapshot.val().admin
             $scope.owner = snapshot.val().owner
+	    $scope.checkEvents = snapshot.val().checkEvents
           });
         } else {
           $scope.admin = false
@@ -130,6 +147,8 @@ define([
             return true;
           case 'signIn':
             return true;
+	  case 'checkin':
+	    return true;
           default:
             return false;
         }

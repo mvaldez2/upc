@@ -1,8 +1,19 @@
-<ion-view>
+<ion-view ng-int="load()">
 	<ion-nav-title>Crusader Perks </i></ion-nav-title>
 	<ion-content padding ="true">
+	<ion-refresher class="spinner-balanced" on-refresh="reload()"></ion-refresher>
+	<div class="text-center">
+		<ion-spinner class="spinner-balanced" ng-show="loading"></ion-spinner>
+	</div>
+<div ng-show="!loading">
+
 		<h1>Crusader Perks</h1> 
-		<h2>You've attended ___ events </h2>
+		<h2>You've attended {{countCEvents()}} events </h2>
+</body>
+<p>
+<br>
+
+
     <p>
         <strong>What are the prizes? </strong>Well it depends!
     </p>
@@ -11,5 +22,6 @@
         <li>You’ll be entered for a monthly prize drawing in the month you turn your perks card in</li>
         <li>Every turned in perks card will also enter you for a GRAND SEMESTER PRIZE!</li>
     </ul>
+</div>
   </ion-content>
 </ion-view>

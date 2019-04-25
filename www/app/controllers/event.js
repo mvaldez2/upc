@@ -27,7 +27,8 @@ define([
       $scope.cal = $firebaseArray(calRef);
 
       var eventRef = firebase.database().ref('calendar/' + $stateParams.id);
-      //get current event
+     
+	 //get current event
       eventRef.on('value', function (snapshot) {
         console.log(snapshot.val());
         $scope.event = snapshot.val()
@@ -58,6 +59,19 @@ define([
 
 
         });
+
+	 var userCheckEventsRef = ref.child("googleUsers/" + user.uid + "/events/" + $stateParams.id);
+	
+	 userCheckEventsRef.on('value', function (snapshot) {
+	  console.log(snapshot.val());
+	  $scope.ucEvent = snapshot.val();
+	  $scope.ucSummary = snapshot.val().summary
+	  $scope.ucLocation = snapshot.val().location
+	  $scope.ucStartDate = snapshot.val().start.dateTime
+	  $scope.ucEndDate = snapshot.val().end.dateTime
+	  $scope.ucStart = snapshot.val().start.date
+	  $scope.ucEnd = snapshot.val().end.date
+	});
       });
 
 
@@ -90,6 +104,13 @@ define([
           title: 'Event Added',
           template: 'An event has been added to your profile and your Google Calendar. Find your events under your profile.'
         });
+      }
+
+      $scope.showEventCheckInAlert = function () {
+	var alertPopups = $ionicPopup.alert({
+	  title: 'Event Checked in',
+	  template: 'You have checked in to this event and it has been counted towards your Crusader Perks!'
+	});
       }
 
 
@@ -253,7 +274,7 @@ define([
                     		  updated: $scope.event.updated
                   		}).then(function () {
                     		  console.log('Event ' + $scope.summary + ' added')
-                   		  $scope.showEventAddedAleart();
+                   		  $scope.showEventCheckInAlert();
 				
 				}, function (error) {
 				  console.log(error)
@@ -305,7 +326,7 @@ define([
                       updated: $scope.event.updated
                     }).then(function () {
                       console.log('Event ' + $scope.summary + ' added')
-                      $scope.showEventAddedAleart();
+                      $scope.showEventCheckInAlert();
 
 
                     }, function (error) {
