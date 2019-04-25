@@ -1,5 +1,21 @@
+<ion-nav-view>
+
+    <ion-nav-bar class="bar-energized text-center">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Search Other Users
+      </ion-nav-title>
+      <!--<ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+    </ion-nav-buttons>
+      <ion-nav-buttons side="left">
+          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>-->
+    </ion-nav-bar>
+
 <ion-view>
-  <ion-nav-title>Search Other Users</ion-nav-title>
   <ion-content padding="true" class="has-header has-tabs">
       <h3>Search for your friends to see what events they are going to.</h3>
 
@@ -7,12 +23,12 @@
       <i class="icon ion-search placeholder-icon"></i>
       <input type='text' ng-model='searchText' placeholder="Search for a User " />
     </label>
-    <h3>People</h3>
+    <h4>People</h4>
     <ion-list>
       <ion-item class="item-icon-right item-avatar item-royal" ui-sref="profile({id: user.uid})"
         ng-repeat='user in googleUsers | filter:searchText | limitTo: 10'>
         <img ng-src="{{user.photoUrl}}">
-        <h2>{{user.name}}</h2>
+        <p>{{user.name}}</p>
         <p>
 
         </p>
@@ -22,3 +38,4 @@
   </ion-content>
 </ion-view>
 <ion-item>
+</ion-nav-view>

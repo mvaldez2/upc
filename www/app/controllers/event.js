@@ -30,7 +30,6 @@ define([
      
 	 //get current event
       eventRef.on('value', function (snapshot) {
-        console.log(snapshot.val());
         $scope.event = snapshot.val()
         $scope.summary = snapshot.val().summary
         $scope.location = snapshot.val().location
@@ -358,10 +357,10 @@ define([
                 console.log("Response", response);
               },
                 function (err) { console.error("Execute error", err); });*/
-            
+
           }
-         
-         
+
+
 
         });
       }
@@ -476,7 +475,7 @@ define([
               { text: 'Cancel' },
               {
                 text: '<b>Save</b>',
-                type: 'button-positive',
+                type: 'button',
                 onTap: function (e) {
                   if (!$scope.room.number) {
                     //don't allow the user to save unless they enter a room number

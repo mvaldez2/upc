@@ -1,17 +1,27 @@
+<ion-nav-view>
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Event
+      </ion-nav-title>
+      <!--<ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+    </ion-nav-buttons>-->
+      <ion-nav-buttons side="left">
+          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="eventBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+
 <ion-view ng-int="load()">
 
-  <ion-nav-title>Event</ion-nav-title>
-
-
-  <ion-content padding="true">
+  <ion-content padding="true" class="has-header">
     <ion-refresher class="spinner-balanced" on-refresh="reload()"></ion-refresher>
     <div class="text-center">
       <ion-spinner class="spinner-balanced" ng-show="loading"></ion-spinner>
     </div>
     <div ng-show="!loading">
-
-
-
 
       <h4><span class="name"> </span><b></b> <small></small></h4>
 
@@ -35,11 +45,11 @@
 
         <ion-list>
           <!-- don't order by index, it messes up the search -->
-          <ion-item class="item-icon-right  item-royal" ng-click="alterLocation(location)"
+          <ion-item class="item-icon-right item-royal" ng-click="alterLocation(location)"
           ng-repeat="location in possibleLocations">
-          
+
               {{location}}
-          
+
         <i class="icon ion-ios-arrow-right"></i>
           </ion-item>
           <ion-input placeholder="Enter Input"></ion-input>
@@ -60,7 +70,7 @@
         <br />
         <ion-list>
           <ion-item class="item-divider item-icon-right"><b>Location</b> <i class="icon ion-location"></i>
-            
+
           </ion-item>
           <ion-item class="item-icon-right" ng-disabled="loading">
             {{location}}<br>
@@ -71,7 +81,7 @@
         <ion-list>
           <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i
               class="icon ion-ios-calendar-outline"></i>
-            
+
           </ion-item>
           <ion-item>
             <!-- {{place.start.dateTime}} -->
@@ -114,3 +124,4 @@
     </div>
   </ion-footer-bar>
 </ion-view>
+</ion-nav-view>

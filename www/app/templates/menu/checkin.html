@@ -1,19 +1,26 @@
-<ion-view ng-int="load()">
-	<ion-nav-title>Crusader Perks </i></ion-nav-title>
+<ion-nav-view>
+
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Crusader Perks
+      </ion-nav-title>
+      <!--<ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+    </ion-nav-buttons>-->
+      <ion-nav-buttons side="left">
+          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+<ion-view>
 	<ion-content padding ="true">
-	<ion-refresher class="spinner-balanced" on-refresh="reload()"></ion-refresher>
-	<div class="text-center">
-		<ion-spinner class="spinner-balanced" ng-show="loading"></ion-spinner>
-	</div>
-<div ng-show="!loading">
-
-		<h1>Crusader Perks</h1> 
-		<h2>You've attended {{countCEvents()}} events </h2>
-</body>
-<p>
-<br>
-
-
+		<h1>Crusader Perks</h1>
+ <h2>You've attended {{countCEvents()}} events </h2>
+   <p>
+        <strong>How it works?</strong> Come to ANY UPC event and get your card punched (along with select athletic events)! After only 9 punches you can turn your card in for a variety of prizes!
+    </p>
     <p>
         <strong>What are the prizes? </strong>Well it depends!
     </p>

@@ -1,9 +1,22 @@
+<ion-nav-view>
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Roles
+      </ion-nav-title>
+      <!--<ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+    </ion-nav-buttons>-->
+      <ion-nav-buttons side="left">
+          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="adminBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
 <ion-view>
-        <ion-nav-title>Roles</ion-nav-title>
-        <ion-nav-back-button></ion-nav-back-button>
         <ion-content padding="true" class="has-header has-tabs">
-      
-      
+
+
           <label class="item item-input">
             <i class="icon ion-search placeholder-icon"></i>
             <input type='text' ng-model='searchText' placeholder="Give admin permission" />
@@ -14,7 +27,7 @@
               <img ng-src="{{user.photoUrl}}">
               <h2>{{user.name}}</h2>
             </ion-item>
-      
+
             <br>
             <ion-list>
               <h3>Admins</h3>
@@ -26,7 +39,7 @@
                   <i class="icon ion-ios-arrow-left"></i>
                   <ion-option-button class="button-assertive" ng-click="removeAdmin(user.$id)"><i
                       class="icon ion-trash-a"></i></ion-option-button>
-      
+
                 </ion-item>
               </ion-list>
 
@@ -37,12 +50,12 @@
                         ng-if="user.owner">
                         <img ng-src="{{user.photoUrl}}">
                         <h2>{{user.name}}</h2>
-                        
-            
+
+
                       </ion-item>
                     </ion-list>
-      
-      
+
+
         </ion-content>
       </ion-view>
-      
+  </ion-nav-view>

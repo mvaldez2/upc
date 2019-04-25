@@ -1,5 +1,20 @@
-<ion-view>
-  <ion-nav-title>Admin Settings </ion-nav-title>
+<ion-nav-view>
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Admin Settings
+      </ion-nav-title>
+      <!--<ion-nav-buttons side="right">
+        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
+          {{LoginTitle}}
+        </button>
+    </ion-nav-buttons>-->
+      <ion-nav-buttons side="left">
+          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+
+<ion-view class="has-header has-tabs">
   <ion-nav-back-button></ion-nav-back-button>
   <ion-content padding="true" class="has-header has-tabs">
 
@@ -24,7 +39,7 @@
             src="https://bloximages.chicago2.vip.townnews.com/nwitimes.com/content/tncms/assets/v3/editorial/d/b4/db4a3591-e604-542a-96cd-5b888bfe4498/581791369ac8c.image.jpg?resize=400%2C267">
         </div>
       </div>
-    
+
 
 
 
@@ -76,4 +91,6 @@
 
 
   </ion-content>
+</ion-view>
+</ion-nav-view>
 </ion-view>
