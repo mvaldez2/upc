@@ -50,31 +50,31 @@ define([
       var googleUsers = $firebaseArray(gUsersRef);
       $scope.googleUsers = $firebaseArray(gUsersRef);
 
-      $scope.sortDate = function(event) {
+      $scope.sortDate = function (event) {
         var date = new Date(event.start.dateTime);
         return -date;
-    };
+      };
 
-    $scope.upcomingEvents = function (event) {
-      var date = new Date();
-      var eventDate = new Date(event.start.dateTime);
-      return eventDate >= date;
-  };
+      $scope.upcomingEvents = function (event) {
+        var date = new Date();
+        var eventDate = new Date(event.start.dateTime);
+        return eventDate >= date;
+      };
 
-     //--------- Count Checked in Events ----------
-	var checkEventsRef = ref.child("checkEvents");
-	var checkEvents = $firebaseArray(checkEventsRef);
-	$scope.checkEvents = $firebaseArray(checkEventsRef);
+      //--------- Count Checked in Events ----------
+      var checkEventsRef = ref.child("checkEvents");
+      var checkEvents = $firebaseArray(checkEventsRef);
+      $scope.checkEvents = $firebaseArray(checkEventsRef);
 
-	$scope.countCEvents = function () {
-		var countCEvents = 0;
-		var x;
-		for (x in $scope.checkEvents) {
-			countCEvents = countCEvents + 1;
-		}
+      $scope.countCEvents = function () {
+        var countCEvents = 0;
+        var x;
+        for (x in $scope.checkEvents) {
+          countCEvents = countCEvents + 1;
+        }
 
-		return countCEvents;
-	}
+        return countCEvents;
+      }
 
 
       // ------- formats calendar dates -----------
@@ -101,6 +101,8 @@ define([
 
       }
 
+
+
       //------------ get current user -------------------
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -114,14 +116,13 @@ define([
             $scope.event = snapshot.val().events
             $scope.admin = snapshot.val().admin
             $scope.owner = snapshot.val().owner
-	    $scope.checkEvents = snapshot.val().checkEvents
+            $scope.checkEvents = snapshot.val().checkEvents
           });
         } else {
           $scope.admin = false
           $scope.owner = false
         }
-    });
-
+      });
 
 
 
@@ -147,8 +148,8 @@ define([
             return true;
           case 'signIn':
             return true;
-	  case 'checkin':
-	    return true;
+          case 'checkin':
+            return true;
           default:
             return false;
         }
@@ -299,21 +300,17 @@ define([
 
       });
 
-      $scope.pageBackButton = function() {
-          $state.go("dashboard");
+      $scope.pageBackButton = function () {
+        $state.go("dashboard");
       }
 
-      $scope.eventBackButton = function() {
-          $state.go("calendar");
+      $scope.eventBackButton = function () {
+        $state.go("calendar");
       }
 
-      $scope.adminBackButton = function() {
-          $state.go("eventSettings");
+      $scope.adminBackButton = function () {
+        $state.go("eventSettings");
       }
-
-
-
-      // ---------- Switch login/ logout buttons --------------
 
 
     }

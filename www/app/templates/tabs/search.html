@@ -1,41 +1,122 @@
 <ion-nav-view>
+  <ion-nav-bar class="bar-energized">
+    <!--<ion-nav-back-button></ion-nav-back-button>-->
+    <ion-nav-title>
+      Upcoming Event
+    </ion-nav-title>
 
-    <ion-nav-bar class="bar-energized text-center">
-      <!--<ion-nav-back-button></ion-nav-back-button>-->
-      <ion-nav-title>
-          Search Other Users
-      </ion-nav-title>
-      <!--<ion-nav-buttons side="right">
-        <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
-          {{LoginTitle}}
-        </button>
-    </ion-nav-buttons>
-      <ion-nav-buttons side="left">
-          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
-      </ion-nav-buttons>-->
-    </ion-nav-bar>
+  </ion-nav-bar>
 
-<ion-view>
-  <ion-content padding="true" class="has-header has-tabs">
-      <h3>Search for your friends to see what events they are going to.</h3>
+  <ion-view ng-int="load()">
 
-    <label class="item item-input">
-      <i class="icon ion-search placeholder-icon"></i>
-      <input type='text' ng-model='searchText' placeholder="Search for a User " />
-    </label>
-    <h4>People</h4>
-    <ion-list>
-      <ion-item class="item-icon-right item-avatar item-royal" ui-sref="profile({id: user.uid})"
-        ng-repeat='user in googleUsers | filter:searchText | limitTo: 10'>
-        <img ng-src="{{user.photoUrl}}">
-        <p>{{user.name}}</p>
-        <p>
+    <ion-content padding="true" class="has-header">
+      <ion-refresher class="spinner-balanced" on-refresh="reload()"></ion-refresher>
+      <div class="text-center">
+        <ion-spinner class="spinner-balanced" ng-show="loading"></ion-spinner>
+      </div>
+      <div ng-show="!loading">
 
-        </p>
-        <i class="icon ion-ios-arrow-right"></i>
-      </ion-item>
+        <h4><span class="name"> </span><b></b> <small></small></h4>
+
+        <h3 style="text-align:center">{{recentEvent.summary}}</h3>
+        <div class="text-center">
+
+          <br>
+          <button class=" button button-energized" ng-click="addEvent(recentEvent)">Add <i
+              class=" ion-plus-round"></i></button>
+          <button class=" button button-energized" ng-click="checkinEvent(recentEvent)">Check-in <i
+              class=" ion-plus-round"></i></button>
+          <br>
+          <br>
+        </div>
+
+        <script id="my-popover.html" type="text/ng-template">
+<ion-popover-view>
+  <ion-header-bar class="bar-energized">
+    <h1 class="title">Choose a Location</h1>
+    <button class="button button-clear ion-close-round" ng-click="closePopover()"></button>
+  </ion-header-bar>
+  <ion-content>
+
+      <ion-list>
+        <!-- don't order by index, it messes up the search -->
+        <ion-item class="item-icon-right item-royal" ng-click="alterLocation(location)"
+        ng-repeat="location in possibleLocations">
+
+            {{recentEvent.location}}
+
+      <i class="icon ion-ios-arrow-right"></i>
+        </ion-item>
+        <ion-input placeholder="Enter Input"></ion-input>
+      </ion-list>
+
 
   </ion-content>
-</ion-view>
-<ion-item>
+</ion-popover-view>
+</script>
+
+        <ion-list>
+          <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i>
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map(recentEvent.address)">
+            {{recentEvent.address}}<br>
+            <i class="icon ion-map"></i>
+          </ion-item>
+          <br />
+          <ion-list>
+            <ion-item class="item-divider item-icon-right"><b>Location</b> <i class="icon ion-location"></i>
+
+            </ion-item>
+            <ion-item class="item-icon-right" ng-disabled="loading">
+              {{recentEvent.location}}<br>
+            </ion-item>
+
+          </ion-list>
+          <br>
+          <ion-list>
+            <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i
+                class="icon ion-ios-calendar-outline"></i>
+
+            </ion-item>
+            <ion-item>
+              <!-- {{place.start.dateTime}} -->
+              {{formatDate(recentEvent.start.dateTime)}}
+            </ion-item>
+          </ion-list>
+          <br>
+          <ion-list>
+            <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i>
+            </ion-item>
+            <ion-item class="item-icon-right" ng-click="call()">
+              (219) 464-5415 ex.5194
+              <i class="icon ion-android-call"></i>
+            </ion-item>
+            <ion-item class="item-icon-right" ng-click="mail()">
+              upc@valpo.edu
+              <i class="icon ion-ios-email"></i>
+            </ion-item>
+            <ion-item class="item-icon-right" ng-click="website()">
+              Visit our homepage
+              <i class="icon ion-ios-home"></i>
+            </ion-item>
+          </ion-list>
+      </div>
+    </ion-content>
+    <ion-footer-bar class="bar-stable">
+      <div class="buttons">
+        <div class="button button-clear" ng-disabled="loading" ng-click="map(recentEvent.address)">
+          <i class="icon ion-map"></i> Maps
+        </div>
+      </div>
+
+      <h1 class="title"></h1>
+      <div class="buttons">
+        <div class="button button-clear" ng-disabled="loading" ng-click="report()">
+          Report
+          <i class="icon ion-android-alert"></i>
+        </div>
+      </div>
+    </ion-footer-bar>
+  </ion-view>
+
 </ion-nav-view>

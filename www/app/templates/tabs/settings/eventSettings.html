@@ -1,35 +1,36 @@
 <ion-nav-view>
-    <ion-nav-bar class="bar-energized">
-      <!--<ion-nav-back-button></ion-nav-back-button>-->
-      <ion-nav-title>
-          Admin Settings
-      </ion-nav-title>
-      <!--<ion-nav-buttons side="right">
+  <ion-nav-bar class="bar-energized">
+    <!--<ion-nav-back-button></ion-nav-back-button>-->
+    <ion-nav-title>
+      Admin Settings
+    </ion-nav-title>
+    <!--<ion-nav-buttons side="right">
         <button ng-controller="SigninCtrl" class="button button-energized" ng-click="clicked2()">
           {{LoginTitle}}
         </button>
     </ion-nav-buttons>-->
-      <ion-nav-buttons side="left">
-          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
-      </ion-nav-buttons>
-    </ion-nav-bar>
+    <ion-nav-buttons side="left">
+      <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i
+          class="ion-chevron-left button-clear"></i></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
 
-<ion-view class="has-header has-tabs">
-  <ion-nav-back-button></ion-nav-back-button>
-  <ion-content padding="true" class="has-header has-tabs">
+  <ion-view class="has-header has-tabs">
+    <ion-nav-back-button></ion-nav-back-button>
+    <ion-content padding="true" class="has-header has-tabs">
 
-    <div ng-if="admin" class="list card" ui-sref="roles()">
-      <!--        <div class="list card" ui-sref="eventSettings()" > -->
-      <div class="item item-divider" align="center">
-        <h2>Roles</h2>
+      <div ng-if="admin" class="list card" ui-sref="roles()">
+        <!--        <div class="list card" ui-sref="eventSettings()" > -->
+        <div class="item item-divider" align="center">
+          <h2>Roles</h2>
+        </div>
+        <div class="item item-body">
+          <img class="full-image"
+            src="https://bloximages.chicago2.vip.townnews.com/nwitimes.com/content/tncms/assets/v3/editorial/d/b4/db4a3591-e604-542a-96cd-5b888bfe4498/581791369ac8c.image.jpg?resize=400%2C267">
+        </div>
       </div>
-      <div class="item item-body">
-        <img class="full-image"
-          src="https://bloximages.chicago2.vip.townnews.com/nwitimes.com/content/tncms/assets/v3/editorial/d/b4/db4a3591-e604-542a-96cd-5b888bfe4498/581791369ac8c.image.jpg?resize=400%2C267">
-      </div>
-    </div>
 
-    <div ng-if="admin" class="list card" ui-sref="manageEvents()">
+      <div ng-if="admin" class="list card" ui-sref="manageEvents()">
         <!--        <div class="list card" ui-sref="eventSettings()" > -->
         <div class="item item-divider" align="center">
           <h2>Manage Events</h2>
@@ -43,7 +44,7 @@
 
 
 
-    <!--<h3>Add Event</h3>
+      <!--<h3>Add Event</h3>
 
     <div class="list">
       <label class="item item-input">
@@ -90,7 +91,7 @@
     </ion-list> -->
 
 
-  </ion-content>
-</ion-view>
+    </ion-content>
+  </ion-view>
 </ion-nav-view>
 </ion-view>
