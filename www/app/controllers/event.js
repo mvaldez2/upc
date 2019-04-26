@@ -129,7 +129,7 @@ define([
       $scope.showLogInAlert = function () {
         var alertPopup = $ionicPopup.alert({
           title: 'Log In',
-          template: 'You need to be logged in to this!'
+          template: 'You need to be logged in to do this!'
         });
       }
 
