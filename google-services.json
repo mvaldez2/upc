@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "188526661745",
+    "firebase_url": "https://upc-app.firebaseio.com",
+    "project_id": "upc-app",
+    "storage_bucket": "upc-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188526661745:android:770ef0a997457c09",
+        "android_client_info": {
+          "package_name": "com.cs358.upc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188526661745-vrvabrj5j45id3sims9pajmrvacqbgjr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cs358.upc",
+            "certificate_hash": "1fde36f2a4e3fa09e622e45800bdb8b945b5dd18"
+          }
+        },
+        {
+          "client_id": "188526661745-odsrjm5t1a5umeqmf4l5nu219no0decc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_LHvt92u-vj-WFnXNbYpWFmk6FsS0qHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188526661745-odsrjm5t1a5umeqmf4l5nu219no0decc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "188526661745-ac1h9lk3lso3joc1lepp3r260bn0qhne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cs358.upc"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
