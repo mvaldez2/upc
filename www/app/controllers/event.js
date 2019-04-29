@@ -112,6 +112,25 @@ define([
 	});
       }
 
+	//Display Check-in Button
+	$scope.showCheckIn = function () {
+		var dateTimeStart = new Date($scope.startDate);
+		var timeStart = dateTimeStart.getTime();
+
+		var dateTimeEnd = new Date($scope.endDate);
+		var timeEnd = dateTimeEnd.getTime();
+
+		var dateNow = new Date();
+		var nowTime = dateNow.getTime();
+
+		if (nowTime > timeStart && nowTime < timeEnd){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}	
+
 
       // fix date for calendar insert
 
