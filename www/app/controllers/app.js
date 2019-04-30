@@ -50,6 +50,7 @@ define([
       var googleUsers = $firebaseArray(gUsersRef);
       $scope.googleUsers = $firebaseArray(gUsersRef);
 
+      // -------- sort events ---------------------
       $scope.sortDate = function (event) {
         var date = new Date(event.start.dateTime);
         return -date;
@@ -58,6 +59,7 @@ define([
       $scope.upcomingEvents = function (event) {
         var date = new Date();
         var eventDate = new Date(event.start.dateTime);
+        eventDate.setHours(eventDate.getHours()+6)
         return eventDate >= date;
       };
 
