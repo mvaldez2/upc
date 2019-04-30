@@ -24,7 +24,7 @@
           <br>
           <button class=" button button-energized" ng-click="addEvent(recentEvent)">Add <i
               class=" ion-plus-round"></i></button>
-          <button class=" button button-energized" ng-click="checkinEvent(recentEvent)">Check-in <i
+          <button class="button button-energized" ng-click="checkinEvent(recentEvent)" ng-if="showCheckIn()">Check-in <i
               class=" ion-plus-round"></i></button>
           <br>
           <br>
@@ -59,7 +59,7 @@
           <ion-item class="item-divider item-icon-right"><b>Address</b> <i class="icon ion-information-circled"></i>
           </ion-item>
           <ion-item class="item-icon-right" ng-disabled="loading" ng-click="map(recentEvent.address)">
-            {{recentEvent.location}}<br>
+            {{recentEvent.address}}<br>
             <i class="icon ion-map"></i>
           </ion-item>
           <br />

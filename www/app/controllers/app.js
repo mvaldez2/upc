@@ -59,7 +59,7 @@ define([
       $scope.upcomingEvents = function (event) {
         var date = new Date();
         var eventDate = new Date(event.start.dateTime);
-        eventDate.setHours(eventDate.getHours()+6)
+        eventDate.setHours(eventDate.getHours()+1)
         return eventDate >= date;
       };
 

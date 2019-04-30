@@ -79,10 +79,10 @@ define([
         var recentEvent = "";
         var date = new Date();
         date.setDate(date.getDate());
-       
+
         snapshot.forEach((child) => {
           var start = new Date(child.val().start.dateTime);
-          start.setHours(start.getHours()+6)
+          start.setHours(start.getHours()+1)
           if (start > date && (start < new Date(recent) || start < recent)) {
             recent = start;
             recentEvent = child.val();
@@ -369,7 +369,7 @@ define([
       };
 
 
-      /* ------ Sets and Changes address for Google Maps based on location ------ */
+      /* ------ Sets and Changes address for Google Maps based on location MOVE TO APP.JS AND APPLY TO ALL EVENTS sometime------ */
 
       $scope.currentAddress = null;
 
@@ -420,7 +420,7 @@ define([
           default:
             $scope.address = location;
             eventRef.update({
-              address: $scope.currentAddress,
+              address: location,
               location: location
             });
             break;

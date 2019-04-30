@@ -11,7 +11,7 @@
         </button>
     </ion-nav-buttons>-->
       <ion-nav-buttons side="left">
-          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+          <button ng-if="signedIn" controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
       </ion-nav-buttons>
     </ion-nav-bar>
 
