@@ -109,6 +109,7 @@ define([
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is signed in
+          $scope.signedIn = true
           var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
           profileRef.on('value', function (snapshot) {
             //console.log(snapshot.val())
@@ -123,6 +124,7 @@ define([
         } else {
           $scope.admin = false
           $scope.owner = false
+          $scope.signedIn = false
         }
       });
 
