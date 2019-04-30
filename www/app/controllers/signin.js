@@ -49,7 +49,7 @@ define([
 
       //todays date for calendar sync
       var today = new Date();
-      var day = today.getDate() + 1;
+      var day = today.getDate();
       var month = today.getMonth() + 1;
       var year = today.getFullYear();
       if (day < 10) {
