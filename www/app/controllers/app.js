@@ -41,13 +41,11 @@ define([
       console.log(cal);
       $scope.cal = $firebaseArray(calRef);
       var mycalRef = ref.child("mycalendar");
-      var mycal = $firebaseArray(mycalRef);
       $scope.mycal = $firebaseArray(mycalRef);
 
 
       // -------- get google users -----------------
       var gUsersRef = ref.child("googleUsers");
-      var googleUsers = $firebaseArray(gUsersRef);
       $scope.googleUsers = $firebaseArray(gUsersRef);
 
       // -------- sort events ---------------------
@@ -56,10 +54,15 @@ define([
         return -date;
       };
 
+      $scope.sortDateAscending = function (event) {
+        var date = new Date(event.start.dateTime);
+        return date;
+      };
+
       $scope.upcomingEvents = function (event) {
         var date = new Date();
         var eventDate = new Date(event.start.dateTime);
-        eventDate.setHours(eventDate.getHours()+1)
+        eventDate.setHours(eventDate.getHours() + 1)
         return eventDate >= date;
       };
 
@@ -103,8 +106,6 @@ define([
 
       }
 
-
-
       //------------ get current user -------------------
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -128,8 +129,23 @@ define([
         }
       });
 
+      var ref = firebase.database().ref();
 
+      var gUserRef = ref.child("googleUsers"); //get users
+      $scope.googleUsers = $firebaseArray(gUserRef);
 
+      //----------------Back Buttons -------------------------
+      $scope.pageBackButton = function () {
+        $state.go("dashboard");
+      }
+
+      $scope.eventBackButton = function () {
+        $state.go("calendar");
+      }
+
+      $scope.adminBackButton = function () {
+        $state.go("eventSettings");
+      }
 
       //--------- hides tabs on pages --------------
       $scope.shouldHide = function () {
@@ -159,16 +175,10 @@ define([
         }
       }
 
-
-
       //might be used for reload after submitting of something
       $scope.reloadRoute = function () {
         $window.location.reload();
       }
-
-
-
-
 
       $scope.openModal = function (index) {
         var notEqual = index !== $scope.currentPage;
@@ -192,129 +202,8 @@ define([
         $scope.modal.hide();
       };
 
-      //disable back button
-      /*$ionicHistory.nextViewOptions({
-        disableBack: true,
-        disableAnimate: false,
-        historyRoot: true,
-        cache: false
-
-      });*/
-
-      /*GAPI.init().then(function () {
-      }, function () { console.log('Something went wrong yes?'); });*/
-
-      // **************** Log In Here **************** //
-
-      var ref = firebase.database().ref();
 
 
-      var onComplete = function (error) {
-        if (error) {
-          console.log('Failed');
-        } else {
-          console.log('Completed');
-        }
-      };
-      // ----------------- authentication for google calendar ------------------
-      $scope.authenticate = function () {
-        return gapi.auth2.getAuthInstance()
-          .signIn({ scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar" })
-          .then(function () { console.log("Sign-in successful"); },
-            function (err) { console.error("Error signing in", err); });
-      }
-      $scope.loadClient = function () {
-        return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest")
-          .then(function () { console.log("GAPI client loaded for API"); },
-            function (err) { console.error("Error loading GAPI client for API", err); });
-      }
-
-
-      //todays date for calendar sync
-      var today = new Date();
-      var day = today.getDate() + 1;
-      var month = today.getMonth() + 1;
-      var year = today.getFullYear();
-      if (day < 10) {
-        day = '0' + day;
-      }
-      if (month < 10) {
-        month = '0' + month;
-      }
-
-      //---------------syncs calendar ---------
-      var db = firebase.database();
-      $scope.sync = function () {
-        $scope.calendarEvents = gapi.client.calendar.events.list({
-          "calendarId": "upc@valpo.edu",
-          "maxResults": 30,
-          "orderBy": "startTime",
-          "singleEvents": true,
-          "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"
-        })
-          .then(function (response) {
-            console.log("Response", response);
-            $scope.upcEvents = response.result.items;
-            db.ref().child('calendar').set({
-              events: $scope.upcEvents
-            });
-          }, function (err) { console.error("Execute error", err); });
-
-
-      }
-      $scope.testSync = function () {
-        $scope.calendarEvents = gapi.client.calendar.events.list({
-          "calendarId": "miguel.valdez@valpo.edu",
-          "maxResults": 20,
-          "orderBy": "startTime",
-          "singleEvents": true,
-          "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"
-        })
-          .then(function (response) {
-            console.log("Response", response);
-            $scope.upcEvents = response.result.items;
-            db.ref().child('myCalendar').set({
-              events: $scope.upcEvents
-            });
-          }, function (err) { console.error("Execute error", err); });
-
-
-      }
-
-
-      /*gapi.load("client:auth2", function () {
-        gapi.auth2.init({ client_id: '188526661745-1qvjgbd02e62kjg1it4tj05p14rveb21.apps.googleusercontent.com' });
-      });
-
-      GAPI.init().then(function () {
-      }, function () { console.log('Something went wrong yes?'); });*/
-
-
-      var gUserRef = ref.child("googleUsers"); //get users
-      var googleUsers = $firebaseArray(gUserRef);
-      $scope.googleUsers = $firebaseArray(gUserRef);
-
-
-
-      $ionicHistory.nextViewOptions({
-        disableBack: false,
-        disableAnimate: false,
-        historyRoot: false,
-        cache: false
-
-      });
-
-      $scope.pageBackButton = function () {
-        $state.go("dashboard");
-      }
-
-      $scope.eventBackButton = function () {
-        $state.go("calendar");
-      }
-
-      $scope.adminBackButton = function () {
-        $state.go("eventSettings");
-      }
 
 
     }

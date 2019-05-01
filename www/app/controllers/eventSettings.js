@@ -26,17 +26,7 @@ define([
       $scope.events = $firebaseArray(ref.child('events'));
       $scope.users = $firebaseArray(userRef);
 
-      var eventRef = firebase.database().ref('events/' + $stateParams.id);
-
-     
-
-
-
-
       firebase.auth().onAuthStateChanged(function (user) {
-        //var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-        //var userId = googleUser.getId();
-
         var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
@@ -49,29 +39,10 @@ define([
         }
       });
 
-
-
-
-
-
-
       $scope.sortEvents = function (event) {
         var date = - new Date(event.date);
         return date;
       };
-
-
-      $scope.updateName = function (newName) {
-        firebase.auth().onAuthStateChanged(function (user) {
-          db.ref("events/" + $scope.eventId + "/name").set(newName);
-        });
-      }
-
-
-
-
-
-
 
 
       $scope.makeAdmin = function (id) {
@@ -162,20 +133,7 @@ define([
           } else {
             console.log("Web")
             ref.child("calendar/" + id).remove();
-            /*gapi.client.calendar.events.delete({
-              "calendarId": "upc@valpo.edu",
-              "eventId": id
-            })
-              .then(function (response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-              },
-                function (err) { console.error("Execute error", err); });*/
-            
           }
-         
-         
-
         });
       }
 
@@ -194,11 +152,6 @@ define([
           }
         });
       };
-
-
-
-
-
 
     }
   ]);

@@ -21,7 +21,6 @@ define([
 
       $scope.user;
 
-
       document.addEventListener("deviceready", function () {
 
       }, true);
@@ -63,24 +62,6 @@ define([
       var db = firebase.database();
       var eventRef = ref.child("events");
       var calendarRef = ref.child("calendar");
-      $scope.sync = function () {
-        $scope.calendarEvents = gapi.client.calendar.events.list({
-          "calendarId": "upc@valpo.edu",
-          "maxResults": 30,
-          "orderBy": "startTime",
-          "singleEvents": true,
-          "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"
-        })
-          .then(function (response) {
-            console.log("Response", response);
-            $scope.upcEvents = response.result.items;
-            db.ref().child('calendar').set({
-              events: $scope.upcEvents
-            });
-          }, function (err) { console.error("Execute error", err); });
-      }
-
-
 
       $scope.sync2 = function () {
         $scope.calendarEvents = gapi.client.calendar.events.list({
@@ -148,26 +129,6 @@ define([
       }
 
 
-      $scope.testSync = function () {
-        $scope.calendarEvents = gapi.client.calendar.events.list({
-          "calendarId": "miguel.valdez@valpo.edu",
-          "maxResults": 20,
-          "orderBy": "startTime",
-          "singleEvents": true,
-          "timeMin": year.toString() + "-" + month.toString() + "-" + day.toString() + "T00:00:00+10:00"
-        })
-          .then(function (response) {
-            console.log("Response", response);
-            $scope.upcEvents = response.result.items;
-            db.ref().child('myCalendar').set({
-              events: $scope.upcEvents
-            });
-          }, function (err) { console.error("Execute error", err); });
-
-
-      }
-
-
       gapi.load("client:auth2", function () {
         gapi.auth2.init({ client_id: '188526661745-1qvjgbd02e62kjg1it4tj05p14rveb21.apps.googleusercontent.com' });
       });
@@ -181,47 +142,6 @@ define([
       $scope.googleUsers = $firebaseArray(gUserRef);
 
       // ------------ signs in with authentication ---------------------------
-      $scope.login = function () {
-        $scope.LoggedIn = false;
-        $scope.loadClient();
-        gapi.auth2.getAuthInstance().signIn({ scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar" })
-          .then(function () {
-            console.log("Sign-in successful");
-            $scope.LoggedIn = true;
-            $scope.LoginTitle = "Log Out";
-            console.log("LoginTitle =", $scope.LoginTitle);
-            firebase.auth().onAuthStateChanged(function (user) {
-              var googleUser = gapi.auth2.getAuthInstance().currentUser.get() //gets gppgle user
-              $scope.isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get()
-              var googleProfile = googleUser.getBasicProfile()
-              $scope.googleProfile = googleUser.getBasicProfile()
-              firebase.database().ref().child("googleUsers").orderByChild("email")
-                .equalTo(googleProfile.getEmail()).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
-                  if (snapshot.exists()) {  // account exists
-                    console.log("exists");
-                    console.log($scope.isSignedIn);
-
-                  } else { //account deosn't exsist -> create new user
-                    console.log("doesn't exist");
-                    gUserRef.child(googleProfile.getId()).set({
-                      name: googleProfile.getName(),
-                      email: googleProfile.getEmail(),
-                      photoUrl: googleProfile.getImageUrl(),
-                      uid: googleProfile.getId(),
-                      admin: false,
-                      owner: false,
-                    }, onComplete);
-                  }
-                });
-            });
-          }).then(function () {
-
-            //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
-            $scope.sync();
-            $state.go("profileSettings"); //go to dashboard after sign in
-          });
-
-      }
 
       //Firebase login alternative (probably the better option)
       $scope.login2 = function () {
@@ -255,15 +175,14 @@ define([
             console.log(user)
           })
         }).then(function () {
-
           //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
           $scope.sync2();
 
         });
 
-
       }
 
+      // Android Login
       $scope.login3 = function () {
         $scope.LoggedIn = false;
         var provider = new firebase.auth.GoogleAuthProvider();
@@ -286,8 +205,6 @@ define([
             .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
               if (snapshot.exists()) {  // account exists
                 console.log("exists");
-
-
               } else { //account deosn't exsist -> create new user
                 console.log("doesn't exist");
                 gUserRef.child(user.uid).set({
@@ -309,23 +226,18 @@ define([
         });
       }
 
+      $scope.signIn = function () {
+        if (document.URL.startsWith('http')) {
+          console.log("Web 1")
+          $scope.login2();
+        } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+          console.log("Phone")
+          $scope.login3();
 
-
-      $scope.login4 = function () {
-        GooglePlus.login(
-          {
-            'scopes': 'https://www.googleapis.com/auth/calendar', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-            'webClientId': '188526661745-1qvjgbd02e62kjg1it4tj05p14rveb21.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-            'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
-          },
-          function (obj) {
-            alert(JSON.stringify(obj)); // do something useful instead of alerting
-            console.log(obj)
-          },
-          function (msg) {
-            alert('error: ' + msg);
-          }
-        );
+        } else {
+          console.log("Web")
+          $scope.login2();
+        }
       }
 
       $scope.signOff = function () {
@@ -343,8 +255,6 @@ define([
       }
 
       // ---------- Switch login/ logout buttons --------------
-
-
       if (document.URL.startsWith('http')) {
         $scope.LoginTitle = "Log In";
 
@@ -361,7 +271,6 @@ define([
         $scope.LoginTitle = "Log In";
 
       }
-
 
       $scope.clicked2 = function () {
         if ($scope.LoginTitle == "Log In") {
@@ -400,20 +309,6 @@ define([
           }
         });
 
-      }
-
-      $scope.signIn = function () {
-        if (document.URL.startsWith('http')) {
-          console.log("Web 1")
-          $scope.login2();
-        } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
-          console.log("Phone")
-          $scope.login3();
-
-        } else {
-          console.log("Web")
-          $scope.login2();
-        }
       }
 
       firebase.auth().onAuthStateChanged(function (user) {

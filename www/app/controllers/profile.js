@@ -33,10 +33,6 @@ define([
       var userEvents = $firebaseArray(userEventRef);
       $scope.userEvents = $firebaseArray(userEventRef);
 
-
-
-
-
       $scope.call = function () {
         $window.open('tel:' + $scope.event.contact.tel, '_system');
       };

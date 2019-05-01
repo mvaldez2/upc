@@ -34,6 +34,9 @@ define([
         var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
         var userEvents = $firebaseArray(userEventRef);
         $scope.userEvents = $firebaseArray(userEventRef);
+        var checkEventRef = ref.child("googleUsers/" + user.uid + "/checkEvents");
+        var checkedEvents = $firebaseArray(checkEventRef);
+        $scope.checkedEvents = $firebaseArray(checkEventRef);
 
 
       });
@@ -90,19 +93,10 @@ define([
             var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
             var googleProfile = googleUser.getBasicProfile();
             var userId = googleUser.getId();
-            /*gapi.client.calendar.events.delete({
-              "calendarId": googleProfile.getEmail(),
-              "eventId": id
-            })
-              .then(function (response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-              },
-                function (err) { console.error("Execute error", err); });*/
             ref.child("googleUsers/" + user.uid + "/events/" + id).remove();
           }
-         
-         
+
+
 
         });
       }

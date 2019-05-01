@@ -59,19 +59,6 @@ define([
 
 
         });
-
-        var userCheckEventsRef = ref.child("googleUsers/" + user.uid + "/events/" + $stateParams.id);
-
-        userCheckEventsRef.on('value', function (snapshot) {
-          console.log(snapshot.val());
-          $scope.ucEvent = snapshot.val();
-          $scope.ucSummary = snapshot.val().summary
-          $scope.ucLocation = snapshot.val().location
-          $scope.ucStartDate = snapshot.val().start.dateTime
-          $scope.ucEndDate = snapshot.val().end.dateTime
-          $scope.ucStart = snapshot.val().start.date
-          $scope.ucEnd = snapshot.val().end.date
-        });
       });
 
       firebase.database().ref().child("calendar/").orderByChild("id").on("value", function (snapshot) {
@@ -82,7 +69,7 @@ define([
 
         snapshot.forEach((child) => {
           var start = new Date(child.val().start.dateTime);
-          start.setHours(start.getHours()+1)
+          start.setHours(start.getHours() + 1)
           if (start > date && (start < new Date(recent) || start < recent)) {
             recent = start;
             recentEvent = child.val();
@@ -94,6 +81,7 @@ define([
         console.log(recentEvent.address)
       });
 
+      //  MOVE TO APP.JS AND APPLY TO ALL EVENTS sometime
       $scope.formatDate = function (eventDate) {
 
         var date = new Date(eventDate);
@@ -112,7 +100,7 @@ define([
 
       }
 
-      //format dates
+      //format dates MOVE TO APP.JS AND APPLY TO ALL EVENTS sometime
       var date = new Date($scope.startDate);
       var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       var timeOptions = { hour: 'numeric', minute: 'numeric' };
@@ -129,6 +117,7 @@ define([
 
       }
 
+      //---------------- Alerts -------------------------
       $scope.showLogInAlert = function () {
         var alertPopup = $ionicPopup.alert({
           title: 'Log In',
@@ -144,11 +133,15 @@ define([
       }
 
       $scope.alreadyAddedAlert = function () {
-        var alertPopup = $ionicPopup.alert({
+        var alertPopup = $ionicPopup.show({
           title: 'Event Already Added',
           template: 'You have this event added.'
         });
+        $timeout(function () {
+          alertPopup.close();
+        }, 500);
       }
+
 
       $scope.showEventCheckInAlert = function () {
         var alertPopups = $ionicPopup.alert({
@@ -177,6 +170,25 @@ define([
         }
       }
 
+      //Display Check-in Button for upcoming event
+      $scope.showCheckInUpcoming = function () {
+        var dateTimeStart = new Date($scope.recentEvent.start.dateTime);
+        var timeStart = dateTimeStart.getTime();
+
+        var dateTimeEnd = new Date($scope.recentEvent.end.dateTime);
+        var timeEnd = dateTimeEnd.getTime();
+
+        var dateNow = new Date();
+        var nowTime = dateNow.getTime();
+
+        if (nowTime > timeStart && nowTime < timeEnd) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+
 
       //add event to user
       $scope.addEvent = function (event) {
@@ -190,7 +202,7 @@ define([
             .equalTo(event.id).on("value", function (snapshot) {
               if (snapshot.exists()) {
                 console.log("already added: ", event.summary)
-                $scope.alreadyAddedAlert();
+                //$scope.alreadyAddedAlert(); //this gets called again after event is added and it gets stuck
               } else {
                 if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
                   console.log("Phone")
@@ -270,14 +282,9 @@ define([
                   });
 
                 }
-
-
-
               }
             });
-
         });
-
       }
 
       //Checkin Events for user
@@ -335,20 +342,7 @@ define([
           } else {
             console.log("Web")
             ref.child("calendar/" + id).remove();
-            /*gapi.client.calendar.events.delete({
-              "calendarId": "upc@valpo.edu",
-              "eventId": id
-            })
-              .then(function (response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-              },
-                function (err) { console.error("Execute error", err); });*/
-
           }
-
-
-
         });
       }
 
@@ -369,7 +363,7 @@ define([
       };
 
 
-      /* ------ Sets and Changes address for Google Maps based on location MOVE TO APP.JS AND APPLY TO ALL EVENTS sometime------ */
+      /* ------ Sets and Changes address for Google Maps based on location MOVE TO APP.JS AND APPLY TO ALL EVENTS sometime ------ */
 
       $scope.currentAddress = null;
 
