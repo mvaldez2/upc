@@ -17,14 +17,12 @@ define([
     '$state',
     '$ionicHistory',
     '$ionicPopup',
-    'Calendar',
-    'Youtube',
     '$stateParams',
-    'eventService',
+    '$timeout',
 
     function ($scope, $ionicModal, $ionicScrollDelegate, $sce, pageService, $firebaseObject,
       $firebaseAuth, $firebaseArray, $window, $state, $ionicHistory, $ionicPopup,
-      $stateParams, eventService) {
+      $stateParams, $timeout) {
 
 
       $scope.ready = true;
@@ -38,7 +36,6 @@ define([
 
       var eventsRef = ref.child("events");
       $scope.events = $firebaseArray(eventsRef);
-      console.log(cal);
       $scope.cal = $firebaseArray(calRef);
       var mycalRef = ref.child("mycalendar");
       $scope.mycal = $firebaseArray(mycalRef);
@@ -128,6 +125,28 @@ define([
           $scope.signedIn = false
         }
       });
+
+      $scope.signInAlert = function () {
+        var alertPopup = $ionicPopup.show({
+          title: 'You need to sign in',
+          template: 'To see your profile sign in'
+        });
+        $timeout(function () {
+          alertPopup.close();
+        }, 500);
+      }
+
+      $scope.profSettings = function () {
+
+        if ($scope.signedIn) {
+          $state.go("profileSettings");
+        } else {
+          console.log("Tried seeing profile without being logged in!!");
+          $scope.signInAlert();
+        }
+
+
+      }
 
       var ref = firebase.database().ref();
 

@@ -28,16 +28,6 @@ define([
           templateUrl: 'app/templates/dashboard.html',
           controller: 'DashboardCtrl'
         })
-        .state('results', {
-          url: '/results/:search/:satTrans/:wheelChair/:wheelChairLift',
-          controller: 'ResultsCtrl',
-          templateUrl: 'app/templates/oldTemplates/results.html'
-        })
-        .state('detail', {
-          url: '/detail/:id',
-          controller: 'DetailCtrl',
-          templateUrl: 'app/templates/oldTemplates/detail.html'
-        })
         .state('profile', {
           url: '/profile/:id',
           controller: 'ProfileCtrl',
@@ -47,11 +37,6 @@ define([
           url: '/event/:id',
           controller: 'EventCtrl',
           templateUrl: 'app/templates/details/event.html'
-        })
-        .state('userEvent', {
-          url: '/userEvent/:id',
-          controller: 'EventCtrl',
-          templateUrl: 'app/templates/details/userEvent.html'
         })
         .state('about', {
           url: '/about/:id',

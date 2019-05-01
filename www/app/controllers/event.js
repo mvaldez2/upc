@@ -44,22 +44,6 @@ define([
       });
 
 
-      firebase.auth().onAuthStateChanged(function (user) {
-        var userEventRef = ref.child("googleUsers/" + user.uid + "/events/" + $stateParams.id);
-        //get current user event
-        userEventRef.on('value', function (snapshot) {
-          console.log(snapshot.val());
-          $scope.uEvent = snapshot.val()
-          $scope.uSummary = snapshot.val().summary
-          $scope.uLocation = snapshot.val().location
-          //$scope.uStartDate = snapshot.val().start.dateTime
-          $scope.uEndDate = snapshot.val().end.dateTime
-          $scope.uStart = snapshot.val().start.date
-          $scope.uEnd = snapshot.val().end.date
-
-
-        });
-      });
 
       firebase.database().ref().child("calendar/").orderByChild("id").on("value", function (snapshot) {
         var recent = Infinity;

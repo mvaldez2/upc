@@ -44,7 +44,6 @@ define([
       var eventRef = firebase.database().ref('calendar/' + $stateParams.id);
       //get current event
       eventRef.on('value', function (snapshot) {
-        console.log(snapshot.val());
         $scope.event = snapshot.val()
         $scope.summary = snapshot.val().summary
         $scope.location = snapshot.val().location
@@ -61,7 +60,6 @@ define([
         // User is signed in
         var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
         profileRef.on('value', function (snapshot) {
-          console.log(snapshot.val())
           $scope.name = snapshot.val().name
           $scope.photoUrl = snapshot.val().photoUrl
           $scope.email = snapshot.val().email

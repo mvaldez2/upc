@@ -46,7 +46,7 @@ define([
 
 
       $scope.makeAdmin = function (id) {
-        if ($scope.owner) {
+        if ($scope.admin) {
           var popup = $ionicPopup.alert({
             title: 'Give Permission',
             template: 'Are you sure you want to give this user admin access?',
@@ -69,7 +69,7 @@ define([
           console.log("Not permitted")
           $ionicPopup.alert({
             title: 'Access Denied',
-            template: 'You need to be an Owner to do this.',
+            template: 'You need to be an Admin to do this.',
             buttons: [
               {
                 text: '<b>OK</b>',
@@ -83,7 +83,7 @@ define([
       }
 
       $scope.removeAdmin = function (id) {
-        if ($scope.owner) {
+        if ($scope.admin) {
           $ionicPopup.alert({
             title: 'Remove Admin Access',
             template: 'Are you sure you want to remove admin access?',
@@ -106,7 +106,7 @@ define([
           console.log("Not permitted")
           $ionicPopup.alert({
             title: 'Access Denied',
-            template: 'You need to be an Owner to do this.',
+            template: 'You need to be an Admin to do this.',
             buttons: [
               {
                 text: '<b>OK</b>',

@@ -151,8 +151,8 @@ define([
           var token = res.getAuthResponse().id_token;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
           firebase.auth().signInWithCredential(creds).then((user) => {
-            console.log(user);
             $scope.LoginTitle = "Log Out";
+            $scope.LoggedIn = true;
             firebase.database().ref().child("googleUsers").orderByChild("email")
               .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
                 if (snapshot.exists()) {  // account exists
@@ -172,7 +172,6 @@ define([
                   }, onComplete);
                 }
               });
-            console.log(user)
           })
         }).then(function () {
           //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
@@ -280,6 +279,7 @@ define([
         }
       }
 
+      
       $scope.showConfirm = function () {
         var confirmPopup = $ionicPopup.confirm({
           title: 'Log in to see your profile',
@@ -316,7 +316,6 @@ define([
           // User is signed in
           var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
           profileRef.on('value', function (snapshot) {
-            console.log(snapshot.val())
             $scope.name = snapshot.val().name
             $scope.photoUrl = snapshot.val().photoUrl
             $scope.email = snapshot.val().email
