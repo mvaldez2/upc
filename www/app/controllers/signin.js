@@ -279,7 +279,7 @@ define([
         }
       }
 
-      
+
       $scope.showConfirm = function () {
         var confirmPopup = $ionicPopup.confirm({
           title: 'Log in to see your profile',
@@ -299,7 +299,7 @@ define([
       };
 
       //stop it from being called again
-      $scope.profSettings = function () {
+     /* $scope.profSettings = function () {
         firebase.auth().onAuthStateChanged(function (user) {
           if (user) {
             $state.go("profileSettings");
@@ -309,11 +309,52 @@ define([
           }
         });
 
-      }
+    }*/
+
+    $scope.onProfile = false;
+
+    $scope.profSettings = function () {
+        $state.go("profileSettings");
+        $scope.onProfile=true;
+        firebase.auth().onAuthStateChanged(function (user) {
+            console.log(user);
+            console.log($scope.onProfile);
+            if (!user && $scope.onProfile) {
+                console.log("Tried seeing profile without being logged in!!");
+                $scope.showConfirm();
+            } else {
+                $scope.onProfile=false;
+            }
+        });
+
+    }
+
+    $scope.checkIfLoggedIn = function() {
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            // User is signed in
+            var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
+            profileRef.on('value', function (snapshot) {
+              $scope.name = snapshot.val().name
+              $scope.photoUrl = snapshot.val().photoUrl
+              $scope.email = snapshot.val().email
+              $scope.event = snapshot.val().events
+              $scope.admin = snapshot.val().admin
+              $scope.owner = snapshot.val().owner
+              $scope.LoginTitle = "Log Out";
+            });
+          } else {
+            $scope.LoginTitle = "Log In";
+            $scope.admin = false
+            $scope.owner = false
+          }
+        });
+    }
 
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is signed in
+          console.log("Logged in");
           var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
           profileRef.on('value', function (snapshot) {
             $scope.name = snapshot.val().name
@@ -322,8 +363,10 @@ define([
             $scope.event = snapshot.val().events
             $scope.admin = snapshot.val().admin
             $scope.owner = snapshot.val().owner
+            $scope.LoginTitle = "Log Out";
           });
         } else {
+            console.log("Logged out");
           $scope.LoginTitle = "Log In";
           $scope.admin = false
           $scope.owner = false
