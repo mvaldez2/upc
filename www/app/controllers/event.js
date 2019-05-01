@@ -39,6 +39,7 @@ define([
         $scope.end = snapshot.val().end.date
         $scope.id = snapshot.val().id
         $scope.address = snapshot.val().address
+        console.log("event:", $scope.event)
 
       });
 
@@ -78,8 +79,10 @@ define([
         var recentEvent = "";
         var date = new Date();
         date.setDate(date.getDate());
+
         snapshot.forEach((child) => {
           var start = new Date(child.val().start.dateTime);
+          start.setHours(start.getHours()+1)
           if (start > date && (start < new Date(recent) || start < recent)) {
             recent = start;
             recentEvent = child.val();
@@ -88,7 +91,7 @@ define([
 
         });
         $scope.recentEvent = recentEvent
-        console.log(recentEvent.summary)
+        console.log(recentEvent.address)
       });
 
       $scope.formatDate = function (eventDate) {
@@ -140,6 +143,13 @@ define([
         });
       }
 
+      $scope.alreadyAddedAlert = function () {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Event Already Added',
+          template: 'You have this event added.'
+        });
+      }
+
       $scope.showEventCheckInAlert = function () {
         var alertPopups = $ionicPopup.alert({
           title: 'Event Checked in',
@@ -148,11 +158,28 @@ define([
       }
 
 
-      // fix date for calendar insert
+      //Display Check-in Button
+      $scope.showCheckIn = function () {
+        var dateTimeStart = new Date($scope.startDate);
+        var timeStart = dateTimeStart.getTime();
+
+        var dateTimeEnd = new Date($scope.endDate);
+        var timeEnd = dateTimeEnd.getTime();
+
+        var dateNow = new Date();
+        var nowTime = dateNow.getTime();
+
+        if (nowTime > timeStart && nowTime < timeEnd) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
 
 
       //add event to user
-      $scope.addEvent = function (event) {  
+      $scope.addEvent = function (event) {
         firebase.auth().onAuthStateChanged(function (user) {
           if (!user) {
             console.log("Can't add an event without being logged in!");
@@ -163,6 +190,7 @@ define([
             .equalTo(event.id).on("value", function (snapshot) {
               if (snapshot.exists()) {
                 console.log("already added: ", event.summary)
+                $scope.alreadyAddedAlert();
               } else {
                 if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
                   console.log("Phone")
@@ -264,6 +292,7 @@ define([
             .equalTo(event.id).on("value", function (snapshot) {
               if (snapshot.exists()) {
                 console.log("already checked in: ", event.summary)
+                $scope.alreadyAddedAlert();
               } else {
                 console.log("Phone")
                 var userCheckEventRef = ref.child("googleUsers/" + user.uid + "/checkEvents");
@@ -340,21 +369,13 @@ define([
       };
 
 
-      /* ------ Sets and Changes address for Google Maps based on location ------ */
+      /* ------ Sets and Changes address for Google Maps based on location MOVE TO APP.JS AND APPLY TO ALL EVENTS sometime------ */
 
       $scope.currentAddress = null;
 
-      $scope.setAddress = function () {
-        if (!$scope.location || $scope.location == "None") {  // Checks to see if there is a location or not
-          $scope.location = "";
-          $scope.address = undefined;
-          eventRef.update({
-            address: $scope.currentAddress,
-            location: $scope.location
-          });
-          return;
-        }
-        $scope.strLocation = $scope.location.split(" ");
+      $scope.setAddress = function (location) {
+
+        $scope.strLocation = location.split(" ");
         $scope.eventLocation = $scope.strLocation[0];
         switch ($scope.eventLocation) {                       // Puts address based on building or location
           case "Neils":
@@ -363,7 +384,7 @@ define([
             $scope.address = "Neils Science Center, 1610 Campus Drive East, Valparaiso, IN";
             eventRef.update({
               address: $scope.currentAddress,
-              location: $scope.location
+              location: location
             });
             //add to address info to database
             break;
@@ -371,7 +392,7 @@ define([
             $scope.address = undefined;
             eventRef.update({
               address: $scope.currentAddress,
-              location: $scope.location
+              location: location
             });
             break;
           case "Hearth":
@@ -384,7 +405,7 @@ define([
             $scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
             eventRef.update({
               address: $scope.currentAddress,
-              location: $scope.location
+              location: location
             });
           case "Founders":
             //$scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
@@ -392,15 +413,15 @@ define([
             $scope.address = "Harre Union, Chapel Drive, Valparaiso, IN";
             eventRef.update({
               address: $scope.currentAddress,
-              location: $scope.location
+              location: location
             });
             //add address to database
             break;
           default:
-            $scope.address = $scope.location;
+            $scope.address = location;
             eventRef.update({
-              address: $scope.currentAddress,
-              location: $scope.location
+              address: location,
+              location: location
             });
             break;
 

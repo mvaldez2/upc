@@ -50,6 +50,7 @@ define([
       var googleUsers = $firebaseArray(gUsersRef);
       $scope.googleUsers = $firebaseArray(gUsersRef);
 
+      // -------- sort events ---------------------
       $scope.sortDate = function (event) {
         var date = new Date(event.start.dateTime);
         return -date;
@@ -58,6 +59,7 @@ define([
       $scope.upcomingEvents = function (event) {
         var date = new Date();
         var eventDate = new Date(event.start.dateTime);
+        eventDate.setHours(eventDate.getHours()+1)
         return eventDate >= date;
       };
 
@@ -107,6 +109,7 @@ define([
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is signed in
+          $scope.signedIn = true
           var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
           profileRef.on('value', function (snapshot) {
             //console.log(snapshot.val())
@@ -121,6 +124,7 @@ define([
         } else {
           $scope.admin = false
           $scope.owner = false
+          $scope.signedIn = false
         }
       });
 

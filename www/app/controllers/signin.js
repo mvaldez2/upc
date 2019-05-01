@@ -49,7 +49,7 @@ define([
 
       //todays date for calendar sync
       var today = new Date();
-      var day = today.getDate() + 1;
+      var day = today.getDate();
       var month = today.getMonth() + 1;
       var year = today.getFullYear();
       if (day < 10) {
@@ -111,6 +111,7 @@ define([
                         id: $scope.upcEvents[i].id,
                         kind: $scope.upcEvents[i].kind,
                         location: "No location specified",
+                        address: "",
                         organizer: $scope.upcEvents[i].organizer,
                         reminders: $scope.upcEvents[i].reminders,
                         start: $scope.upcEvents[i].start,
@@ -129,6 +130,7 @@ define([
                         id: $scope.upcEvents[i].id,
                         kind: $scope.upcEvents[i].kind,
                         location: $scope.upcEvents[i].location,
+                        address: "",
                         organizer: $scope.upcEvents[i].organizer,
                         reminders: $scope.upcEvents[i].reminders,
                         start: $scope.upcEvents[i].start,
@@ -229,7 +231,7 @@ define([
           var token = res.getAuthResponse().id_token;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
           firebase.auth().signInWithCredential(creds).then((user) => {
-              console.log(user);
+            console.log(user);
             $scope.LoginTitle = "Log Out";
             firebase.database().ref().child("googleUsers").orderByChild("email")
               .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
@@ -343,29 +345,25 @@ define([
       // ---------- Switch login/ logout buttons --------------
 
 
-        if (document.URL.startsWith('http')) {
-            if($scope.user) {
-                $scope.LoginTitle = "Log Out"
-            } else {
-                $scope.LoginTitle = "Log In";
-            }
+      if (document.URL.startsWith('http')) {
+        $scope.LoginTitle = "Log In";
 
-        } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
-          firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-              $scope.LoginTitle = "Log Out"
-            } else {
-              $scope.LoginTitle = "Log In";
-            }
-          });
+      } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            $scope.LoginTitle = "Log Out"
+          } else {
+            $scope.LoginTitle = "Log In";
+          }
+        });
 
-        } else {
-          $scope.LoginTitle = "Log In";
+      } else {
+        $scope.LoginTitle = "Log In";
 
-        }
+      }
 
 
-        $scope.clicked2 = function () {
+      $scope.clicked2 = function () {
         if ($scope.LoginTitle == "Log In") {
           $scope.signIn();
         } else {
@@ -393,7 +391,7 @@ define([
 
       //stop it from being called again
       $scope.profSettings = function () {
-        firebase.auth().onAuthStateChanged(function(user) {
+        firebase.auth().onAuthStateChanged(function (user) {
           if (user) {
             $state.go("profileSettings");
           } else {
@@ -420,8 +418,6 @@ define([
 
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            //console.log(user);
-            $scope.LoginTitle = "Log Out";
           // User is signed in
           var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
           profileRef.on('value', function (snapshot) {
@@ -434,9 +430,10 @@ define([
             $scope.owner = snapshot.val().owner
           });
         } else {
-            $scope.LoginTitle = "Log In";
+          $scope.LoginTitle = "Log In";
           $scope.admin = false
           $scope.owner = false
+
         }
       });
 

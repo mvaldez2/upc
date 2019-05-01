@@ -11,7 +11,7 @@
         </button>
     </ion-nav-buttons>-->
       <ion-nav-buttons side="left">
-          <button ng-controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+          <button controller="AppCtrl" class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
       </ion-nav-buttons>
     </ion-nav-bar>
 
@@ -22,7 +22,7 @@
     <img src="https://www.valpo.edu/university-programming-council/files/2018/08/Screen-Shot-2018-08-28-at-6.34.58-PM-1024x544.png"/ height="auto" width=100%>
 
 	<ion-list>
-	<ion-item class="item-royal item-icon-right" ui-sref="checkin()">
+	<ion-item ng-if="signedIn" class="item-royal item-icon-right" ui-sref="checkin()">
 		See how many events you've attended
 	<i class = icon ion-information-circled></i>
 	</ion-item>

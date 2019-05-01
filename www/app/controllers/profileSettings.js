@@ -90,7 +90,7 @@ define([
             var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
             var googleProfile = googleUser.getBasicProfile();
             var userId = googleUser.getId();
-            gapi.client.calendar.events.delete({
+            /*gapi.client.calendar.events.delete({
               "calendarId": googleProfile.getEmail(),
               "eventId": id
             })
@@ -98,7 +98,7 @@ define([
                 // Handle the results here (response.result has the parsed body).
                 console.log("Response", response);
               },
-                function (err) { console.error("Execute error", err); });
+                function (err) { console.error("Execute error", err); });*/
             ref.child("googleUsers/" + user.uid + "/events/" + id).remove();
           }
          
