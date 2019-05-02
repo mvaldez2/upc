@@ -58,6 +58,11 @@ define([
           controller: 'AppCtrl',
           templateUrl: 'app/templates/menu/UPC_Calendar.html'
         })
+        .state('rental', {
+          url: '/Rental-Equipment/:id',
+          controller: 'AppCtrl',
+          templateUrl: 'app/templates/menu/Rental-Equipment.html'
+        })
         .state('search', {
           url: '/search/:id',
           controller: 'EventCtrl',

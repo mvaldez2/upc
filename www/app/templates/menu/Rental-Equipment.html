@@ -1,148 +1,145 @@
-<html>
+<ion-nav-view>
 
-<head></head>
+    <ion-nav-bar class="bar-energized">
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+      <ion-nav-title>
+          Rental Equipment
+      </ion-nav-title>
 
-<body>
+      <ion-nav-buttons side="left">
+          <button class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
 
-<h1>Rental Equipment</h1>
+<ion-view>
+  <link rel="stylesheet" type="text/css" href="../../css/style.css">
+  <ion-content padding="true" class="has-header has-tabs">
+      <img src="http://www.valpo.edu/university-programming-council/files/2018/05/Rental-Equip.png" width=100% height="auto">
+      <p>Please fill out this <b ng-click="form()">form</b> in order to use our rental equipment for your event!</p>
 
+      <p>For larger venues (e.g. events on the West Lawn or in the Ballrooms), please e-mail <b
+              ng-click="productionsEmail()">upc.productions@valpo.edu</b> to discuss the proper audio solution for your event. When renting out
+          a speaker system, you must pay the productions chair $10 per hour for their services (this includes set up and
+          tear down time).</p>
+  
+      <p>Here is complete list outlining our rental equipment:</p>
+  
+      <ion-list>
+          <ion-item class="item-divider item-icon-right"><b>Sound Systems</b> 
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Yamaha PA System
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Portable CD Player
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Speaker Stands
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Wireless Handheld Microphones
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              JBL speaker system (larger events) ($50 rental fee)
+          </ion-item>
+          <ion-item class="item-divider item-icon-right"><b>Wii Console and Accessories</b> 
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Game System (inc. instruction manual)
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Wii U (inc. HDMI cable)
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Wii Remote & Nunchuk x 2 
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Controllers x 4
+          </ion-item>
+          <ion-item class="item-divider item-icon-right"><b>Wii Games</b> 
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Wii Sports
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Mario Kart
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Smash Bros: Brawl
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Guitar Hero: World Tour
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Rock Band + AC/DC Live
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              Sing Party (Karaoke: inc. USB mic x 2)
+          </ion-item>
+          <ion-item class="item-icon-right" ng-disabled="loading">
+              NES Remix (Wii U)
+          </ion-item>
+        </ion-list>
+        <ion-item class="item-divider item-icon-right"><b>Xbox 360</b> 
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Game System
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Kinect System
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Controller x 1
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Controllers x 2
+        </ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Xbox 360 Games</b> 
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Just Dance 3 (Kinect Required)
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Kinect Adventures (Kinect Required)
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Wipeout
+        </ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Food Preparation Machines</b> 
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Cotton Candy ($10 rental fee)
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Snow Cones ($10 rental fee)
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Popcorn ($10 rental fee)
+        </ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Game and Other Items</b> 
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Board Games (assortment)
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Tug of War Rope
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Spin Art Machines
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Other: Potato Sacks
+        </ion-item>
+        <ion-item class="item-divider item-icon-right"><b>Life Size Board Games</b> 
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Scrabble
+        </ion-item>
+        <ion-item class="item-icon-right" ng-disabled="loading">
+            Chess
+        </ion-item>
+        
 
-<p>Please fill out this <a href="">form</a> in order to use our rental equipment for your event!</p>
-
-<p>For larger venues (e.g. events on the West Lawn or in the Ballrooms), please e-mail <a href="">upc.productions@valpo.edu</a> to discuss the proper audio solution for your event. When renting out a speaker system, you must pay the productions chair $10 per hour for their services (this includes set up and tear down time).</p>
-
-<p>Here is complete list outlining our rental equipment:</p>
-
-<table dir="ltr" style="height: 858px" border="1" width="478" cellspacing="0" cellpadding="0">
-<colgroup>
-<col width="320"></colgroup>
-<tbody>
-<tr>
-<td style="text-align: left"><strong>Sound Systems</strong></td>
-</tr>
-<tr>
-<td>Yamaha PA System</td>
-</tr>
-<tr>
-<td>Portable CD Player</td>
-</tr>
-<tr>
-<td>Speaker Stands</td>
-</tr>
-<tr>
-<td>Wireless Handheld Microphones</td>
-</tr>
-<tr>
-<td>JBL speaker system (larger events) ($50 rental fee)</td>
-</tr>
-<tr>
-<td><strong>Wii Console and Accessories</strong></td>
-</tr>
-<tr>
-<td>Game System (inc. instruction manual)</td>
-</tr>
-<tr>
-<td>Wii U (inc. HDMI cable)</td>
-</tr>
-<tr>
-<td>Controllers x 2</td>
-</tr>
-<tr>
-<td>Nunchuk Accessory x 2</td>
-</tr>
-<tr>
-<td>Controllers x 4</td>
-</tr>
-<tr>
-<td><strong>Wii Games</strong></td>
-</tr>
-<tr>
-<td>Wii Sports</td>
-</tr>
-<tr>
-<td>Mario Kart</td>
-</tr>
-<tr>
-<td>Smash Bros: Brawl</td>
-</tr>
-<tr>
-<td>Guitar Hero: World Tour</td>
-</tr>
-<tr>
-<td>Rock Band + AC/DC Live</td>
-</tr>
-<tr>
-<td>Sing Party (Karaoke: inc. USB mic x 2)</td>
-</tr>
-<tr>
-<td>NES Remix (Wii U)</td>
-</tr>
-<tr>
-<td><strong>Xbox 360</strong></td>
-</tr>
-<tr>
-<td>Game System</td>
-</tr>
-<tr>
-<td>Kinect System</td>
-</tr>
-<tr>
-<td>Controller x 1</td>
-</tr>
-<tr>
-<td>Controllers x 2</td>
-</tr>
-<tr>
-<td><strong>Xbox 360 Games</strong></td>
-</tr>
-<tr>
-<td>Just Dance 3 (Kinect Required)</td>
-</tr>
-<tr>
-<td>Kinect Adventures (Kinect Required)</td>
-</tr>
-<tr>
-<td>Wipeout</td>
-</tr>
-<tr>
-<td><strong>Food Preparation Machines</strong></td>
-</tr>
-<tr>
-<td>Cotton Candy ($10 rental fee)</td>
-</tr>
-<tr>
-<td>Snow Cones ($10 rental fee)</td>
-</tr>
-<tr>
-<td>Popcorn ($10 rental fee)</td>
-</tr>
-<tr>
-<td><strong>Game and Other Items</strong></td>
-</tr>
-<tr>
-<td>Board Games (assortment)</td>
-</tr>
-<tr>
-<td>Tug of War Rope</td>
-</tr>
-<tr>
-<td>Spin Art Machines</td>
-</tr>
-<tr>
-<td>Other: Potato Sacks</td>
-</tr>
-<tr>
-<td><strong>Life Size Board Games</strong></td>
-</tr>
-<tr>
-<td>Scrabble</td>
-</tr>
-<tr>
-<td>Chess</td>
-</tr>
-</tbody>
-</table>
-
-</body>
-
-</html>
+</ion-content>
+</ion-view>
+</ion-nav-view>

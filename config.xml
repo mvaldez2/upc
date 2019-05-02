@@ -2,10 +2,10 @@
 <widget id="com.cs358.upc" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>UPC</name>
     <description>
-        An Ionic Framework and Cordova project.
+        Events app for the University Programming Council
     </description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+    <author email="miguel.valdez@valpo.edu" href="https://www.valpo.edu/university-programming-council/">
+      CS-358 upc mobile group
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -65,5 +65,6 @@
     <plugin name="cordova-plugin-buildinfo" spec="^2.0.2" />
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
     <engine name="android" spec="7.1.4" />
 </widget>

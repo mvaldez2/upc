@@ -221,9 +221,13 @@ define([
         $scope.modal.hide();
       };
 
+      $scope.productionsEmail = function () {
+        $window.open('mailto: upc.productions@valpo.edu', '_system');
+      };
 
-
-
+      $scope.form = function () {
+        $window.open("https://docs.google.com/a/valpo.edu/forms/d/e/1FAIpQLSeQAYl2n5Y3YtVCO2KKW4QqVsSvZFbwPcpR1Hz6O_XD_GBfAw/viewform?c=0&w=1", '_system');
+      };
 
     }
   ]);

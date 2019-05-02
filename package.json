@@ -1,7 +1,7 @@
 {
-  "name": "ionic-start-eventmaps",
+  "name": "upc",
   "version": "1.0.0",
-  "description": "ionic-start-eventmaps: Startertemplate for ionic framework with Google Maps",
+  "description": "Events app for the University Programming Council",
   "dependencies": {
     "@ionic-native/camera": "^5.4.0",
     "@ionic-native/core": "^3.14.0",
