@@ -132,7 +132,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   fill: $balanced;
 }
 
-p, h1, h2, h3, h4 {
+.ul .li {
+    color: black;
+}
+
+p, h1, h2, h3, h4, ul, li {
     color: black;
 }
 
