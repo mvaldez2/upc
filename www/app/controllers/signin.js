@@ -16,7 +16,8 @@ define([
     'Calendar',
     'GAPI',
     '$state',
-    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, Calendar, GAPI, $state) {
+    '$rootScope',
+    function ($scope, $stateParams, $window, $ionicPopup, eventService, $firebaseArray, $ionicHistory, Calendar, GAPI, $state, $rootScope) {
       var ref = firebase.database().ref();
 
       $scope.user;
@@ -24,6 +25,14 @@ define([
       document.addEventListener("deviceready", function () {
 
       }, true);
+
+      $rootScope.$on("sync", function () {
+        $scope.sync2();
+      });
+
+      $rootScope.$on("login", function () {
+        $scope.login2();
+      });
 
       var onComplete = function (error) {
         if (error) {
@@ -299,21 +308,21 @@ define([
       };
 
       //stop it from being called again
-    $scope.onProfile = false;
+      $scope.onProfile = false;
 
-    $scope.profSettings = function () {
+      $scope.profSettings = function () {
         $state.go("profileSettings");
-        $scope.onProfile=true;
+        $scope.onProfile = true;
         firebase.auth().onAuthStateChanged(function (user) {
-            if (!user && $scope.onProfile) {
-                console.log("Tried seeing profile without being logged in!!");
-                $scope.showConfirm();
-            } else {
-                $scope.onProfile=false;
-            }
+          if (!user && $scope.onProfile) {
+            console.log("Tried seeing profile without being logged in!!");
+            $scope.showConfirm();
+          } else {
+            $scope.onProfile = false;
+          }
         });
 
-    }
+      }
 
 
       firebase.auth().onAuthStateChanged(function (user) {
@@ -328,13 +337,13 @@ define([
             $scope.admin = snapshot.val().admin
             $scope.owner = snapshot.val().owner
             $scope.LoginTitle = "Log Out";
-            $scope.addingEvent=false;
+            $scope.addingEvent = false;
           });
         } else {
-            console.log("Logged out");
-            console.log(user);
+          console.log("Logged out");
+          console.log(user);
           $scope.LoginTitle = "Log In";
-          $scope.addingEvent=false;
+          $scope.addingEvent = false;
           $scope.admin = false
           $scope.owner = false
 

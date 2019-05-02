@@ -19,13 +19,16 @@ define([
     '$ionicPopup',
     '$stateParams',
     '$timeout',
+    '$rootScope',
 
     function ($scope, $ionicModal, $ionicScrollDelegate, $sce, pageService, $firebaseObject,
       $firebaseAuth, $firebaseArray, $window, $state, $ionicHistory, $ionicPopup,
-      $stateParams, $timeout) {
+      $stateParams, $timeout, $rootScope) {
 
 
       $scope.ready = true;
+
+
 
 
       var ref = firebase.database().ref();
@@ -126,27 +129,32 @@ define([
         }
       });
 
-     /* $scope.signInAlert = function () {
-        var alertPopup = $ionicPopup.show({
-          title: 'You need to sign in',
-          template: 'To see your profile sign in'
-        });
-        $timeout(function () {
-          alertPopup.close();
-        }, 500);
-    }*/
+      $scope.sync = function () {
+        $rootScope.$emit("sync", {});
+      }
 
-      /*$scope.profSettings = function () {
+      $scope.syncAuth = function() {
+        $scope.login()
+        $scope.sync()
+        
+      }
 
-        if ($scope.signedIn) {
-          $state.go("profileSettings");
+      $scope.login = function () {
+        $rootScope.$emit("login", {});
+      }
+
+      $scope.syncRedirect = function () {
+        if (document.URL.startsWith('http')) {
+          $scope.sync();
+  
+        } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+          $window.open("https://dev-upc-app.firebaseapp.com/#/syncCalendar/", '_system');
+  
         } else {
-          console.log("Tried seeing profile without being logged in!!");
-          $scope.signInAlert();
+          $scope.sync();
+  
         }
-
-
-    }*/
+      }
 
       var ref = firebase.database().ref();
 

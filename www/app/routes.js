@@ -63,6 +63,11 @@ define([
           controller: 'AppCtrl',
           templateUrl: 'app/templates/menu/Rental-Equipment.html'
         })
+        .state('sync', {
+          url: '/syncCalendar/:id',
+          controller: 'AppCtrl',
+          templateUrl: 'app/templates/menu/syncCalendar.html'
+        })
         .state('search', {
           url: '/search/:id',
           controller: 'EventCtrl',
