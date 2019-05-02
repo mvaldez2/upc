@@ -2996,27 +2996,6 @@ $dark:                            #444 !default;
  * http://cssreset.com
  */
 
- .header .col {
-  background-color:#e3dac8;
-}
-
-.col {
-  border: solid 1px black;
-  border-bottom-style: none;
-  border-right-style: none;
-}
-
-.col:last-child {
-  border-right: solid 1px black;
-}
-
-.row:last-child .col {
-  border-bottom: solid 1px black;
-  
-}
-.row {
-  color: black;
-}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
