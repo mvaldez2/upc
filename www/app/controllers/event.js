@@ -176,126 +176,133 @@ define([
 
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            $scope.loggedIn=true;
-            $scope.addingEvent=false;
-            $scope.onlineUser=user;
-            console.log("Logged In")
+          $scope.loggedIn = true;
+          $scope.addingEvent = false;
+          $scope.onlineUser = user;
+          console.log("Logged In")
           // User is signed in
         } else {
           console.log("Logged out");
-          $scope.loggedIn=false;
-          $scope.addingEvent=false;
+          $scope.loggedIn = false;
+          $scope.addingEvent = false;
           $scope.admin = false
           $scope.owner = false
         }
-    });
+      });
+
+
+      $scope.checkEvent = function (event) {
+        firebase.auth().onAuthStateChanged(function (user) {
+          firebase.database().ref().child("googleUsers/" + user.uid + "/events").orderByChild("id")
+            .equalTo(event.id).on("value", function (snapshot) {
+              if (snapshot.exists()) {
+                $scope.eventAdded = true
+              } else {
+                $scope.eventAdded = false
+              }
+            });
+        });
+        return $scope.eventAdded
+      }
 
 
       //add event to user
-      $scope.addingEvent=false;
+      $scope.addingEvent = false;
       $scope.addEvent = function (event) {
-          $scope.addingEvent=true;
-          firebase.auth().onAuthStateChanged(function (user) {
-              if (!$scope.loggedIn && $scope.addingEvent) {
-                  console.log("Can't add an event without being logged in!");
-                  $scope.showLogInAlert();
-                  $scope.addingEvent=false;
-              } else if ($scope.loggedIn && $scope.addingEvent){
-                  console.log("addingEvent first Call=", $scope.addingEvent);
-                  firebase.database().ref().child("googleUsers/" + user.uid + "/events").orderByChild("id")
-                  .equalTo(event.id).on("value", function (snapshot) {
-                      if (snapshot.exists()) {
-                          console.log("already added: ", event.summary)
-                          //$scope.alreadyAddedAlert(); //this gets called again after event is added and it gets stuck
-                      } else {
-                         if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
-                            console.log("Phone")
-                            var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
-                            userEventRef.child(event.id).set({
-                              created: event.created,
-                              creator: event.creator,
-                              end: event.end,
-                              etag: event.etag,
-                              htmlLink: event.htmlLink,
-                              iCalUID: event.iCalUID,
-                              id: event.id,
-                              kind: event.kind,
-                              location: event.location,
-                              organizer: event.organizer,
-                              reminders: event.reminders,
-                              start: event.start,
-                              status: event.status,
-                              summary: event.summary,
-                              updated: event.updated
-                            }).then(function () {
-                                console.log("addingEvent before Popup =", $scope.addingEvent);
-                              console.log('Event ' + $scope.summary + ' added')
-                              $scope.showEventAddedAleart();
-                              $scope.addingEvent=false;
+        $scope.addingEvent = true;
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (!$scope.loggedIn && $scope.addingEvent) {
+            console.log("Can't add an event without being logged in!");
+            $scope.showLogInAlert();
+            $scope.addingEvent = false;
+          } else if ($scope.loggedIn && $scope.addingEvent) {
+            console.log("addingEvent first Call=", $scope.addingEvent);
+            if (ionic.Platform.isIOS() || ionic.Platform.is('android') && ($scope.loggedIn && $scope.addingEvent)) {
+              console.log("Phone")
+              var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
+              userEventRef.child(event.id).set({
+                created: event.created,
+                creator: event.creator,
+                end: event.end,
+                etag: event.etag,
+                htmlLink: event.htmlLink,
+                iCalUID: event.iCalUID,
+                id: event.id,
+                kind: event.kind,
+                location: event.location,
+                organizer: event.organizer,
+                reminders: event.reminders,
+                start: event.start,
+                status: event.status,
+                summary: event.summary,
+                updated: event.updated
+              }).then(function () {
+                console.log("addingEvent before Popup =", $scope.addingEvent);
+                console.log('Event ' + $scope.summary + ' added')
+                $scope.showEventAddedAleart();
+                $scope.addingEvent = false;
 
-
-                            }, function (error) {
-                              console.log(error)
-                            });
-                        } else if ($scope.loggedIn && $scope.addingEvent){ //if web
-                            var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-                            var googleProfile = googleUser.getBasicProfile();
-                            var userId = googleUser.getId();
-                            $scope.userId = googleUser.getId();
-
-                            gapi.client.calendar.events.insert({
-                              "calendarId": googleProfile.getEmail(),
-                              "resource": {
-                                "end": {
-                                  "dateTime": event.end.dateTime
-                                },
-                                "start": {
-                                  "dateTime": event.start.dateTime
-                                },
-                                "location": event.location,
-                                "summary": event.summary
-                              }
-                            })
-                              .then(function (response) {
-                                // Handle the results here (response.result has the parsed body).
-                                console.log("Response", response);
-                              },
-                                function (err) { console.error("Execute error", err); });
-                            var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
-                            userEventRef.child(event.id).set({
-                              created: event.created,
-                              creator: event.creator,
-                              end: event.end,
-                              etag: event.etag,
-                              htmlLink: event.htmlLink,
-                              iCalUID: event.iCalUID,
-                              id: event.id,
-                              kind: event.kind,
-                              location: event.location,
-                              organizer: event.organizer,
-                              reminders: event.reminders,
-                              start: event.start,
-                              status: event.status,
-                              summary: event.summary,
-                              updated: event.updated
-                            }).then(function () {
-                              console.log('Event ' + $scope.summary + ' added')
-                              $scope.showEventAddedAleart();
-                              $scope.addingEvent=false;
-                            }, function (error) {
-                              console.log(error)
-                            });
-
-                          }
-                        }
-                      });
-              }
-
-              $scope.addingEvent=false;
-              console.log("addingEvent at end=", $scope.addingEvent);
-
+              }, function (error) {
+                console.log(error)
               });
+            } else if ($scope.loggedIn && $scope.addingEvent) { //if web
+              var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+              var googleProfile = googleUser.getBasicProfile();
+              var userId = googleUser.getId();
+              $scope.userId = googleUser.getId();
+
+              gapi.client.calendar.events.insert({
+                "calendarId": googleProfile.getEmail(),
+                "resource": {
+                  "end": {
+                    "dateTime": event.end.dateTime
+                  },
+                  "start": {
+                    "dateTime": event.start.dateTime
+                  },
+                  "location": event.location,
+                  "summary": event.summary
+                }
+              })
+                .then(function (response) {
+                  // Handle the results here (response.result has the parsed body).
+                  console.log("Response", response);
+                },
+                  function (err) { console.error("Execute error", err); });
+              var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
+              userEventRef.child(event.id).set({
+                created: event.created,
+                creator: event.creator,
+                end: event.end,
+                etag: event.etag,
+                htmlLink: event.htmlLink,
+                iCalUID: event.iCalUID,
+                id: event.id,
+                kind: event.kind,
+                location: event.location,
+                organizer: event.organizer,
+                reminders: event.reminders,
+                start: event.start,
+                status: event.status,
+                summary: event.summary,
+                updated: event.updated
+              }).then(function () {
+                console.log('Event ' + $scope.summary + ' added')
+                $scope.showEventAddedAleart();
+                $scope.addingEvent = false;
+              }, function (error) {
+                console.log(error)
+              });
+
             }
+
+          }
+
+          $scope.addingEvent = false;
+          console.log("addingEvent at end=", $scope.addingEvent);
+
+        });
+      }
 
       //Checkin Events for user
       $scope.checkinEvent = function (event) {
@@ -355,7 +362,7 @@ define([
       }
 
       $scope.deleteEvent = function (id) {
-          $scope.addingEvent=false;
+        $scope.addingEvent = false;
         var confirmPopup = $ionicPopup.confirm({
           title: 'Delete Event',
           template: 'Are you sure you want to delete this event from the calendar?',
@@ -365,7 +372,7 @@ define([
         confirmPopup.then(function (res) {
           if (res) {
             $scope.deletingEvent(id);
-            $scope.addingEvent=false;
+            $scope.addingEvent = false;
             $console.log("Deleted Event");
           } else {
             $state.go("manageEvents");

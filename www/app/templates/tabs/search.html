@@ -21,8 +21,7 @@
         <h3 style="text-align:center">{{recentEvent.summary}}</h3>
         <div class="text-center">
 
-          <br>
-          <button class=" button button-energized" ng-click="addEvent(recentEvent)">Add <i
+          <button ng-if="!checkEvent(recentEvent)" class=" button button-energized" ng-click="addEvent(recentEvent)">Add <i
               class=" ion-plus-round"></i></button>
           <button class="button button-energized" ng-click="checkinEvent(recentEvent)" ng-if="showCheckInUpcoming()">Check-in <i
               class=" ion-checkmark"></i></button>
