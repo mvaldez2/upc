@@ -126,7 +126,7 @@ define([
         }
       });
 
-      $scope.signInAlert = function () {
+     /* $scope.signInAlert = function () {
         var alertPopup = $ionicPopup.show({
           title: 'You need to sign in',
           template: 'To see your profile sign in'
@@ -134,9 +134,9 @@ define([
         $timeout(function () {
           alertPopup.close();
         }, 500);
-      }
+    }*/
 
-      $scope.profSettings = function () {
+      /*$scope.profSettings = function () {
 
         if ($scope.signedIn) {
           $state.go("profileSettings");
@@ -146,7 +146,7 @@ define([
         }
 
 
-      }
+    }*/
 
       var ref = firebase.database().ref();
 

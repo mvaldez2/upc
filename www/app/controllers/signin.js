@@ -299,26 +299,12 @@ define([
       };
 
       //stop it from being called again
-     /* $scope.profSettings = function () {
-        firebase.auth().onAuthStateChanged(function (user) {
-          if (user) {
-            $state.go("profileSettings");
-          } else {
-            console.log("Tried seeing profile without being logged in!!");
-            $scope.showConfirm();
-          }
-        });
-
-    }*/
-
     $scope.onProfile = false;
 
     $scope.profSettings = function () {
         $state.go("profileSettings");
         $scope.onProfile=true;
         firebase.auth().onAuthStateChanged(function (user) {
-            console.log(user);
-            console.log($scope.onProfile);
             if (!user && $scope.onProfile) {
                 console.log("Tried seeing profile without being logged in!!");
                 $scope.showConfirm();
@@ -329,32 +315,10 @@ define([
 
     }
 
-    $scope.checkIfLoggedIn = function() {
-        firebase.auth().onAuthStateChanged(function (user) {
-          if (user) {
-            // User is signed in
-            var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
-            profileRef.on('value', function (snapshot) {
-              $scope.name = snapshot.val().name
-              $scope.photoUrl = snapshot.val().photoUrl
-              $scope.email = snapshot.val().email
-              $scope.event = snapshot.val().events
-              $scope.admin = snapshot.val().admin
-              $scope.owner = snapshot.val().owner
-              $scope.LoginTitle = "Log Out";
-            });
-          } else {
-            $scope.LoginTitle = "Log In";
-            $scope.admin = false
-            $scope.owner = false
-          }
-        });
-    }
 
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is signed in
-          console.log("Logged in");
           var profileRef = firebase.database().ref('googleUsers/' + user.uid + '/');
           profileRef.on('value', function (snapshot) {
             $scope.name = snapshot.val().name
@@ -364,10 +328,13 @@ define([
             $scope.admin = snapshot.val().admin
             $scope.owner = snapshot.val().owner
             $scope.LoginTitle = "Log Out";
+            $scope.addingEvent=false;
           });
         } else {
             console.log("Logged out");
+            console.log(user);
           $scope.LoginTitle = "Log In";
+          $scope.addingEvent=false;
           $scope.admin = false
           $scope.owner = false
 

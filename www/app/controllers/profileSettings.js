@@ -97,6 +97,7 @@ define([
 
 
         });
+        $scope.addingEvent=false;
       }
 
       // Delete Event Popup
@@ -111,6 +112,7 @@ define([
         confirmPopup.then(function (res) {
           if (res) {
             $scope.deletingEvent(id);
+            console.log("Deleted Event");
           } else {
             $state.go("profileSettings");
           }
