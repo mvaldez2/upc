@@ -166,8 +166,6 @@ define([
               .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
                 if (snapshot.exists()) {  // account exists
                   console.log("exists");
-
-
                 } else { //account deosn't exsist -> create new user
                   console.log("doesn't exist");
                   gUserRef.child(user.uid).set({
@@ -185,10 +183,9 @@ define([
         }).then(function () {
           //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
           $scope.sync2();
-
-        });
-
-      }
+      });
+      $scope.timesRan=-1;   // Resets counter for login
+    }
 
       // Android Login
       $scope.login3 = function () {
@@ -203,8 +200,6 @@ define([
           // You can use it to access the Google API.
           var token = result.credential.accessToken;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
-
-
           // The signed-in user info.
           var user = result.user;
           console.log(user)
@@ -226,24 +221,23 @@ define([
                 }, onComplete);
               }
             });
-          // ...
         }).catch(function (error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
         });
+        $scope.timesRan=-1; // Resets counter for login
       }
 
       $scope.signIn = function () {
-        if (document.URL.startsWith('http')) {
+        if (document.URL.startsWith('http')) {      // Checks if using from a web browser
           console.log("Web 1")
           $scope.login2();
-        } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+      } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {    // Checks if using mobile device
           console.log("Phone")
           $scope.login3();
-
         } else {
-          console.log("Web")
+          console.log("Web")        // Default web view
           $scope.login2();
         }
       }
@@ -262,55 +256,28 @@ define([
           });
       }
 
-      // ---------- Switch login/ logout buttons --------------
-      /*if (document.URL.startsWith('http')) {
-        $scope.LoginTitle = "Log In";
-
-      } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
-        firebase.auth().onAuthStateChanged(function (user) {
-          if (user) {
-            $scope.LoginTitle = "Log Out"
-          } else {
-            $scope.LoginTitle = "Log In";
-          }
-        });
-
-      } else {
-        $scope.LoginTitle = "Log In";
-
-    }*/
-
-      $scope.clickedLogButton=false;
-      $scope.timesRan = 0;
-
-      $scope.clicked2 = function () {
-          $scope.clickedLogButton=true;
+      // Starts the Log In/Out Process
+      $scope.clicked2 = function () {           // Function gets called twice for some reason
+          $scope.clickedLogButton=true;         // Counter to make sure signIn only gets called once
           $scope.timesRan++;
-          console.log("clicked2 function running!!")
-          console.log("timesRan before loop = ", $scope.timesRan)
           while ($scope.timesRan===1) {
-              console.log("timesRan = ", $scope.timesRan)
               if ((!$scope.LoggedIn && $scope.clickedLogButton) && ($scope.LoginTitle==="Log In")) {
                   $scope.clickedLogButton=false;
                   $scope.signIn();
-                  $scope.LoggedIn=true;
                   return;
               } else if (($scope.LoggedIn && $scope.clickedLogButton) && ($scope.LoginTitle==="Log Out")) {
                   $scope.clickedLogButton=false;
                   $scope.signOff();
-                  $scope.LoggedIn=false;
                   return;
-              } else {
-
               }
               $scope.timesRan++;
           }
-
+          if($scope.timesRan >= 3) {    // If user closes log in popup menu, this allows them to log in again
+              $scope.timesRan=-1;
+          }
       }
 
-
-
-
+      // Activates if not logged in and trying to see profile
       $scope.showConfirm = function () {
         var confirmPopup = $ionicPopup.confirm({
           title: 'Log in to see your profile',
@@ -329,9 +296,8 @@ define([
         });
       };
 
-      //stop it from being called again
-      $scope.onProfile = false;
-
+      //Checks to see if user is logged in before accessing profile
+       // default value
       $scope.profSettings = function () {
         $state.go("profileSettings");
         $scope.onProfile = true;
@@ -346,7 +312,8 @@ define([
 
       }
 
-      // Loads whenever someone logs in or out
+      /*  ---------- Holds default values ----------  */
+      //     Loads whenever someone logs in or out
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is signed in
@@ -360,22 +327,20 @@ define([
             $scope.owner = snapshot.val().owner
             $scope.LoginTitle = "Log Out"; // If logged in, log button = Log Out
             $scope.LoggedIn = true;
+            $scope.onProfile = false;
             $scope.addingEvent = false;
             $scope.clickedLogButton=false;
             $scope.timesRan=0;
-            //console.log("#### clickedLogButton =", $scope.clickedLogButton, "####");
           });
         } else {
-          //console.log("Logged out");
-          //console.log(user);
           $scope.LoginTitle = "Log In"; // If logged out, log button = Log In
           $scope.LoggedIn = false;
+          $scope.onProfile = false;
           $scope.addingEvent = false;
           $scope.admin = false
           $scope.owner = false
           $scope.clickedLogButton=false;
           $scope.timesRan=-1;
-          //console.log("$$$$ clickedLogButton =", $scope.clickedLogButton, "$$$$");
         }
       });
 
