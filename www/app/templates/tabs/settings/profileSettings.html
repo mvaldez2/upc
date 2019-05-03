@@ -30,8 +30,10 @@
           <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i>
           </ion-item>
           <ion-item ng-repeat="event in userEvents | orderBy : sortDate : true | limitTo: 10 | filter: upcomingEvents"
-            class="item-icon-right" >
-            {{event.summary}} <i class="icon ion-ios-arrow-left"></i>
+            class="item-icon-right" ng-init="event.start.dateTime= dateFormat2(event)" >
+            {{event.summary}} <b>{{event.location}}</b> <i class="icon ion-ios-arrow-left"></i>
+            <br>
+            {{event.start.dateTime}}
             <ion-option-button class="button-assertive" ng-click="deleteEvent(event.$id)"><i
                 class="icon ion-trash-a"></i></ion-option-button>
 
@@ -44,6 +46,7 @@
           <ion-item ng-repeat="event in checkedEvents | orderBy : sortDateAscending : true | limitTo: 10"
             class="item-icon-right">
             {{event.summary}}
+            
 
 
           </ion-item>

@@ -263,22 +263,7 @@ define([
       }
 
       // ---------- Switch login/ logout buttons --------------
-      /*if (document.URL.startsWith('http')) {
-        $scope.LoginTitle = "Log In";
-
-      } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
-        firebase.auth().onAuthStateChanged(function (user) {
-          if (user) {
-            $scope.LoginTitle = "Log Out"
-          } else {
-            $scope.LoginTitle = "Log In";
-          }
-        });
-
-      } else {
-        $scope.LoginTitle = "Log In";
-
-    }*/
+      /*I */
 
       $scope.clickedLogButton=false;
       $scope.timesRan = 0;
