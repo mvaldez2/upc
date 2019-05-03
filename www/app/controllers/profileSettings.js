@@ -136,28 +136,7 @@ define([
       };
 
 
-      $scope.dateFormat2 = function (place) {
-        var eventRef = firebase.database().ref('calendar/' + place.$id);
-        eventRef.on('value', function (snapshot) {
-          $scope.dateTime = snapshot.val().start.dateTime
-          $scope.start = snapshot.val().start.date
-          $scope.end = snapshot.val().end.date
-        });
-        var date = new Date($scope.dateTime);
-        var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-        var finalDate = date.toLocaleDateString("en-US", dayOptions);
-        if (finalDate == 'Invalid Date') {
-          date = new Date($scope.start);
-          var end = new Date($scope.end);
-          var dayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-          var startDate = date.toLocaleDateString("en-US", dayOptions);
-          var endDate = end.toLocaleDateString("en-US", dayOptions);
-          finalDate = startDate; // for multiple days: finalDate = startDate + " - " + endDate; This messes with the order of the events
-
-        }
-        return finalDate;
-
-      }
+      
 
     }
   ]);
