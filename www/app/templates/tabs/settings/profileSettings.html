@@ -27,7 +27,7 @@
         </div>
 
         <ion-list>
-          <ion-item class="item-divider item-icon-right"><b>Events</b> <i class="icon ion-ios-calendar-outline"></i>
+          <ion-item class="item-divider item-icon-right"><b>Added Events</b> <i class="icon ion-ios-calendar-outline"></i>
           </ion-item>
           <ion-item ng-repeat="event in userEvents | orderBy : sortDate : true | limitTo: 10 | filter: upcomingEvents"
             class="item-icon-right" ng-init="event.start.dateTime= dateFormat2(event)" >
@@ -40,7 +40,7 @@
           </ion-item>
           <br>
 
-          <ion-item class="item-divider item-icon-right"><b>Recently Attended Events</b> <i
+          <ion-item class="item-divider item-icon-right"><b>Attended Events</b> <i
               class="icon ion-checkmark"></i>
           </ion-item>
           <ion-item ng-repeat="event in checkedEvents | orderBy : sortDateAscending : true | limitTo: 10"
