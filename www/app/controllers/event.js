@@ -227,9 +227,6 @@ define([
             updated: event.updated
           }).then(function () {
             console.log('Event ' + $scope.summary + ' added')
-            $scope.showEventAddedAleart();
-
-
           }, function (error) {
             console.log(error)
           });
@@ -265,9 +262,11 @@ define([
                 console.log("Response", response);
               }, function (err) { console.error("Execute error", err); });
               $scope.addEventDb(event);
+              $scope.showEventAddedAleart();
 
             } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
               $scope.addEventDb(event);
+              $scope.showEventAddedAleart();
 
             } else {
               gapi.client.calendar.events.insert({
@@ -287,6 +286,7 @@ define([
                 console.log("Response", response);
               }, function (err) { console.error("Execute error", err); });
               $scope.addEventDb(event);
+              $scope.showEventAddedAleart();
             }
           }
           $scope.addingEvent = false;
