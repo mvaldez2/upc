@@ -206,6 +206,36 @@ define([
       }
 
 
+      $scope.addEventDb = function (event) {
+        firebase.auth().onAuthStateChanged(function (user) {
+          var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
+          userEventRef.child(event.id).set({
+            created: event.created,
+            creator: event.creator,
+            end: event.end,
+            etag: event.etag,
+            htmlLink: event.htmlLink,
+            iCalUID: event.iCalUID,
+            id: event.id,
+            kind: event.kind,
+            location: event.location,
+            organizer: event.organizer,
+            reminders: event.reminders,
+            start: event.start,
+            status: event.status,
+            summary: event.summary,
+            updated: event.updated
+          }).then(function () {
+            console.log('Event ' + $scope.summary + ' added')
+            $scope.showEventAddedAleart();
+
+
+          }, function (error) {
+            console.log(error)
+          });
+        });
+      }
+
       //add event to user
       $scope.addingEvent = false;
       $scope.addEvent = function (event) {
@@ -217,42 +247,9 @@ define([
             $scope.addingEvent = false;
           } else if ($scope.loggedIn && $scope.addingEvent) {
             console.log("addingEvent first Call=", $scope.addingEvent);
-            if (ionic.Platform.isIOS() || ionic.Platform.is('android') && ($scope.loggedIn && $scope.addingEvent)) {
-              console.log("Phone")
-              var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
-              userEventRef.child(event.id).set({
-                created: event.created,
-                creator: event.creator,
-                end: event.end,
-                etag: event.etag,
-                htmlLink: event.htmlLink,
-                iCalUID: event.iCalUID,
-                id: event.id,
-                kind: event.kind,
-                location: event.location,
-                organizer: event.organizer,
-                reminders: event.reminders,
-                start: event.start,
-                status: event.status,
-                summary: event.summary,
-                updated: event.updated
-              }).then(function () {
-                console.log("addingEvent before Popup =", $scope.addingEvent);
-                console.log('Event ' + $scope.summary + ' added')
-                $scope.showEventAddedAleart();
-                $scope.addingEvent = false;
-
-              }, function (error) {
-                console.log(error)
-              });
-            } else if ($scope.loggedIn && $scope.addingEvent) { //if web
-              var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-              var googleProfile = googleUser.getBasicProfile();
-              var userId = googleUser.getId();
-              $scope.userId = googleUser.getId();
-
+            if (document.URL.startsWith('http')) {
               gapi.client.calendar.events.insert({
-                "calendarId": googleProfile.getEmail(),
+                "calendarId": user.email,
                 "resource": {
                   "end": {
                     "dateTime": event.end.dateTime
@@ -263,41 +260,35 @@ define([
                   "location": event.location,
                   "summary": event.summary
                 }
-              })
-                .then(function (response) {
-                  // Handle the results here (response.result has the parsed body).
-                  console.log("Response", response);
-                },
-                  function (err) { console.error("Execute error", err); });
-              var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
-              userEventRef.child(event.id).set({
-                created: event.created,
-                creator: event.creator,
-                end: event.end,
-                etag: event.etag,
-                htmlLink: event.htmlLink,
-                iCalUID: event.iCalUID,
-                id: event.id,
-                kind: event.kind,
-                location: event.location,
-                organizer: event.organizer,
-                reminders: event.reminders,
-                start: event.start,
-                status: event.status,
-                summary: event.summary,
-                updated: event.updated
-              }).then(function () {
-                console.log('Event ' + $scope.summary + ' added')
-                $scope.showEventAddedAleart();
-                $scope.addingEvent = false;
-              }, function (error) {
-                console.log(error)
-              });
+              }).then(function (response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              }, function (err) { console.error("Execute error", err); });
+              $scope.addEventDb(event);
 
+            } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+              $scope.addEventDb(event);
+
+            } else {
+              gapi.client.calendar.events.insert({
+                "calendarId": user.email,
+                "resource": {
+                  "end": {
+                    "dateTime": event.end.dateTime
+                  },
+                  "start": {
+                    "dateTime": event.start.dateTime
+                  },
+                  "location": event.location,
+                  "summary": event.summary
+                }
+              }).then(function (response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              }, function (err) { console.error("Execute error", err); });
+              $scope.addEventDb(event);
             }
-
           }
-
           $scope.addingEvent = false;
           console.log("addingEvent at end=", $scope.addingEvent);
 
