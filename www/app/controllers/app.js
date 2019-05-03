@@ -69,7 +69,10 @@ define([
       //--------- Count Checked in Events ----------
       var checkEventsRef = ref.child("checkEvents");
       var checkEvents = $firebaseArray(checkEventsRef);
+      //var numOfPrizesRef = ref.child("numOfPrizes");
+      //var numOfPrizes = $firebaseArray(numOfPrizesRef);
       $scope.checkEvents = $firebaseArray(checkEventsRef);
+      //$scope.numOfPrizes = $firebaseArray(numOfPrizes);
 
       $scope.countCEvents = function () {
         var countCEvents = 0;
@@ -121,6 +124,7 @@ define([
             $scope.admin = snapshot.val().admin
             $scope.owner = snapshot.val().owner
             $scope.checkEvents = snapshot.val().checkEvents
+            $scope.numOfPrizes = snapshot.val().numOfPrizes
           });
         } else {
           $scope.admin = false
@@ -136,7 +140,7 @@ define([
       $scope.syncAuth = function() {
         $scope.login()
         $scope.sync()
-        
+
       }
 
       $scope.login = function () {
@@ -146,13 +150,13 @@ define([
       $scope.syncRedirect = function () {
         if (document.URL.startsWith('http')) {
           $scope.sync();
-  
+
         } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
           $window.open("https://dev-upc-app.firebaseapp.com/#/syncCalendar/", '_system');
-  
+
         } else {
           $scope.sync();
-  
+
         }
       }
 

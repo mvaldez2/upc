@@ -160,7 +160,7 @@ define([
           var token = res.getAuthResponse().id_token;
           var creds = firebase.auth.GoogleAuthProvider.credential(token);
           firebase.auth().signInWithCredential(creds).then((user) => {
-            $scope.LoginTitle = "Log Out";
+            //$scope.LoginTitle = "Log Out";
             $scope.LoggedIn = true;
             firebase.database().ref().child("googleUsers").orderByChild("email")
               .equalTo(user.email).on("value", function (snapshot) { //checks if user existis by checking if the email is in the db
@@ -198,7 +198,7 @@ define([
           return firebase.auth().getRedirectResult();
         }).then(function (result) {
           $scope.LoggedIn = true;
-          $scope.LoginTitle = "Log Out";
+          //$scope.LoginTitle = "Log Out";
           // This gives you a Google Access Token.
           // You can use it to access the Google API.
           var token = result.credential.accessToken;
@@ -254,7 +254,7 @@ define([
           .then(function () {
             console.log('Signout Succesfull')
             $scope.LoggedIn = false;
-            $scope.LoginTitle = "Log In"
+            //$scope.LoginTitle = "Log In"
             $state.go("dashboard")
 
           }, function (error) {
@@ -263,7 +263,7 @@ define([
       }
 
       // ---------- Switch login/ logout buttons --------------
-      if (document.URL.startsWith('http')) {
+      /*if (document.URL.startsWith('http')) {
         $scope.LoginTitle = "Log In";
 
       } else if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
@@ -278,15 +278,37 @@ define([
       } else {
         $scope.LoginTitle = "Log In";
 
-      }
+    }*/
+
+      $scope.clickedLogButton=false;
+      $scope.timesRan = 0;
 
       $scope.clicked2 = function () {
-        if ($scope.LoginTitle == "Log In") {
-          $scope.signIn();
-        } else {
-          $scope.signOff();
-        }
+          $scope.clickedLogButton=true;
+          $scope.timesRan++;
+          console.log("clicked2 function running!!")
+          console.log("timesRan before loop = ", $scope.timesRan)
+          while ($scope.timesRan===1) {
+              console.log("timesRan = ", $scope.timesRan)
+              if ((!$scope.LoggedIn && $scope.clickedLogButton) && ($scope.LoginTitle==="Log In")) {
+                  $scope.clickedLogButton=false;
+                  $scope.signIn();
+                  $scope.LoggedIn=true;
+                  return;
+              } else if (($scope.LoggedIn && $scope.clickedLogButton) && ($scope.LoginTitle==="Log Out")) {
+                  $scope.clickedLogButton=false;
+                  $scope.signOff();
+                  $scope.LoggedIn=false;
+                  return;
+              } else {
+
+              }
+              $scope.timesRan++;
+          }
+
       }
+
+
 
 
       $scope.showConfirm = function () {
@@ -324,7 +346,7 @@ define([
 
       }
 
-
+      // Loads whenever someone logs in or out
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           // User is signed in
@@ -336,17 +358,24 @@ define([
             $scope.event = snapshot.val().events
             $scope.admin = snapshot.val().admin
             $scope.owner = snapshot.val().owner
-            $scope.LoginTitle = "Log Out";
+            $scope.LoginTitle = "Log Out"; // If logged in, log button = Log Out
+            $scope.LoggedIn = true;
             $scope.addingEvent = false;
+            $scope.clickedLogButton=false;
+            $scope.timesRan=0;
+            //console.log("#### clickedLogButton =", $scope.clickedLogButton, "####");
           });
         } else {
-          console.log("Logged out");
-          console.log(user);
-          $scope.LoginTitle = "Log In";
+          //console.log("Logged out");
+          //console.log(user);
+          $scope.LoginTitle = "Log In"; // If logged out, log button = Log In
+          $scope.LoggedIn = false;
           $scope.addingEvent = false;
           $scope.admin = false
           $scope.owner = false
-
+          $scope.clickedLogButton=false;
+          $scope.timesRan=-1;
+          //console.log("$$$$ clickedLogButton =", $scope.clickedLogButton, "$$$$");
         }
       });
 
