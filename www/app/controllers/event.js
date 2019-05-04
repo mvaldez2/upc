@@ -41,9 +41,7 @@ define([
         $scope.address = snapshot.val().address
         console.log("event:", $scope.event)
       });
-
-
-
+      
       firebase.database().ref().child("calendar/").orderByChild("id").on("value", function (snapshot) {
         var recent = Infinity;
         var recentEvent = "";
@@ -62,6 +60,7 @@ define([
         });
         $scope.recentEvent = recentEvent
         console.log(recentEvent.address)
+        
       });
 
       //  MOVE TO APP.JS AND APPLY TO ALL EVENTS sometime
@@ -146,7 +145,9 @@ define([
         var nowTime = dateNow.getTime();
 
         if (nowTime > timeStart && nowTime < timeEnd) {
+          
           return true;
+          
         }
         else {
           return false;
@@ -166,6 +167,7 @@ define([
 
         if (nowTime > timeStart && nowTime < timeEnd) {
           return true;
+          
         }
         else {
           return false;
