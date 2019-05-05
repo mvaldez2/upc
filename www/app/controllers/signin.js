@@ -85,7 +85,7 @@ define([
             eventDate = new Date(cal[i].start.date);
             var end = new Date(cal[i].end.date);
           }
-        
+
 
         eventDate = new Date(cal[i].start.dateTime);
         if (eventDate <= today) {
@@ -208,7 +208,7 @@ define([
       //sync calendar after sign in (should probably call it at a certian time of day and when event is added)
       $scope.sync2();
     });
-    $scope.timesRan = -1;   // Resets counter for login
+    //$scope.timesRan = -1;   // Resets counter for login
   }
 
   // Android Login
@@ -281,14 +281,17 @@ define([
   }
 
   // ---------- Switch login/ logout buttons --------------
-  /*I */
 
   $scope.clickedLogButton = false;
   $scope.timesRan = 0;
 
   $scope.clicked2 = function () {
     $scope.clickedLogButton = true;
+    if ($scope.timesRan >= 1) {    // If user closes log in popup menu, this allows them to log in again
+      $scope.timesRan = 0;
+    }
     $scope.timesRan++;
+    console.log("timesRan at start =", $scope.timesRan);
     while ($scope.timesRan === 1) {
       if ((!$scope.LoggedIn && $scope.clickedLogButton) && ($scope.LoginTitle === "Log In")) {
         $scope.clickedLogButton = false;
@@ -301,9 +304,7 @@ define([
       }
       $scope.timesRan++;
     }
-    if ($scope.timesRan >= 3) {    // If user closes log in popup menu, this allows them to log in again
-      $scope.timesRan = -1;
-    }
+    console.log("timesRan at end =", $scope.timesRan);
   }
 
   // Activates if not logged in and trying to see profile

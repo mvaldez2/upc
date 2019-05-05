@@ -29,7 +29,7 @@
         <ion-list>
           <ion-item class="item-divider item-icon-right"><b>Added Events</b> <i class="icon ion-ios-calendar-outline"></i>
           </ion-item>
-          <ion-item ng-repeat="event in userEvents | orderBy : sortDate : true | limitTo: 10 | filter: upcomingEvents"
+          <ion-item ng-repeat="event in userEvents | orderBy : sortDate : true | limitTo: 10"
             class="item-icon-right" ng-init="event.start.dateTime= dateFormat2(event)" >
             {{event.summary}} <b>{{event.location}}</b> <i class="icon ion-ios-arrow-left"></i>
             <br>
@@ -46,7 +46,7 @@
           <ion-item ng-repeat="event in checkedEvents | orderBy : sortDateAscending : true | limitTo: 10"
             class="item-icon-right">
             {{event.summary}}
-            
+
 
 
           </ion-item>
