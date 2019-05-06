@@ -28,7 +28,7 @@
 
           <button ng-if="!checkEvent(event)" class="button button-energized" ng-click="addEvent(event)">Add <i
               class=" ion-plus-round"></i></button>
-          <button ng-if="!checkAlreadyCheckedIn(event)" class="button button-energized" ng-click="checkinEvent(event)" >Check-in <i
+          <button ng-if="!checkAlreadyCheckedIn(event) && showCheckIn()" class="button button-energized" ng-click="checkinEvent(event)" >Check-in <i
               class=" ion-checkmark"></i></button>
           <br>
           <br>
