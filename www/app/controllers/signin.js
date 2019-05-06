@@ -284,14 +284,12 @@ define([
 
   $scope.clickedLogButton = false;
   $scope.timesRan = 0;
-
   $scope.clicked2 = function () {
     $scope.clickedLogButton = true;
     if ($scope.timesRan >= 1) {    // If user closes log in popup menu, this allows them to log in again
       $scope.timesRan = 0;
     }
     $scope.timesRan++;
-    console.log("timesRan at start =", $scope.timesRan);
     while ($scope.timesRan === 1) {
       if ((!$scope.LoggedIn && $scope.clickedLogButton) && ($scope.LoginTitle === "Log In")) {
         $scope.clickedLogButton = false;
@@ -304,7 +302,6 @@ define([
       }
       $scope.timesRan++;
     }
-    console.log("timesRan at end =", $scope.timesRan);
   }
 
   // Activates if not logged in and trying to see profile

@@ -25,11 +25,7 @@ define([
       $firebaseAuth, $firebaseArray, $window, $state, $ionicHistory, $ionicPopup,
       $stateParams, $timeout, $rootScope) {
 
-
       $scope.ready = true;
-
-
-
 
       var ref = firebase.database().ref();
 
@@ -74,14 +70,59 @@ define([
       $scope.checkEvents = $firebaseArray(checkEventsRef);
       //$scope.numOfPrizes = $firebaseArray(numOfPrizes);
 
+      $scope.numAttendedEvents;
+
       $scope.countCEvents = function () {
         var countCEvents = 0;
+        $scope.numAttendedEvents = 0;
         var x;
         for (x in $scope.checkEvents) {
           countCEvents = countCEvents + 1;
+          $scope.numAttendedEvents = $scope.numAttendedEvents + 1;
         }
-
         return countCEvents;
+      }
+
+      //--------- Count Prizes ----------
+      $scope.numPrizes;
+      $scope.countPrizes = function() {
+          $scope.numPrizes = Math.floor($scope.numAttendedEvents/9);
+          return $scope.numPrizes
+      }
+
+      $scope.redeemWarning = function() {
+          var popup = $ionicPopup.alert({
+            title: 'Event Host Needed',
+            template: 'Are you sure you want to redeem this prize? Once redeemed, your attended events will be set back to 0!',
+            buttons: [
+                {
+                  text: '<b>Cancel</b>',
+                  onTap: function () {
+
+                    console.log('canceled');
+                  }
+              },
+              {
+                text: '<b>Redeem</b>',
+                onTap: function () {
+                    firebase.auth().onAuthStateChanged(function (user) {
+                      if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+                        console.log("Phone")
+                        ref.child("googleUsers/" + user.uid + "/checkEvents").remove();
+                      } else {
+                        console.log("Web")
+                        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+                        var googleProfile = googleUser.getBasicProfile();
+                        var userId = googleUser.getId();
+                        ref.child("googleUsers/" + user.uid + "/checkEvents").remove();
+                      }
+
+
+
+                    });
+                }
+              }]
+          });
       }
 
 
@@ -124,7 +165,6 @@ define([
             $scope.admin = snapshot.val().admin
             $scope.owner = snapshot.val().owner
             $scope.checkEvents = snapshot.val().checkEvents
-            $scope.numOfPrizes = snapshot.val().numOfPrizes
           });
         } else {
           $scope.admin = false

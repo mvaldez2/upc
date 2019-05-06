@@ -41,7 +41,7 @@ define([
         $scope.address = snapshot.val().address
         console.log("event:", $scope.event)
       });
-      
+
       firebase.database().ref().child("calendar/").orderByChild("id").on("value", function (snapshot) {
         var recent = Infinity;
         var recentEvent = "";
@@ -60,7 +60,7 @@ define([
         });
         $scope.recentEvent = recentEvent
         console.log(recentEvent.address)
-        
+
       });
 
       //  MOVE TO APP.JS AND APPLY TO ALL EVENTS sometime
@@ -99,7 +99,8 @@ define([
 
       }
 
-      //---------------- Alerts -------------------------
+      // ----------- Alerts ----------- //
+
       $scope.showLogInAlert = function () {
         var alertPopup = $ionicPopup.alert({
           title: 'Log In',
@@ -110,28 +111,23 @@ define([
       $scope.showEventAddedAleart = function () {
         var alertPopup = $ionicPopup.alert({
           title: 'Event Added',
-          template: 'An event has been added to your profile and your Google Calendar. Find your events under your profile.'
+          template: 'An event has been added to your profile.'
         });
       }
 
       $scope.alreadyAddedAlert = function () {
-        var alertPopup = $ionicPopup.show({
+        var alertPopup = $ionicPopup.alert({
           title: 'Event Already Added',
           template: 'You have this event added.'
         });
-        $timeout(function () {
-          alertPopup.close();
-        }, 500);
       }
-
 
       $scope.showEventCheckInAlert = function () {
         var alertPopups = $ionicPopup.alert({
           title: 'Event Checked in',
-          template: 'You have checked in to this event and it has been counted towards your Crusader Perks!'
+          template: 'You have checked in to this event. It has been counted towards your Crusader Perks!'
         });
       }
-
 
       //Display Check-in Button
       $scope.showCheckIn = function () {
@@ -145,9 +141,9 @@ define([
         var nowTime = dateNow.getTime();
 
         if (nowTime > timeStart && nowTime < timeEnd) {
-          
+
           return true;
-          
+
         }
         else {
           return false;
@@ -167,19 +163,19 @@ define([
 
         if (nowTime > timeStart && nowTime < timeEnd) {
           return true;
-          
+
         }
         else {
           return false;
         }
       }
 
-
-
+      // ----------- Runs whenever a user logs in or out
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           $scope.loggedIn = true;
           $scope.addingEvent = false;
+          $scope.checkingIn = false;
           $scope.onlineUser = user;
           console.log("Logged In")
           // User is signed in
@@ -187,27 +183,32 @@ define([
           console.log("Logged out");
           $scope.loggedIn = false;
           $scope.addingEvent = false;
+          $scope.checkingIn = false;
           $scope.admin = false
           $scope.owner = false
         }
       });
 
+      // ----------- 'Add' button functions ----------- //
 
+      // ----------- Checks to see if user already has added the event
       $scope.checkEvent = function (event) {
         firebase.auth().onAuthStateChanged(function (user) {
-          firebase.database().ref().child("googleUsers/" + user.uid + "/events").orderByChild("id")
-            .equalTo(event.id).on("value", function (snapshot) {
-              if (snapshot.exists()) {
-                $scope.eventAdded = true
-              } else {
-                $scope.eventAdded = false
-              }
-            });
+            if ($scope.loggedIn) {
+                firebase.database().ref().child("googleUsers/" + user.uid + "/events").orderByChild("id")
+                  .equalTo(event.id).on("value", function (snapshot) {
+                    if (snapshot.exists()) {
+                      $scope.eventAdded = true
+                    } else {
+                      $scope.eventAdded = false
+                    }
+                  });
+            }
         });
         return $scope.eventAdded
       }
 
-
+      // ----------- Inserts data
       $scope.addEventDb = function (event) {
         firebase.auth().onAuthStateChanged(function (user) {
           var userEventRef = ref.child("googleUsers/" + user.uid + "/events");
@@ -235,17 +236,19 @@ define([
         });
       }
 
+      // ----------- Adds the event to the users database
       //add event to user
       $scope.addingEvent = false;
       $scope.addEvent = function (event) {
         $scope.addingEvent = true;
         firebase.auth().onAuthStateChanged(function (user) {
+            console.log("loggedIn =", $scope.loggedIn);
+            console.log("addingEvent =", $scope.addingEvent);
           if (!$scope.loggedIn && $scope.addingEvent) {
             console.log("Can't add an event without being logged in!");
             $scope.showLogInAlert();
             $scope.addingEvent = false;
           } else if ($scope.loggedIn && $scope.addingEvent) {
-            console.log("addingEvent first Call=", $scope.addingEvent);
             if (document.URL.startsWith('http')) {
               gapi.client.calendar.events.insert({
                 "calendarId": user.email,
@@ -292,56 +295,80 @@ define([
             }
           }
           $scope.addingEvent = false;
-          console.log("addingEvent at end=", $scope.addingEvent);
 
         });
       }
 
-      //Checkin Events for user
-      $scope.checkinEvent = function (event) {
-        firebase.auth().onAuthStateChanged(function (user) {
-          if (!user) {
-            console.log("Can't add an event without being logged in!");
-            $scope.showLogInAlert();
-            return;
-          }
-          firebase.database().ref().child("googleUsers/" + user.uid + "/checkEvents").orderByChild("id")
-            .equalTo(event.id).on("value", function (snapshot) {
-              if (snapshot.exists()) {
-                console.log("already checked in: ", event.summary)
-                $scope.alreadyAddedAlert();
-              } else {
-                console.log("Phone")
-                var userCheckEventRef = ref.child("googleUsers/" + user.uid + "/checkEvents");
-                userCheckEventRef.child(event.id).set({
-                  created: event.created,
-                  creator: event.creator,
-                  end: event.end,
-                  etag: event.etag,
-                  htmlLink: event.htmlLink,
-                  iCalUID: event.iCalUID,
-                  id: event.id,
-                  kind: event.kind,
-                  location: event.location,
-                  organizer: event.organizer,
-                  reminders: event.reminders,
-                  start: event.start,
-                  status: event.status,
-                  summary: event.summary,
-                  updated: event.updated
-                }).then(function () {
-                  console.log('Event ' + $scope.summary + ' added')
-                  $scope.showEventCheckInAlert();
+      // ----------- 'Check-In' button functions ----------- //
 
-                }, function (error) {
-                  console.log(error)
-                });
-
+      // ----------- Checks if user has already checked in to the event
+      $scope.checkAlreadyCheckedIn = function (event) {
+          firebase.auth().onAuthStateChanged(function (user) {
+              if ($scope.loggedIn) {
+                  firebase.database().ref().child("googleUsers/" + user.uid + "/checkEvents").orderByChild("id")
+                    .equalTo(event.id).on("value", function (snapshot) {
+                      if (snapshot.exists()) {
+                        $scope.alreadyCheckedIn = true
+                      } else {
+                        $scope.alreadyCheckedIn = false
+                      }
+                    });
               }
-            });
+          });
+          return $scope.alreadyCheckedIn
+      }
+
+      // ----------- Inserts data
+      $scope.checkingInUser = function (event) {
+        firebase.auth().onAuthStateChanged(function (user) {
+          var checkEventRef = ref.child("googleUsers/" + user.uid + "/checkEvents");
+          checkEventRef.child(event.id).set({
+            created: event.created,
+            creator: event.creator,
+            end: event.end,
+            etag: event.etag,
+            htmlLink: event.htmlLink,
+            iCalUID: event.iCalUID,
+            id: event.id,
+            kind: event.kind,
+            location: event.location,
+            organizer: event.organizer,
+            reminders: event.reminders,
+            start: event.start,
+            status: event.status,
+            summary: event.summary,
+            updated: event.updated
+          }).then(function () {
+            console.log('Event ' + $scope.summary + ' added')
+          }, function (error) {
+            console.log(error)
+          });
         });
       }
 
+      // ----------- Adds the event to the users database
+      //Checkin Events for user
+      $scope.checkingIn = false;
+      $scope.checkinEvent = function (event) {
+          $scope.checkingIn = true;
+          firebase.auth().onAuthStateChanged(function (user) {
+            if (!$scope.loggedIn && $scope.checkingIn) {
+              $scope.showLogInAlert();
+              $scope.checkingIn = false;
+              return;
+          } else if ($scope.loggedIn && $scope.checkingIn) {
+                $scope.checkingInUser(event);
+                $scope.showEventCheckInAlert();
+                $scope.checkingIn = false;
+            }
+            $scope.checkingIn = false;
+        });
+        return $scope.checkingIn;
+      }
+
+      // ----------- 'Delete' button functions ----------- //
+
+      // ----------- Removes the event from the users database
       $scope.deletingEvent = function (id) {
         firebase.auth().onAuthStateChanged(function (user) {
           if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
@@ -354,6 +381,7 @@ define([
         });
       }
 
+      // ----------- Popup function to confirm delete
       $scope.deleteEvent = function (id) {
         $scope.addingEvent = false;
         var confirmPopup = $ionicPopup.confirm({

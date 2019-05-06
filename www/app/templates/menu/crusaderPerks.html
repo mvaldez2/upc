@@ -16,9 +16,29 @@
     <img src="https://www.valpo.edu/university-programming-council/files/2018/08/Screen-Shot-2018-08-28-at-6.34.58-PM-1024x544.png"/ height="auto" width=100%>
 
 	<ion-list>
-	<ion-item ng-if="signedIn" class="item-royal item-icon-right">
-		<h2>You've attended {{countCEvents()}} event(s) </h2>
-	<i class = icon ion-information-circled></i>
+        <!-- Conditionals for proper grammer with number of events -->
+	<ion-item ng-if="signedIn && countCEvents() == 0" class="item-royal item-icon-right">
+		<h2>You've attended {{countCEvents()}} events. </h2>
+	<i class="icon ion-bonfire"></i>
+	</ion-item>
+    <ion-item ng-if="signedIn && countCEvents() == 1 " class="item-royal item-icon-right">
+		<h2>You've attended {{countCEvents()}} event. </h2>
+	<i class="icon ion-bonfire"></i>
+	</ion-item>
+    <ion-item ng-if="signedIn && countCEvents() > 1 " class="item-royal item-icon-right">
+		<h2>You've attended {{countCEvents()}} events. </h2>
+	<i class="icon ion-bonfire"></i>
+	</ion-item>
+	</ion-list>
+    <ion-list>
+        <!-- Conditionals for proper grammer with number of prizes -->
+	<ion-item ng-if="signedIn && countPrizes() == 1" class="item-royal item-button-right">
+		<h2>{{countPrizes()}} prize is available!</h2> <h3> Show this to the event host <br />to claim your prize!</h3>
+	<button ng-click="redeemWarning()"class="button button-energized">Redeem</button>
+	</ion-item>
+    <ion-item ng-if="signedIn && countPrizes() > 1" class="item-royal item-button-right">
+		<h2>{{countPrizes()}} prizes are available!</h2> <h3> Show this to the event host <br />to claim your prize!</h3>
+	<button ng-click="redeemWarning()"class="button button-energized">Redeem</button>
 	</ion-item>
 	</ion-list>
 

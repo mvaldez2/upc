@@ -25,10 +25,10 @@
         <h3 style="text-align:center">{{summary}}</h3>
         <div class="text-center">
 
-          
-          <button ng-if="!checkEvent(event)" class=" button button-energized" ng-click="addEvent(event)">Add <i
+
+          <button ng-if="!checkEvent(event)" class="button button-energized" ng-click="addEvent(event)">Add <i
               class=" ion-plus-round"></i></button>
-          <button class=" button button-energized" ng-click="checkinEvent(event)" ng-if="showCheckIn()">Check-in <i
+          <button ng-if="!checkAlreadyCheckedIn(event)" class="button button-energized" ng-click="checkinEvent(event)" >Check-in <i
               class=" ion-checkmark"></i></button>
           <br>
           <br>
