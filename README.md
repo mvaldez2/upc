@@ -33,7 +33,7 @@ To use the app on any browser you can go to the [web versiun](https://dev-upc-ap
 
 Students:
 The application has 3 tabs on the bottom bar: Event, Home, and Profile. 
-<img src="https://keep.google.com/u/0/media/v2/1Juw10_LQ7tLu3N-lc1YJ9eve088xSWLv4g0ev2MnM1-CPy2tUGStsFVPBYROK9k/1mKOJxJ7_-BoeeuU7LmtUCFi7GAIE5up0rum-vNI3wR4JC84Nn7YTgodBjug7cvo?accept=image/gif,image/jpeg,image/jpg,image/png,image/webp,audio/aac&sz=1476" width="450"/>
+<img src="https://lh6.googleusercontent.com/EJTrK1D9gxfiriQ4uY5-c4JEOsc3xZtmy9HeXo2syLRYJcr2iRUnphSYcf4mp1CiLk7ferFXtl45idEnN2jsXRmmgr-LnBnAcSAG_78TVjgT6oUeUXciB1tPnyln2Ri69YVqbiXp" width="450"/>
 
 ### Event tab
 The Event tab will display the closest upcoming event details:
@@ -60,8 +60,10 @@ When the Programs & Events button is clicked, it will display a list of the upco
 
 The user may select an event by clicking it. Once the user selects an event, its details will be displayed. If this is a future event, a user may select the add button (figure 12" width="450"/> which will add the event to their personal Google Calendar and will now show up in the Added Events sections of the Profile tab:
 <img src="https://lh3.googleusercontent.com/byr87ztiNrZfxyLfU1YshPBAJYs4mbCNWhfESiX74G5Fvl17TxlwDOggUh3_vP8ciA7hV6Xa9IJQ20gilu-LasiH5mLKHX_S7Y26h6gIv2FxM17vD5uZ_6oCGG0x4JVg531it955" width="450"/>
+<br>
 When the event is not currently happening, this button does not appear in the event details. Checking in to an event will not add the event to the user’s calendar. Checking in adds the event the user’s count of attended events for Crusader Perks and will now appear in the Attended Events section of the Profile tab:
-<img src="" width="450"/>
+<br>
+<img src="https://lh3.googleusercontent.com/ath4m2ZLB3BVbPv5sY3HwICG-TZK9_e2oOmAojZGb-GhtdmuK_gx7S-pwsqEMfqefqQCOlVTbtMhvwQ8ruM0sIt2o88EuIRvBPzkwmX8" width="450"/>
 
 ### Crusader Perks
 If the user would like to view how many events they have attended and if they have attended enough to redeem their Crusader Perks they must first select the Home tab from the bottom bar. Then, select the Crusader Perks button:
