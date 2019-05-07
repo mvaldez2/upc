@@ -7,7 +7,7 @@
       </ion-nav-title>
       
       <ion-nav-buttons side="left">
-          <button class="button button-energized button-clear" ng-click="pageBackButton()"><i class="ion-chevron-left button-clear"></i></button>
+          <button class="button button-energized button-clear" ng-click="mEventsBackButton()"><i class="ion-chevron-left button-clear"></i></button>
       </ion-nav-buttons>
     </ion-nav-bar>
 <ion-view ng-int="load()">
@@ -28,7 +28,7 @@
             <div class="text-center">
 
 
-                <button class=" button button-royal" ng-click="deleteEvent(id)"><i class="icon ion-trash-a"></i></button>
+                <button class=" button button-royal" ng-click="deleteEvent(id); mEventsBackButton()"><i class="icon ion-trash-a"></i></button>
                 <br>
                 <br>
 

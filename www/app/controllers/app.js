@@ -235,6 +235,10 @@ define([
         $state.go("eventSettings");
       }
 
+      $scope.mEventsBackButton = function () {
+        $state.go("manageEvents");
+      }
+
       //--------- hides tabs on pages --------------
       $scope.shouldHide = function () {
         switch ($state.current.name) {

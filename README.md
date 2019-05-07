@@ -82,6 +82,33 @@ The About Us and Rental Equipment sections have general information so will not 
 The login/logout button is displayed on the top right of the screen on the top bar on most pages. The screenshots below display where each of these features lie and what they look like: 
 <img src="https://lh5.googleusercontent.com/i-qPsGO-edtEqYp6iratQyHdvB-UbHYPjBgAT7UKOpwDqvs1n6g2sX9twvXiiNs_G_9VZO2of0j4M-0oK-hA3ik8CaoYt6-qtQIHVnVqIf0cYmJn9W3qfFLBQcQDgAEJ2kp9RfYM" width="450"/>
 
+### Admins
+The admin app looks almost identical to the normal student app but at the bottom of the Home tab there is an Admin Settings button:
+<br>
+<img src="https://lh6.googleusercontent.com/bpQrp_rCAY4qh8uP9cq8t2b_jSiVZc_G2FePyj3IPcXzuRQhzFjxYqGrSdss-0n7dIXNU4wBygLt5De95xqhRtFt_6LUF7dhF664sEYm3QmiqkvCQo4vmd7rgzDo_BaRT8xUgoQs" width="450"/>
+<br>
+Selecting this button will display the two different admin settings options: Roles and Manage Events:
+<br>
+<img src="https://lh4.googleusercontent.com/KAo4DXqEyRrMpMlvKqiRWzq7lzaIKmWXuGen3oLP5PZKuhZpbn7esPdz13MtDG8I4hLUKCc9nIDLrHE-mzbLRrD5uk39dfTTzvCswCtFinoaCz6qjOefpPTKUmNtI2Ii9jenvXJD" width="450"/>
+#### Roles
+Roles allows the admin to give admin privileges to a non-admin user. This will be useful for other executive members of UPC. Selecting roles from the Admin Settings page will display a list of the current admins as well as a search bar to find non-admin users you wish to make admins:
+<br>
+<img src="https://lh4.googleusercontent.com/S8KTWKCeOIEuLw6YlIKByf7zpKc2h8PnETIJbpgKRVlGNMohQiE0Z_QSmZEw8hwCbMrQwjXprRlm6ADd7z0Rbprz0BTMn6mQQRM_MHCE5I6VDUjciyIZuZBfnwJootX7EqZE99YL" width="450"/>&nbsp;
+<img src="https://lh6.googleusercontent.com/i38X_vos_n4UmNI1ZZV2efSNlO-sy3Ucp9Bs-SfS6HRGCQUghMzIu2Cr4qJJEVSFTCTQWJQNG0FVwVNbsBG4Y26lNJjRUfR7mwFP8mj2TXbNRbwJQiH2Ibe59OUj5fydpKb08JzR" width="450"/>
+<br>
+Once you find the user you wish to make an admin, select them. This will bring up a confirmation question: select OK if you are sure you want them as an admin and select cancel to keep them as a user:
+<br>
+<img src="https://lh4.googleusercontent.com/e3mTHtegyRO1sxeQWC0YPPcK24VHmFr90yzcz_qdWxUXsB7bo91fZG88AVpEGvI2F30Qzv8T84tn6ktnPAnSRTym56o_Yf8afV-f84Aj_NS41IUyUtZ0epxwWtomQyAroRG69302" width="450"/>
+
+#### Manage Events
+The other Admin Setting is Manage Events. When you select Manage Events from the Admin Settings page it will display a list of upcoming events and a sync calendar button. The sync calendar button will sync the app with the UPC Google calendar:
+<br>
+<img src="https://lh3.googleusercontent.com/-1MZYQhgOSTwkvmwUAO1KXStqLQuQbnLW4DS6TmdnPvOa2R2A3llRxIZtZr478p_Xin-RA1abeQYuh7zDxSc1r2oOvqzgkCNBwj1rxAjQlWUBmkpzmsBRpw5-l_GQrMG9sh92WSf" width="450"/>
+<br>
+Choose a specific event from the list to edit its events. Doing this will display the event’s current details, buttons to edit each of them, and a button to delete the event:
+<br>
+<img src="https://lh5.googleusercontent.com/R0vWvvZzNgjHThumuLffunsTH4ycRFiafw7NIC2Y2tw3_6VZSOA39B8kUd1XrkOkwNMX07RMOhMF03Zsfpd5WAqwIoT5YUTimCQouyVFWvovP_syHV1buj89y7Wq91cP2iA4PqQy" width="450"/>
+
 ## Technologies
 * Ionic v1
 * Firebase
