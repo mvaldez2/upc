@@ -7,6 +7,8 @@ Students can add events to their personal calendar, get updates and/or cancellat
 2. [Installation](#installation)
 3. [Usage](#usage)
 4. [Technologies](#technologies)
+5. [Contributing](#contributing)
+6. [License](#license)
 
 
 
@@ -39,6 +41,7 @@ The Event tab will display the closest upcoming event details:
 
 ### Profile tab
 The Profile tab will prompt you to login to the application, then display the events you have added to your calendar, past events you have attended, and your contact information:
+<br>
 <img src="https://lh6.googleusercontent.com/44CA64R0nJu6WEnqzEXdD9-2LNWTmfaSmDSt5GYnYfz3KlLCxodF0zExHlwxaU8zkhWOCAdB93ETuQ87E-MLPVWMmAP1tHCU-1Bw-Gf4kccUsDfTJlRjAlenz1ebaqMTEGb0j24I" width="450"/>&nbsp;
 <img src="https://lh4.googleusercontent.com/oFz5OlSWwl6XBRihtbGCFXe6APY_-IWqRIkB1CMkFTOuMGpnkrfZmGfJN2_FsQAKlmjS1ArWQkeqixXDHfDWvEsu7zhBpOhqPeCfzCGtgenpbB2-aZ2V9YNubN5-3YC58wpbG7eL" width="450"/>&nbsp;
 <img src="https://lh5.googleusercontent.com/aOk2Vx4_YAn-CLTrg-XYpWMgR_83OrPGVChzFqhmwzouaNOadAvoB7uDNMG3V4aUyXXUDW2zQFl4ByAJQQWpImEx9VS8y3Mmope0ADUYoU_Yl1DigKXqoDrL3CZGd6ANp-nPlnld" width="450"/>&nbsp;
@@ -51,6 +54,7 @@ The Home tab displays buttons for Programs & Events, Crusader Perks, About Us, a
 
 ### Programs & Events
 When the Programs & Events button is clicked, it will display a list of the upcoming events with a search bar at the top that will allow the user to find a specific event:
+<br>
 <img src="https://lh6.googleusercontent.com/NjxXWFv-3BrABFenPthDnQrtV_ZIYYqx9sirkSVlTcUgYLXBQOmzZ2c3MJ6864RKqhxaZwpYQeO09x7Zw4bBcDdYW5KDLGiAhd1Q_wxaEk_pj0DR-KsGOpu0vQiq5TE6ZfAPt0BN" width="450"/>&nbsp;
 <img src="https://lh6.googleusercontent.com/-nJoD4wm6Ln2VOcg25cGbvw-6I6yGHkhEZTil599x_NBwP63TauIJcjzSzssQ3EeGitofiQ0jl-hBnzk9nxYjPiNYpJiuQfcRtWToJ_JMPuDqpAL36WoxoEiVZOT5SHccj7srUNV" width="450"/>
 
@@ -64,6 +68,7 @@ If the user would like to view how many events they have attended and if they ha
 <img src="https://lh5.googleusercontent.com/cPIiELL7LU7VLb6SsRlA-EqfCLBtSUOB6Mz6v_42wOVexiEaWji31cRU32nTwHsrHWswAxTf7hlinuSyh3OJE2DjohYKaPwgTBWuJWHR" width="450"/>&nbsp;
 <img src="https://lh6.googleusercontent.com/jfG09NJ_Hsn-lV_tojW0WLQEgFp0sCTmOamY4aWEtdPcuGKE-PT4upvfo3NbhmZ3Vc08arYNPSX_VGhT7y2Qi6HFgdFaa8y7UQgyU50-z1zsrz7Kh1tJ9Lq_5l361tmVUvH3qSjR" width="450"/>
 This will bring them to a page with information about the Crusader Perks program as well as how many events they have attended. If they have attended at least nine events, they are eligible to redeem their perks. When users are eligible to redeem their perks, a bar will appear telling them so as well a button to redeem (figure 16). Users may select the redeem button (figure 17) at any time but if they would like to actually redeem their perks they must display their screen of how many events they have attended to a UPC member at a UPC event. Once users display this to a UPC member, they should now select the redeem button which will set their events attended back to zero (figure 18). Although 9 is the cutoff point for number of events necessary to redeem perks, extra events attended without redeeming perks will not carry over:
+<br>
 <img src="https://lh5.googleusercontent.com/Da2grr2YwuxAV48l5nB2VuiQTmyxTNyxf-gREvRdZJ1uUtUKQmmIpDdumiNFQWVjJCnxyIrBpcYX5QaGH8GoDQnXYFT0DOONuYzSVmqJHOsBdY4WNIlqcSeZwbnpCRLIc-Fhv2ES" width="450"/>&nbsp;
 <img src="https://lh3.googleusercontent.com/UVQB4o9ZFNddxZp2o5v6WmIiiXkLMKsBA-zPGTLXIuMxlR6nez3xy1DR1MQBxpKT7Lh4DmBxZ1tXDMuKBh_ij16QXa09qvoLP5Hx2J2q1ALRJ9e8KqQ2nwkn-iMss36wjtaGtxR-" width="450"/>&nbsp;
 <img src="https://lh5.googleusercontent.com/NR4prXc-XAoqRSeaZ5EwIjyKpCIJWzv3sk3QEnrmQgS7BQsW9K0FQHdbcaEyaueUfnvaVXBZlVvuhYkTL87KgxAUF41048E_ZLjov_oNgUUCL48xo-tQSnmGxyVS_N3eK5aHWgKU" width="450"/>
@@ -89,7 +94,6 @@ The login/logout button is displayed on the top right of the screen on the top b
 * Melissa Buss - melissa.buss@valpo.edu
 * Carly Armor - carly.armor@valpo.edu 
 * Ryan Kleszynski - ryan.kleszynski@valpo.edu
-
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
