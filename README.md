@@ -26,7 +26,7 @@ ionic cordova run android --device
 ```
 
 ### iOS
-You can download the xcode porject [here](https://drive.google.com/open?id=1c8rIK0hWwVjQxEwVswOj_aAFiw5VxiIp)
+You can download the xcode project [here](https://drive.google.com/open?id=1c8rIK0hWwVjQxEwVswOj_aAFiw5VxiIp)
 
 ### Web
 To use the app on any browser you can go to the [web versiun](https://dev-upc-app.firebaseapp.com) of the app.
