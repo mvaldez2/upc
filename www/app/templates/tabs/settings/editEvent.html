@@ -5,7 +5,7 @@
       <ion-nav-title>
           Event
       </ion-nav-title>
-      
+
       <ion-nav-buttons side="left">
           <button class="button button-energized button-clear" ng-click="mEventsBackButton()"><i class="ion-chevron-left button-clear"></i></button>
       </ion-nav-buttons>
@@ -28,7 +28,7 @@
             <div class="text-center">
 
 
-                <button class=" button button-royal" ng-click="deleteEvent(id); mEventsBackButton()"><i class="icon ion-trash-a"></i></button>
+                <button class=" button button-energized" ng-click="deleteEvent(id); mEventsBackButton()"><i class="icon ion-trash-a"></i></button>
                 <br>
                 <br>
 
@@ -82,18 +82,15 @@
                 <ion-list>
                     <ion-item class="item-divider item-icon-right"><b>Dates & Time</b> <i
                             class="icon ion-ios-calendar-outline"></i>
-                        <button ng-click="">Edit Dates</button>
                     </ion-item>
                     <ion-item>
-                        <!-- {{place.start.dateTime}} -->
                         {{formatedDay}}<br>
                         {{formatedTime}}{{dateEnd}}
                     </ion-item>
                 </ion-list>
                 <br>
                 <ion-list>
-                    <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i>
-                        <button ng-click="">Edit Contact Info</button></ion-item>
+                    <ion-item class="item-divider item-icon-right"><b>Contact</b> <i class="icon ion-chatboxes"></i></ion-item>
                     <ion-item class="item-icon-right" ng-click="call()">
                         (219) 464-5415 ex.5194
                         <i class="icon ion-android-call"></i>
