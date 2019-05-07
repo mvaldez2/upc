@@ -116,6 +116,7 @@ Choose a specific event from the list to edit its events. Doing this will displa
 ## FAQ
 How do I remove an event from my event list? 
 * Go to calendar.google.com, login with the account you have logged in on the app, and delete the chosen event from there
+
 How do I become an admin?
 * A current admin has the ability to add and remove admins. In order to add an admin they would go to the roles page of the admin settings.
 
