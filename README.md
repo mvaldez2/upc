@@ -6,9 +6,10 @@ Students can add events to their personal calendar, get updates and/or cancellat
 1. [Purpose](#purpose)
 2. [Installation](#installation)
 3. [Usage](#usage)
-4. [Technologies](#technologies)
-5. [Contributing](#contributing)
-6. [License](#license)
+4. [FAQ](#faq)
+5. [Technologies](#technologies)
+6. [Contributing](#contributing)
+7. [License](#license)
 
 
 
@@ -113,17 +114,16 @@ Choose a specific event from the list to edit its events. Doing this will displa
 <img src="https://lh5.googleusercontent.com/R0vWvvZzNgjHThumuLffunsTH4ycRFiafw7NIC2Y2tw3_6VZSOA39B8kUd1XrkOkwNMX07RMOhMF03Zsfpd5WAqwIoT5YUTimCQouyVFWvovP_syHV1buj89y7Wq91cP2iA4PqQy" width="450"/>
 
 ## FAQ
-* How do I remove an event from my event list? 
-** Go to calendar.google.com, login with the account you have logged in on the app, and delete the chosen event from there
-* How do I become an admin?
+How do I remove an event from my event list? 
+* Go to calendar.google.com, login with the account you have logged in on the app, and delete the chosen event from there
+How do I become an admin?
+* A current admin has the ability to add and remove admins. In order to add an admin they would go to the roles page of the admin settings.
 
-** A current admin has the ability to add and remove admins. In order to add an admin they would go to the roles page of the admin settings.
+How do I Log in?
+* In the top right-hand corner of the application is a “login” button. Press this button, and it will take you to a google login page, where the appropriate google account may be logged in to.
 
-* How do I Log in?
-** In the top right-hand corner of the application is a “login” button. Press this button, and it will take you to a google login page, where the appropriate google account may be logged in to.
-
-* How do I check in at an event?
-** Go to event details during the time of the event. At this time, there will be a check in button next to the add button. Press the check-in button, and it will allow check-in.
+How do I check in at an event?
+* Go to event details during the time of the event. At this time, there will be a check in button next to the add button. Press the check-in button, and it will allow check-in.
 
 
 ## Technologies
