@@ -119,6 +119,28 @@ define([
         });
       };
 
+      var today = new Date();
+      $scope.deleteOldEvent = function () {
+        for (var i in $scope.userEvents) {
+          var eventDate;
+          if ($scope.userEvents[i].start.dateTime == undefined) {
+            console.log("weird event ", $scope.userEvents[i].summary)
+            eventDate = new Date($scope.userEvents[i].start.date);
+            var end = new Date($scope.userEvents[i].end.date);
+            if (eventDate <= today) {
+              ref.child("calendar/" + $scope.userEvents[i].id).remove();
+              console.log("Removed: ", $scope.userEvents[i].summary)
+            }
+          } else {
+            eventDate = new Date($scope.userEvents[i].start.dateTime);
+            if (eventDate <= today) {
+              ref.child("calendar/" + $scope.userEvents[i].id).remove();
+              console.log("Removed: ", $scope.userEvents[i].summary)
+            }
+          }
+        }
+      }
+
 
       $scope.deleteUser = function () {
         firebase.auth().onAuthStateChanged(function (user) {

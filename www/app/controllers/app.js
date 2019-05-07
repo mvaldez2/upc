@@ -46,8 +46,15 @@ define([
 
       // -------- sort events ---------------------
       $scope.sortDate = function (event) {
-        var date = new Date(event.start.dateTime);
-        return -date;
+        if (event.start.dateTime == undefined) {
+          var date = new Date(event.start.date);
+          return -date;
+        } else {
+          var date = new Date(event.start.dateTime);
+          return -date;
+        }
+
+
       };
 
       $scope.sortDateAscending = function (event) {
@@ -56,10 +63,20 @@ define([
       };
 
       $scope.upcomingEvents = function (event) {
-        var date = new Date();
-        var eventDate = new Date(event.start.dateTime);
-        eventDate.setHours(eventDate.getHours() + 1)
-        return eventDate >= date;
+        if (event.start.dateTime == undefined) {
+          var date = new Date();
+          var eventDate = new Date(event.start.date);
+          eventDate.setHours(eventDate.getHours() + 1)
+          return eventDate >= date;
+        } else {
+          var date = new Date();
+          var eventDate = new Date(event.start.dateTime);
+          eventDate.setHours(eventDate.getHours() + 1)
+          return eventDate >= date;
+        }
+
+
+
       };
 
       //--------- Count Checked in Events ----------
@@ -85,44 +102,44 @@ define([
 
       //--------- Count Prizes ----------
       $scope.numPrizes;
-      $scope.countPrizes = function() {
-          $scope.numPrizes = Math.floor($scope.numAttendedEvents/9);
-          return $scope.numPrizes
+      $scope.countPrizes = function () {
+        $scope.numPrizes = Math.floor($scope.numAttendedEvents / 9);
+        return $scope.numPrizes
       }
 
-      $scope.redeemWarning = function() {
-          var popup = $ionicPopup.alert({
-            title: 'Event Host Needed',
-            template: 'Are you sure you want to redeem this prize? Once redeemed, your attended events will be set back to 0!',
-            buttons: [
-                {
-                  text: '<b>Cancel</b>',
-                  onTap: function () {
+      $scope.redeemWarning = function () {
+        var popup = $ionicPopup.alert({
+          title: 'Event Host Needed',
+          template: 'Are you sure you want to redeem this prize? Once redeemed, your attended events will be set back to 0!',
+          buttons: [
+            {
+              text: '<b>Cancel</b>',
+              onTap: function () {
 
-                    console.log('canceled');
+                console.log('canceled');
+              }
+            },
+            {
+              text: '<b>Redeem</b>',
+              onTap: function () {
+                firebase.auth().onAuthStateChanged(function (user) {
+                  if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
+                    console.log("Phone")
+                    ref.child("googleUsers/" + user.uid + "/checkEvents").remove();
+                  } else {
+                    console.log("Web")
+                    var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+                    var googleProfile = googleUser.getBasicProfile();
+                    var userId = googleUser.getId();
+                    ref.child("googleUsers/" + user.uid + "/checkEvents").remove();
                   }
-              },
-              {
-                text: '<b>Redeem</b>',
-                onTap: function () {
-                    firebase.auth().onAuthStateChanged(function (user) {
-                      if (ionic.Platform.isIOS() || ionic.Platform.is('android')) {
-                        console.log("Phone")
-                        ref.child("googleUsers/" + user.uid + "/checkEvents").remove();
-                      } else {
-                        console.log("Web")
-                        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
-                        var googleProfile = googleUser.getBasicProfile();
-                        var userId = googleUser.getId();
-                        ref.child("googleUsers/" + user.uid + "/checkEvents").remove();
-                      }
 
 
 
-                    });
-                }
-              }]
-          });
+                });
+              }
+            }]
+        });
       }
 
 
@@ -177,7 +194,7 @@ define([
         $rootScope.$emit("sync", {});
       }
 
-      $scope.syncAuth = function() {
+      $scope.syncAuth = function () {
         $scope.login()
         $scope.sync()
 

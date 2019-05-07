@@ -194,16 +194,16 @@ define([
       // ----------- Checks to see if user already has added the event
       $scope.checkEvent = function (event) {
         firebase.auth().onAuthStateChanged(function (user) {
-            if ($scope.loggedIn) {
-                firebase.database().ref().child("googleUsers/" + user.uid + "/events").orderByChild("id")
-                  .equalTo(event.id).on("value", function (snapshot) {
-                    if (snapshot.exists()) {
-                      $scope.eventAdded = true
-                    } else {
-                      $scope.eventAdded = false
-                    }
-                  });
-            }
+          if ($scope.loggedIn) {
+            firebase.database().ref().child("googleUsers/" + user.uid + "/events").orderByChild("id")
+              .equalTo(event.id).on("value", function (snapshot) {
+                if (snapshot.exists()) {
+                  $scope.eventAdded = true
+                } else {
+                  $scope.eventAdded = false
+                }
+              });
+          }
         });
         return $scope.eventAdded
       }
@@ -242,30 +242,51 @@ define([
       $scope.addEvent = function (event) {
         $scope.addingEvent = true;
         firebase.auth().onAuthStateChanged(function (user) {
-            console.log("loggedIn =", $scope.loggedIn);
-            console.log("addingEvent =", $scope.addingEvent);
+          console.log("loggedIn =", $scope.loggedIn);
+          console.log("addingEvent =", $scope.addingEvent);
           if (!$scope.loggedIn && $scope.addingEvent) {
             console.log("Can't add an event without being logged in!");
             $scope.showLogInAlert();
             $scope.addingEvent = false;
           } else if ($scope.loggedIn && $scope.addingEvent) {
             if (document.URL.startsWith('http')) {
-              gapi.client.calendar.events.insert({
-                "calendarId": user.email,
-                "resource": {
-                  "end": {
-                    "dateTime": event.end.dateTime
-                  },
-                  "start": {
-                    "dateTime": event.start.dateTime
-                  },
-                  "location": event.location,
-                  "summary": event.summary
-                }
-              }).then(function (response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-              }, function (err) { console.error("Execute error", err); });
+              if (event.start.dateTime == undefined) {
+                gapi.client.calendar.events.insert({
+                  "calendarId": user.email,
+                  "resource": {
+                    "end": {
+                      "date": event.end.date
+                    },
+                    "start": {
+                      "date": event.start.date
+                    },
+                    "location": event.location,
+                    "summary": event.summary
+                  }
+                }).then(function (response) {
+                  // Handle the results here (response.result has the parsed body).
+                  console.log("Response", response);
+                }, function (err) { console.error("Execute error", err); });
+              } else {
+                gapi.client.calendar.events.insert({
+                  "calendarId": user.email,
+                  "resource": {
+                    "end": {
+                      "dateTime": event.end.dateTime
+                    },
+                    "start": {
+                      "dateTime": event.start.dateTime
+                    },
+                    "location": event.location,
+                    "summary": event.summary
+                  }
+                }).then(function (response) {
+                  // Handle the results here (response.result has the parsed body).
+                  console.log("Response", response);
+                }, function (err) { console.error("Execute error", err); });
+                
+              }
+              
               $scope.addEventDb(event);
               $scope.showEventAddedAleart();
 
@@ -274,14 +295,24 @@ define([
               $scope.showEventAddedAleart();
 
             } else {
+              if (event.start.dateTime == undefined) {
+                start = new Date(event.start.date);
+                end = new Date(event.end.date);
+                type = "date"
+              } else {
+                start = new Date(event.start.dateTime);
+                end = new Date(event.end.dateTime);
+                type = "dateTime"
+                
+              }
               gapi.client.calendar.events.insert({
                 "calendarId": user.email,
                 "resource": {
                   "end": {
-                    "dateTime": event.end.dateTime
+                    type: end
                   },
                   "start": {
-                    "dateTime": event.start.dateTime
+                    type: start
                   },
                   "location": event.location,
                   "summary": event.summary
@@ -303,19 +334,19 @@ define([
 
       // ----------- Checks if user has already checked in to the event
       $scope.checkAlreadyCheckedIn = function (event) {
-          firebase.auth().onAuthStateChanged(function (user) {
-              if ($scope.loggedIn) {
-                  firebase.database().ref().child("googleUsers/" + user.uid + "/checkEvents").orderByChild("id")
-                    .equalTo(event.id).on("value", function (snapshot) {
-                      if (snapshot.exists()) {
-                        $scope.alreadyCheckedIn = true
-                      } else {
-                        $scope.alreadyCheckedIn = false
-                      }
-                    });
-              }
-          });
-          return $scope.alreadyCheckedIn
+        firebase.auth().onAuthStateChanged(function (user) {
+          if ($scope.loggedIn) {
+            firebase.database().ref().child("googleUsers/" + user.uid + "/checkEvents").orderByChild("id")
+              .equalTo(event.id).on("value", function (snapshot) {
+                if (snapshot.exists()) {
+                  $scope.alreadyCheckedIn = true
+                } else {
+                  $scope.alreadyCheckedIn = false
+                }
+              });
+          }
+        });
+        return $scope.alreadyCheckedIn
       }
 
       // ----------- Inserts data
@@ -350,18 +381,18 @@ define([
       //Checkin Events for user
       $scope.checkingIn = false;
       $scope.checkinEvent = function (event) {
-          $scope.checkingIn = true;
-          firebase.auth().onAuthStateChanged(function (user) {
-            if (!$scope.loggedIn && $scope.checkingIn) {
-              $scope.showLogInAlert();
-              $scope.checkingIn = false;
-              return;
-          } else if ($scope.loggedIn && $scope.checkingIn) {
-                $scope.checkingInUser(event);
-                $scope.showEventCheckInAlert();
-                $scope.checkingIn = false;
-            }
+        $scope.checkingIn = true;
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (!$scope.loggedIn && $scope.checkingIn) {
+            $scope.showLogInAlert();
             $scope.checkingIn = false;
+            return;
+          } else if ($scope.loggedIn && $scope.checkingIn) {
+            $scope.checkingInUser(event);
+            $scope.showEventCheckInAlert();
+            $scope.checkingIn = false;
+          }
+          $scope.checkingIn = false;
         });
         return $scope.checkingIn;
       }
