@@ -296,31 +296,41 @@ define([
 
             } else {
               if (event.start.dateTime == undefined) {
-                start = new Date(event.start.date);
-                end = new Date(event.end.date);
-                type = "date"
+                gapi.client.calendar.events.insert({
+                  "calendarId": user.email,
+                  "resource": {
+                    "end": {
+                      "date": event.end.date
+                    },
+                    "start": {
+                      "date": event.start.date
+                    },
+                    "location": event.location,
+                    "summary": event.summary
+                  }
+                }).then(function (response) {
+                  // Handle the results here (response.result has the parsed body).
+                  console.log("Response", response);
+                }, function (err) { console.error("Execute error", err); });
               } else {
-                start = new Date(event.start.dateTime);
-                end = new Date(event.end.dateTime);
-                type = "dateTime"
+                gapi.client.calendar.events.insert({
+                  "calendarId": user.email,
+                  "resource": {
+                    "end": {
+                      "dateTime": event.end.dateTime
+                    },
+                    "start": {
+                      "dateTime": event.start.dateTime
+                    },
+                    "location": event.location,
+                    "summary": event.summary
+                  }
+                }).then(function (response) {
+                  // Handle the results here (response.result has the parsed body).
+                  console.log("Response", response);
+                }, function (err) { console.error("Execute error", err); });
                 
               }
-              gapi.client.calendar.events.insert({
-                "calendarId": user.email,
-                "resource": {
-                  "end": {
-                    type: end
-                  },
-                  "start": {
-                    type: start
-                  },
-                  "location": event.location,
-                  "summary": event.summary
-                }
-              }).then(function (response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-              }, function (err) { console.error("Execute error", err); });
               $scope.addEventDb(event);
               $scope.showEventAddedAleart();
             }
