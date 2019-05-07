@@ -18,7 +18,7 @@ This application will help students stay up to date on all of the UPC events and
 ## Installation
 
 ### Android
-You can download the APK [here](https://drive.google.com/open?id=1AZ2KdqqDzcF6QxT8Y05czOQSQ7v8F9O7) or you can build it yourself on the terminal like so:
+You can download the APK [here](https://drive.google.com/open?id=1muf8gk75wWPdxlsqFBwuKtUVpv1LGo4u) or you can build it yourself on the terminal like so:
 
 ```bash
 ionic cordova run android --device
