@@ -69,6 +69,7 @@ When the event is not currently happening, this button does not appear in the ev
 If the user would like to view how many events they have attended and if they have attended enough to redeem their Crusader Perks they must first select the Home tab from the bottom bar. Then, select the Crusader Perks button:
 <img src="https://lh5.googleusercontent.com/cPIiELL7LU7VLb6SsRlA-EqfCLBtSUOB6Mz6v_42wOVexiEaWji31cRU32nTwHsrHWswAxTf7hlinuSyh3OJE2DjohYKaPwgTBWuJWHR" width="450"/>&nbsp;
 <img src="https://lh6.googleusercontent.com/jfG09NJ_Hsn-lV_tojW0WLQEgFp0sCTmOamY4aWEtdPcuGKE-PT4upvfo3NbhmZ3Vc08arYNPSX_VGhT7y2Qi6HFgdFaa8y7UQgyU50-z1zsrz7Kh1tJ9Lq_5l361tmVUvH3qSjR" width="450"/>
+<br>
 This will bring them to a page with information about the Crusader Perks program as well as how many events they have attended. If they have attended at least nine events, they are eligible to redeem their perks. When users are eligible to redeem their perks, a bar will appear telling them so as well a button to redeem (figure 16). Users may select the redeem button (figure 17) at any time but if they would like to actually redeem their perks they must display their screen of how many events they have attended to a UPC member at a UPC event. Once users display this to a UPC member, they should now select the redeem button which will set their events attended back to zero (figure 18). Although 9 is the cutoff point for number of events necessary to redeem perks, extra events attended without redeeming perks will not carry over:
 <br>
 <img src="https://lh5.googleusercontent.com/Da2grr2YwuxAV48l5nB2VuiQTmyxTNyxf-gREvRdZJ1uUtUKQmmIpDdumiNFQWVjJCnxyIrBpcYX5QaGH8GoDQnXYFT0DOONuYzSVmqJHOsBdY4WNIlqcSeZwbnpCRLIc-Fhv2ES" width="450"/>&nbsp;
@@ -110,6 +111,20 @@ The other Admin Setting is Manage Events. When you select Manage Events from the
 Choose a specific event from the list to edit its events. Doing this will display the event’s current details, buttons to edit each of them, and a button to delete the event:
 <br>
 <img src="https://lh5.googleusercontent.com/R0vWvvZzNgjHThumuLffunsTH4ycRFiafw7NIC2Y2tw3_6VZSOA39B8kUd1XrkOkwNMX07RMOhMF03Zsfpd5WAqwIoT5YUTimCQouyVFWvovP_syHV1buj89y7Wq91cP2iA4PqQy" width="450"/>
+
+## FAQ
+* How do I remove an event from my event list? 
+** Go to calendar.google.com, login with the account you have logged in on the app, and delete the chosen event from there
+* How do I become an admin?
+
+** A current admin has the ability to add and remove admins. In order to add an admin they would go to the roles page of the admin settings.
+
+* How do I Log in?
+** In the top right-hand corner of the application is a “login” button. Press this button, and it will take you to a google login page, where the appropriate google account may be logged in to.
+
+* How do I check in at an event?
+** Go to event details during the time of the event. At this time, there will be a check in button next to the add button. Press the check-in button, and it will allow check-in.
+
 
 ## Technologies
 * Ionic v1
